@@ -449,6 +449,14 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
 .to-top span{font-size:10px;font-weight:700;letter-spacing:.08em;line-height:1.2;margin-top:0}
 @media (max-width:680px){.to-top{right:16px;bottom:16px;width:44px;height:44px}.to-top svg{width:15px;height:15px}.to-top span{font-size:9px}}
 </style>
+<style id="hd-align">
+/* 맨 위(바탕 없을 때): 로고 왼쪽 = 본문 글자 왼쪽, 문의하기 오른쪽 = 본문 오른쪽 끝. 내리면 남색 바와 함께 원래 여백 */
+.hd{transition:background .35s,border-color .35s,box-shadow .35s,padding .35s}
+.hd .logo,.hd-cta,.menu-toggle{transition:margin .35s}
+.site-header:not(.is-scrolled) .hd{padding-left:0;padding-right:0}
+.site-header:not(.is-scrolled) .hd .logo{margin-left:16px}   /* 허브: 오른쪽으로 옮긴 제목 왼쪽에 맞춤 */
+.site-header:not(.is-scrolled) .hd-cta,.site-header:not(.is-scrolled) .menu-toggle{margin-right:-1px}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>

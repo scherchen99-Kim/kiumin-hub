@@ -421,6 +421,14 @@ mark.todo{background:#FFE9A8;color:#7a4b00;padding:1px 6px;border-radius:6px;fon
 @media (max-width:900px){.pol{grid-template-columns:1fr}.pol-toc{position:static}.pol-toc ol{grid-template-columns:1fr 1fr}}
 @media (max-width:680px){.pol-body{padding:28px 22px}.pol-toc ol{grid-template-columns:1fr}.pol-body td:first-child{white-space:normal}}
 </style>
+<style id="hd-align">
+/* 맨 위(바탕 없을 때): 로고 왼쪽 = 본문 글자 왼쪽, 문의하기 오른쪽 = 본문 오른쪽 끝. 내리면 남색 바와 함께 원래 여백 */
+.hd{transition:background .35s,border-color .35s,box-shadow .35s,padding .35s}
+.hd .logo,.hd-cta,.menu-toggle{transition:margin .35s}
+.site-header:not(.is-scrolled) .hd{padding-left:0;padding-right:0}
+.site-header:not(.is-scrolled) .hd .logo{margin-left:-1px}
+.site-header:not(.is-scrolled) .hd-cta,.site-header:not(.is-scrolled) .menu-toggle{margin-right:-1px}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
