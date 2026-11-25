@@ -292,12 +292,12 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 /* 큰 제목과 설명 글을 함께 살짝 오른쪽으로 (휴대폰 가운데 정렬에는 적용 안 함) */
 @media (min-width:561px){.hub h1{margin-left:17px}.hub-desc{margin-left:22px}}   /* 큰 글자는 글자 앞 여백이 있어서, 설명 글을 8px 더 옮겨야 눈으로 봤을 때 줄이 맞는다 */
 /* KIUMIN FAMILY 표시: 테두리·바탕 없이 글자만, 'KIUMIN FAMILY | (주)키움인 패밀리 사이트' */
-.hub-right .pill{border:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:0;gap:0;color:var(--ink-2)}
+.hub-right .pill{border:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:0;gap:0;color:#fff;font-weight:700}   /* 메뉴와 같은 속성: 한글은 흰색 굵게 */
 @media (min-width:561px){.hub-right .pill{align-self:center}}   /* 오른쪽 칸 가운데쯤에 */
 @media (min-width:561px){.hub-right .btns{justify-content:center}}
    /* 카드 아래 버튼은 '나에게 맞는 곳 찾기' 하나, 가운데에 */
-.hub-right .pill b{background:none;padding:0;border-radius:0;color:var(--ink);font-size:14px;font-weight:800;letter-spacing:.08em;display:inline-flex;align-items:center}
-.hub-right .pill b::after{content:"";width:1px;height:12px;background:rgba(255,255,255,.45);margin:0 12px}
+.hub-right .pill b{background:none;padding:0;border-radius:0;color:rgba(255,255,255,.5);font-size:14px;font-weight:800;letter-spacing:.08em;display:inline-flex;align-items:center}
+.hub-right .pill b::after{content:"";width:1px;height:14px;background:rgba(255,255,255,.5);margin:0 14px}   /* 영문·세로줄: 흰색 50% */
 /* ===== 첫 화면 아래: 어두운 밤하늘 → 선명한 파랑 → 흰색으로 바뀌는 띠, 그 아래(맞춤 안내·회사 소개·문의·바닥글)는 흰 바탕 ===== */
 .to-white{height:40vh;background:linear-gradient(180deg,rgba(0,29,91,0) 0%,#0a2a7a 22%,#1656c9 50%,#a3c9f1 80%,#fff 100%)}   /* 간격을 줄이고, 남색·키움인 파랑과 같은 계열로: 남색 → 밝은 파랑 → 연한 하늘 → 흰색 */
 .on-white{background:#fff;box-shadow:0 1px 0 #fff,0 -1px 0 #fff;--blue:#1656c9;--ink:#0f1b3d;--ink-2:#2B3245;--sub:#5A6174;--line:#DCE8F7;color:var(--ink)}
