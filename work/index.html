@@ -218,6 +218,61 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
   .contact{padding:32px 20px;border-radius:22px}
   .btn{flex:1 1 100%;justify-content:center}
 }
+
+/* ===== 남색 테마 (작업방) — 바탕 남색 #001d5b, 로고 흰색, 글자는 밝게 =====
+   위의 기본(밝은) 스타일을 이 블록이 덮어쓴다. 지우면 밝은 버전으로 돌아간다. */
+:root{
+  --bg:#001d5b; --ink:#F4F7FC; --ink-2:#D3DCEC; --sub:#A3B2CC; --line:rgba(255,255,255,.14);
+  --glass:rgba(255,255,255,.06);
+  --accent-light:#7CC4F2;                                         /* 남색 위 링크·작은 제목용 밝은 하늘색 */
+  --grad:linear-gradient(100deg,#55B6EE,#93A6EC 55%,#C7A0E2);    /* 남색 위 글자 그라데이션 (밝게) */
+  --grad-btn:linear-gradient(100deg,var(--c-edu),var(--c-journal));
+}
+:focus-visible{outline-color:var(--accent-light)}
+.aurora i:nth-child(1){background:#0073BB;opacity:.35}
+.aurora i:nth-child(2){background:#00A79E;opacity:.22}
+.aurora i:nth-child(3){background:#8458A0;opacity:.3}
+.site-header.is-scrolled .hd{background:rgba(0,29,91,.78);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.gnb a:hover{background:rgba(255,255,255,.08)}
+.hd-cta{background:#fff;color:var(--bg)}
+.hd-cta:hover{background:var(--accent-light);color:var(--bg)}
+.menu-toggle{background:transparent;border-color:var(--line)}
+.menu-toggle span{background:var(--ink)}
+.m-panel{background:rgba(0,29,91,.97)}
+.m-panel a::after{color:var(--accent-light)}
+.pill{background:rgba(255,255,255,.08)}
+.pill b,.badge{background:var(--grad-btn)}
+.btn-grad{background:var(--grad-btn);box-shadow:0 12px 32px rgba(0,0,0,.3)}
+.btn-line{border-color:rgba(255,255,255,.7);background:transparent;color:var(--ink)}
+.btn-line:hover{background:#fff;color:var(--bg)}
+/* 사이트 카드 */
+.site{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);box-shadow:0 18px 40px rgba(0,0,0,.18)}
+.site:hover,.site.is-active{box-shadow:0 26px 50px rgba(0,0,0,.32)}
+.site-k{color:color-mix(in srgb,var(--c) 45%,#fff)}             /* 브랜드 색을 밝혀 남색 위에서 읽히게 */
+.site-url{color:var(--ink-2)}
+.arrow{background:transparent;border-color:var(--line);color:var(--ink)}
+.site-wide{background:linear-gradient(120deg,rgba(207,63,106,.22),rgba(255,255,255,.04) 60%);border-color:rgba(207,63,106,.45)}
+.ax-tags li{background:rgba(255,255,255,.08);border-color:var(--line)}
+/* 섹션·맞춤 안내 */
+.kicker{color:var(--accent-light)}
+.finder{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1);box-shadow:none}
+.tabs{background:rgba(255,255,255,.06)}
+.tab{color:var(--sub)}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:#fff;color:var(--bg)}
+.rec{background:rgba(255,255,255,.06);border-color:var(--line)}
+.rec:hover{border-color:color-mix(in srgb,var(--c) 55%,#fff);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+/* 회사 소개·인증 */
+.about .more{color:var(--accent-light)}
+.trust li{background:rgba(255,255,255,.06);border-color:var(--line)}
+.trust li::before{background:var(--grad-btn)}
+/* 문의 */
+.contact{background:linear-gradient(135deg,rgba(0,115,187,.35),rgba(0,167,158,.18) 55%,rgba(132,88,160,.32));border-color:rgba(255,255,255,.12)}
+.ct-links a{background:rgba(255,255,255,.1)}
+.ct-links a:hover{background:#fff;color:var(--bg)}
+.ct-links a:hover small{color:var(--sub)}
+/* 바닥글 */
+.ft-fam a:hover,.ft-links a:hover{color:var(--accent-light)}
 </style>
 </head>
 <body>
@@ -227,7 +282,7 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 <header class="site-header">
   <div class="wrap">
     <div class="hd">
-      <a class="logo" href="#top" aria-label="키움인 처음으로"><img src="../assets/kiumin_logo.png" alt="Kiumin" width="702" height="192"></a>
+      <a class="logo" href="#top" aria-label="키움인 처음으로"><img src="../assets/kiumin_logo_white.png" alt="Kiumin" width="702" height="192"></a>
       <nav class="gnb" aria-label="주메뉴">
         <a href="#sites">패밀리 사이트</a>
         <a href="#finder">맞춤 안내</a>
@@ -390,7 +445,7 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 <footer>
   <div class="wrap">
     <div class="ft">
-      <span class="logo"><img src="../assets/kiumin_logo.png" alt="Kiumin" width="702" height="192"></span>
+      <span class="logo"><img src="../assets/kiumin_logo_white.png" alt="Kiumin" width="702" height="192"></span>
       <nav class="ft-fam" aria-label="패밀리 사이트 바로가기">
         <a href="https://kiumin.cafe24.com/" target="_blank" rel="noopener">키움인 교육</a>
         <a href="http://kiumin.co.kr/" target="_blank" rel="noopener">AI 교육 플랫폼</a>
@@ -598,7 +653,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
 
 const SITE_COLORS = ['#0073BB', '#3D509C', '#00A79E', '#8458A0', '#CF3F6A'];
 const BALL_R = 0.15, DEPTH_NEAR = 1.4, DEPTH_FAR = 0.6, GROW = 1.6;
-const SPOKE_COLOR = new THREE.Color('#4A5063'), SPOKE_OPACITY = 0.9;
+const SPOKE_COLOR = new THREE.Color('#A9BAD8'), SPOKE_OPACITY = 0.85;   // 남색 바탕 위 밝은 연결선
 
 const host = document.querySelector('[data-net]');
 if (host) init(host);
@@ -627,17 +682,17 @@ function init(host) {
     pts.push(new THREE.Vector3(Math.cos(th) * r * R, y * R, Math.sin(th) * r * R));
   }
   const dots = new THREE.InstancedMesh(new THREE.SphereGeometry(0.028, 10, 10), new THREE.MeshBasicMaterial({ color: '#ffffff' }), count);
-  const DOT_COLOR = new THREE.Color('#9AA1B2'), BG_COLOR = new THREE.Color('#F7F5F0'), DOT_BACK_FADE = 0.75, dotCol = new THREE.Color();
+  const DOT_COLOR = new THREE.Color('#9FB0CE'), BG_COLOR = new THREE.Color('#001d5b'), DOT_BACK_FADE = 0.75, dotCol = new THREE.Color();
   const m4 = new THREE.Matrix4();
   pts.forEach((p, i) => { m4.makeTranslation(p.x, p.y, p.z); dots.setMatrixAt(i, m4); dots.setColorAt(i, DOT_COLOR); });
   world.add(dots);
   const segs = [], maxD = innerWidth < 700 ? 0.95 : 0.72;
   for (let i = 0; i < count; i++) for (let j = i + 1; j < count; j++) if (pts[i].distanceTo(pts[j]) < maxD) segs.push(pts[i], pts[j]);
   world.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(segs),
-    new THREE.LineBasicMaterial({ color: '#B8BDC9', transparent: true, opacity: 0.38 })));
+    new THREE.LineBasicMaterial({ color: '#8FA3C7', transparent: true, opacity: 0.32 })));
 
   /* 가운데 '키움인' */
-  world.add(new THREE.Mesh(new THREE.SphereGeometry(0.16, 32, 32), new THREE.MeshBasicMaterial({ color: '#121726' })));
+  world.add(new THREE.Mesh(new THREE.SphereGeometry(0.16, 32, 32), new THREE.MeshBasicMaterial({ color: '#FFFFFF' })));   // 가운데 '키움인': 남색 위에서 흰색
 
   /* 색 공 5개 (위·왼쪽·오른쪽·아래·뒤로 고르게) */
   const balls = [[0.15, 0.95, 0.25], [-0.9, 0.2, 0.4], [0.85, -0.1, 0.5], [-0.2, -0.9, -0.4], [0.3, 0.25, -0.92]]
