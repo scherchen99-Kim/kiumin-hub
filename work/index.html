@@ -251,7 +251,7 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 .site-k{color:color-mix(in srgb,var(--c) 45%,#fff)}             /* 브랜드 색을 밝혀 남색 위에서 읽히게 */
 .site-url{color:var(--ink-2)}
 .arrow{background:transparent;border-color:var(--line);color:var(--ink)}
-.site-wide{background:linear-gradient(120deg,rgba(207,63,106,.22),rgba(255,255,255,.04) 60%);border-color:rgba(207,63,106,.45)}
+.site-wide{background:linear-gradient(120deg,rgba(207,63,106,.38),rgba(207,63,106,.12) 60%,rgba(255,255,255,.05))}   /* AX 칸 배경 조금 더 진하게 */
 .ax-tags li{background:rgba(255,255,255,.08);border-color:var(--line)}
 /* 섹션·맞춤 안내 */
 .kicker{color:var(--accent-light)}
@@ -274,6 +274,10 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 /* 바닥글 */
 .ft-fam a:hover,.ft-links a:hover{color:var(--accent-light)}
 
+
+/* 카드 위쪽 색 바 효과 없애기, 테두리는 모든 카드(AX 포함)·모든 상태에서 같은 색으로 통일 */
+.site::after{display:none}
+.site,.site:hover,.site.is-active,.site-wide{border:1px solid rgba(255,255,255,.14)}
 /* ===== 밤하늘 (My Classical Atlas 밤 화면 방식) — 위는 검정에 가깝게, 아래로 남색 그라데이션 + 반짝이는 별 ===== */
 html{background:#010828}
 body{background:transparent}
