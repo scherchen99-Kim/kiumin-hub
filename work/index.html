@@ -252,14 +252,17 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 .site-url{color:var(--ink-2)}
 .arrow{background:transparent;border-color:var(--line);color:var(--ink)}
 /* AX 칸: 번진 색 없이 진한 남색 한 가지로 깨끗하게. 아이콘 옆에 설명, 그 아래 한 줄에 대상 3개, NEW는 오른쪽 위 동그라미 */
-.site-wide{background:#071a52;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:14px}
+.site-wide{background:#071a52;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:6px}   /* 설명과 대상 태그 사이 14px → 6px */
 .ax-head{display:flex;align-items:flex-start;gap:14px;padding-right:52px}   /* AX 아이콘은 다른 카드처럼 위쪽 같은 여백에 */
 .ax-text .site-k{margin-top:0}
 .ax-text{margin-top:-8px}   /* 글자를 올려 위·아래 빈 곳을 같게 (위 24px → 16px, 아래 15px) */
-.site-wide .ax-tags{justify-content:flex-start;max-width:none;flex-wrap:nowrap;margin-left:54px}   /* 아이콘 너비 40 + 간격 14: 설명 글 왼쪽 끝과 맞춤 */
+/* 맨 아래 줄: 왼쪽에 주소(다른 카드처럼), 오른쪽에 대상 태그 3개 — 같은 줄 높이에 맞춤 */
+.ax-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-left:54px}   /* 54 = 아이콘 40 + 간격 14: 설명 글 왼쪽 끝과 맞춤 */
+.ax-foot .site-url{margin-top:0;padding-top:0}
+.site-wide .ax-tags{justify-content:flex-end;max-width:none;flex-wrap:nowrap}
 .site > .ax-new{position:absolute;top:16px;right:20px;width:40px;height:40px;min-height:0;padding:0;border-radius:50%;
   justify-content:center;font-size:10px;letter-spacing:.04em;background:var(--c-ax)}
-@media (max-width:560px){.site-wide .ax-tags{flex-wrap:wrap}}   /* AX 칸 배경 조금 더 진하게 */
+@media (max-width:560px){.ax-foot{flex-direction:column;align-items:flex-start}.site-wide .ax-tags{flex-wrap:wrap;justify-content:flex-start}}   /* AX 칸 배경 조금 더 진하게 */
 .ax-tags li{background:rgba(255,255,255,.08);border-color:var(--line)}
 /* 섹션·맞춤 안내 */
 .kicker{color:var(--accent-light)}
@@ -375,9 +378,12 @@ body{background:transparent}
               <p>기업 재직자를 위한 AI 활용·AX 전환 직무교육</p>
             </div>
           </div>
-          <ul class="ax-tags" aria-label="교육 대상">
-            <li>중소기업 재직자</li><li>AI 업무 활용</li><li>AX 전환</li>
-          </ul>
+          <div class="ax-foot">
+            <span class="site-url">kiuminax.com</span>
+            <ul class="ax-tags" aria-label="교육 대상">
+              <li>중소기업 재직자</li><li>AI 업무 활용</li><li>AX 전환</li>
+            </ul>
+          </div>
         </div>
       </div>
         <div class="btns" data-reveal style="--d:.5s">
