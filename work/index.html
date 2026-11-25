@@ -299,26 +299,27 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 .hub-right .pill b{background:none;padding:0;border-radius:0;color:var(--ink);font-size:14px;font-weight:800;letter-spacing:.08em;display:inline-flex;align-items:center}
 .hub-right .pill b::after{content:"";width:1px;height:12px;background:rgba(255,255,255,.45);margin:0 12px}
 /* ===== 첫 화면 아래: 어두운 밤하늘 → 선명한 파랑 → 흰색으로 바뀌는 띠, 그 아래(맞춤 안내·회사 소개·문의·바닥글)는 흰 바탕 ===== */
-.to-white{height:70vh;background:linear-gradient(180deg,rgba(0,29,91,0) 0%,#14259e 20%,#2257e6 45%,#8ab8f4 72%,#fff 100%)}   /* 샘플 영상의 파랑: 짙은 군청 → 선명한 로열 블루 → 하늘색 → 흰색 */
-.on-white{background:#fff;box-shadow:0 1px 0 #fff,0 -1px 0 #fff;--ink:#121726;--ink-2:#2B3245;--sub:#5A6174;--line:#E6E1D6;color:var(--ink)}
-.on-white .kicker{color:var(--c-plat)}
-.on-white .finder{background:#F5F7FB;border-color:#E3E8F2;box-shadow:none}
+.to-white{height:40vh;background:linear-gradient(180deg,rgba(0,29,91,0) 0%,#0a2a7a 22%,#1656c9 50%,#a3c9f1 80%,#fff 100%)}   /* 간격을 줄이고, 남색·키움인 파랑과 같은 계열로: 남색 → 밝은 파랑 → 연한 하늘 → 흰색 */
+.on-white{background:#fff;box-shadow:0 1px 0 #fff,0 -1px 0 #fff;--blue:#1656c9;--ink:#0f1b3d;--ink-2:#2B3245;--sub:#5A6174;--line:#E6E1D6;color:var(--ink)}
+.on-white .kicker{color:var(--blue)}
+.on-white .finder{background:#F3F7FD;border-color:#E1E9F6;box-shadow:none}
 .on-white .tabs{background:rgba(18,23,38,.05)}
 .on-white .tab{color:var(--sub)}
 .on-white .tab:hover{color:var(--ink)}
-.on-white .tab[aria-selected="true"]{background:#fff;color:var(--c-plat);box-shadow:0 6px 16px rgba(18,23,38,.08)}
+.on-white .tab[aria-selected="true"]{background:#fff;color:var(--blue);box-shadow:0 6px 16px rgba(18,23,38,.08)}
 .on-white .rec{background:#fff;border-color:var(--line)}
 .on-white .rec:hover{border-color:var(--c);box-shadow:0 10px 24px rgba(18,23,38,.08)}
 .on-white .arrow{border-color:var(--line);color:var(--ink)}
-.on-white .about .more{color:var(--c-plat)}
-.on-white .trust li{background:#fff;border-color:var(--line)}
-.on-white .contact{background:linear-gradient(135deg,rgba(0,115,187,.12),rgba(0,167,158,.08) 55%,rgba(132,88,160,.12));border-color:#E3E8F2}
+.on-white .about .more{color:var(--blue)}
+.on-white .trust li{background:#fff;border-color:#E1E9F6}
+.on-white .trust li::before{background:linear-gradient(100deg,var(--c-edu),var(--blue))}
+.on-white .contact{background:linear-gradient(135deg,rgba(22,86,201,.12),rgba(0,115,187,.06) 55%,rgba(163,201,241,.22));border-color:#E1E9F6}
 .on-white .ct-links a{background:#fff;color:var(--ink)}
-.on-white .ct-links a:hover{background:var(--c-plat);color:#fff}
+.on-white .ct-links a:hover{background:var(--blue);color:#fff}
 .on-white .ct-links a:hover small{color:rgba(255,255,255,.75)}
-.on-white .grad-text{background:linear-gradient(100deg,var(--c-edu),var(--c-plat) 55%,#8458A0);-webkit-background-clip:text;background-clip:text}
+.on-white .grad-text{background:linear-gradient(100deg,var(--c-edu),var(--blue) 55%,var(--c-plat));-webkit-background-clip:text;background-clip:text}
 footer.on-white{margin-top:0;padding-top:144px}
-.on-white .ft-fam a:hover,.on-white .ft-links a:hover{color:var(--c-plat)}
+.on-white .ft-fam a:hover,.on-white .ft-links a:hover{color:var(--blue)}
 /* ===== 밤하늘 (My Classical Atlas 밤 화면 방식) — 위는 검정에 가깝게, 아래로 남색 그라데이션 + 반짝이는 별 ===== */
 html{background:#010828}
 body{background:transparent}
