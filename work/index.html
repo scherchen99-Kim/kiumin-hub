@@ -320,6 +320,18 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 .on-white .grad-text{background:linear-gradient(100deg,var(--c-edu),var(--blue) 55%,var(--c-plat));-webkit-background-clip:text;background-clip:text}
 footer.on-white{margin-top:0;padding-top:144px}
 .on-white .ft-fam a:hover,.on-white .ft-links a:hover{color:var(--blue)}
+/* 회사 소개 페이지와 같게: 바탕은 연한 하늘색, 내용 칸 안은 흰색 + 같은 파랑 톤의 은은한 그림자 */
+:root{--sky-bg:#EAF3FC;--card-shadow:0 1px 2px rgba(22,86,201,.06),0 10px 28px rgba(22,86,201,.08)}
+.to-white{background:linear-gradient(180deg,rgba(0,29,91,0) 0%,#0a2a7a 22%,#1656c9 50%,#a3c9f1 80%,var(--sky-bg) 100%)}
+.on-white{background:var(--sky-bg);box-shadow:0 1px 0 var(--sky-bg),0 -1px 0 var(--sky-bg)}
+.on-white .finder,.on-white .contact{background:#fff;border:1px solid #DCE8F7;box-shadow:var(--card-shadow)}
+.on-white .tabs{background:var(--sky-bg)}
+.on-white .rec{background:#fff;border-color:#DCE8F7}
+.on-white .about{border-color:#D3E2F5}
+.on-white .trust li{background:#fff;border-color:#DCE8F7;box-shadow:0 4px 12px rgba(22,86,201,.06)}
+.on-white .ct-links a{background:var(--sky-bg)}
+footer.on-white{border-top:0}
+
 /* ===== 밤하늘 (My Classical Atlas 밤 화면 방식) — 위는 검정에 가깝게, 아래로 남색 그라데이션 + 반짝이는 별 ===== */
 html{background:#010828}
 body{background:transparent}
