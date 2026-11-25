@@ -289,6 +289,8 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 /* 카드 위쪽 색 바 효과 없애기, 테두리는 모든 카드(AX 포함)·모든 상태에서 같은 색으로 통일 */
 .site::after{display:none}
 .site,.site:hover,.site.is-active,.site-wide{border:1px solid rgba(255,255,255,.14)}
+/* 큰 제목을 살짝 오른쪽으로 (휴대폰 가운데 정렬에는 적용 안 함) */
+@media (min-width:561px){.hub h1{margin-left:20px}}
 /* ===== 밤하늘 (My Classical Atlas 밤 화면 방식) — 위는 검정에 가깝게, 아래로 남색 그라데이션 + 반짝이는 별 ===== */
 html{background:#010828}
 body{background:transparent}
