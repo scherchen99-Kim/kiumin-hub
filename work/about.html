@@ -598,7 +598,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
   function size() {
     var oldW = W; W = innerWidth; H = innerHeight; cv.width = W; cv.height = H;
     if (oldW === W && stars.length) return;
-    var n = Math.round(Math.min(220, Math.max(80, W * H / 9000))); stars = [];   // 어두운 쪽에만 뿌리므로 수를 줄여 밀도는 그대로
+    var n = Math.round(Math.min(110, Math.max(40, W * H / 18000)));   // 별 수 절반으로 stars = [];   // 어두운 쪽에만 뿌리므로 수를 줄여 밀도는 그대로
     for (var i = 0; i < n; i++) {
       var big = Math.random() < .1;
       var sx, sy, k = 0;
@@ -610,7 +610,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
         c: Math.random() < .18 ? '205,220,255' : Math.random() < .1 ? '255,232,205' : '255,255,255' });
     }
     // 회사 소개 첫 화면 오른쪽 빈자리: 별자리가 생길 별 무리를 따로 뿌린다
-    var nC = Math.round(Math.min(120, Math.max(50, W * H / 13000)));
+    var nC = Math.round(Math.min(60, Math.max(25, W * H / 26000)));   // 오른쪽 별 무리도 절반
     for (var c2 = 0; c2 < nC; c2++) {
       var bigC = Math.random() < .22;
       stars.push({ x: rnd(W * .3, W * .98), y: rnd(H * .08, H * .62),   // 제목 옆 빈 곳부터 오른쪽 끝까지
