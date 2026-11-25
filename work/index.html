@@ -887,7 +887,11 @@ function init(host) {
     new THREE.LineBasicMaterial({ color: '#8FA3C7', transparent: true, opacity: 0.32 })));
 
   /* 가운데 '키움인' */
-  world.add(new THREE.Mesh(new THREE.SphereGeometry(0.16, 32, 32), new THREE.MeshBasicMaterial({ color: '#FFFFFF' })));   // 가운데 '키움인': 남색 위에서 흰색
+  // 가운데 '키움인'(흰 공). 색 공과 같은 '그리는 순서' 줄에 세워서(가운데 깊이 = 60),
+  // 뒤쪽에 있는 색 공은 흰 공에 가려지고, 앞쪽에 있는 색 공은 흰 공 위에 보이게 한다 (원근)
+  const core = new THREE.Mesh(new THREE.SphereGeometry(0.16, 32, 32), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 1 }));
+  core.renderOrder = 60;
+  world.add(core);
 
   /* 색 공 5개 (위·왼쪽·오른쪽·아래·뒤로 고르게) */
   const balls = [[0.15, 0.95, 0.25], [-0.9, 0.2, 0.4], [0.85, -0.1, 0.5], [-0.2, -0.9, -0.4], [0.3, 0.25, -0.92]]
