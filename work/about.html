@@ -260,10 +260,10 @@ footer.on-white{border-top:0}
 .gnb{gap:0;align-items:center}
 .gnb a{flex-direction:column;justify-content:center;gap:3px;line-height:1.15;padding:0 24px;border-radius:0;background:none!important;box-shadow:none!important;transition:color .2s}
 .gnb a{position:relative}
-.gnb a + a::before{content:"";position:absolute;left:0;top:50%;width:1px;height:28px;transform:translateY(-50%);background:rgba(124,196,242,.3)}   /* 세로줄: 글자 높이만큼만, 진하기는 이전(60%)의 절반 */
+.gnb a + a::before{content:"";position:absolute;left:0;top:50%;width:1px;height:28px;transform:translateY(-50%);background:rgba(255,255,255,.5)}   /* 세로줄: 글자 높이만큼, 흰색 50% */
 .gnb .ko{font-size:15px;font-weight:700}
-.gnb .en{font-size:8px;font-weight:300;letter-spacing:.16em;color:#7CC4F2;opacity:.6}   /* 영문: 연한 하늘색, 60% */
-.gnb a:hover .en,.gnb a[aria-current="page"] .en{opacity:1}
+.gnb .en{font-size:8px;font-weight:300;letter-spacing:.16em;color:#fff;opacity:.5}   /* 영문: 흰색 50% */
+.gnb a:hover .en,.gnb a[aria-current="page"] .en{color:#7CC4F2;opacity:1}   /* 고르면 위 한글과 같은 색 */
 .gnb a:hover,.gnb a[aria-current="page"]{color:#7CC4F2}
 
 /* 스크롤하면 나오는 위쪽 메뉴 띠: 회색빛 대신 남색 */
