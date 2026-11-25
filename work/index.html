@@ -298,6 +298,27 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
    /* 카드 아래 버튼은 '나에게 맞는 곳 찾기' 하나, 가운데에 */
 .hub-right .pill b{background:none;padding:0;border-radius:0;color:var(--ink);font-size:14px;font-weight:800;letter-spacing:.08em;display:inline-flex;align-items:center}
 .hub-right .pill b::after{content:"";width:1px;height:12px;background:rgba(255,255,255,.45);margin:0 12px}
+/* ===== 첫 화면 아래: 어두운 밤하늘 → 선명한 파랑 → 흰색으로 바뀌는 띠, 그 아래(맞춤 안내·회사 소개·문의·바닥글)는 흰 바탕 ===== */
+.to-white{height:70vh;background:linear-gradient(180deg,rgba(0,29,91,0) 0%,#14259e 20%,#2257e6 45%,#8ab8f4 72%,#fff 100%)}   /* 샘플 영상의 파랑: 짙은 군청 → 선명한 로열 블루 → 하늘색 → 흰색 */
+.on-white{background:#fff;box-shadow:0 1px 0 #fff,0 -1px 0 #fff;--ink:#121726;--ink-2:#2B3245;--sub:#5A6174;--line:#E6E1D6;color:var(--ink)}
+.on-white .kicker{color:var(--c-plat)}
+.on-white .finder{background:#F5F7FB;border-color:#E3E8F2;box-shadow:none}
+.on-white .tabs{background:rgba(18,23,38,.05)}
+.on-white .tab{color:var(--sub)}
+.on-white .tab:hover{color:var(--ink)}
+.on-white .tab[aria-selected="true"]{background:#fff;color:var(--c-plat);box-shadow:0 6px 16px rgba(18,23,38,.08)}
+.on-white .rec{background:#fff;border-color:var(--line)}
+.on-white .rec:hover{border-color:var(--c);box-shadow:0 10px 24px rgba(18,23,38,.08)}
+.on-white .arrow{border-color:var(--line);color:var(--ink)}
+.on-white .about .more{color:var(--c-plat)}
+.on-white .trust li{background:#fff;border-color:var(--line)}
+.on-white .contact{background:linear-gradient(135deg,rgba(0,115,187,.12),rgba(0,167,158,.08) 55%,rgba(132,88,160,.12));border-color:#E3E8F2}
+.on-white .ct-links a{background:#fff;color:var(--ink)}
+.on-white .ct-links a:hover{background:var(--c-plat);color:#fff}
+.on-white .ct-links a:hover small{color:rgba(255,255,255,.75)}
+.on-white .grad-text{background:linear-gradient(100deg,var(--c-edu),var(--c-plat) 55%,#8458A0);-webkit-background-clip:text;background-clip:text}
+footer.on-white{margin-top:0;padding-top:144px}
+.on-white .ft-fam a:hover,.on-white .ft-links a:hover{color:var(--c-plat)}
 /* ===== 밤하늘 (My Classical Atlas 밤 화면 방식) — 위는 검정에 가깝게, 아래로 남색 그라데이션 + 반짝이는 별 ===== */
 html{background:#010828}
 body{background:transparent}
@@ -402,7 +423,8 @@ body{background:transparent}
     </div>
   </section>
 
-  <section class="sec" id="finder" aria-labelledby="finder-h" style="padding-top:40px">
+  <div class="to-white" aria-hidden="true"></div>
+  <section class="sec on-white" id="finder" aria-labelledby="finder-h" style="padding-top:40px">
     <div class="wrap">
       <span class="kicker" data-reveal>FIND YOUR WAY</span>
       <h2 class="sec-title" id="finder-h" data-reveal style="--d:.06s">나에게 맞는 곳 찾기</h2>
@@ -454,7 +476,7 @@ body{background:transparent}
     </div>
   </section>
 
-  <section id="about" aria-label="회사 소개" style="padding-bottom:80px">
+  <section class="on-white" id="about" aria-label="회사 소개" style="padding-bottom:80px">
     <div class="wrap about" data-reveal>
       <p><b>(주)키움인</b>은 2018년 광주에서 시작해, 교육과 AI를 중심으로 사람과 기관, 기업의 성장을 돕고 있습니다. <a class="more" href="../about.html">회사 소개 자세히 보기 →</a></p>
       <ul class="trust" aria-label="인증 현황">
@@ -465,7 +487,7 @@ body{background:transparent}
     </div>
   </section>
 
-  <section id="contact" aria-labelledby="ct-h">
+  <section class="on-white" id="contact" aria-labelledby="ct-h">
     <div class="wrap">
       <div class="contact" data-reveal>
         <div>
@@ -482,10 +504,10 @@ body{background:transparent}
   </section>
 </main>
 
-<footer>
+<footer class="on-white">
   <div class="wrap">
     <div class="ft">
-      <span class="logo"><img src="../assets/kiumin_logo_white.png" alt="Kiumin" width="702" height="192"></span>
+      <span class="logo"><img src="../assets/kiumin_logo.png" alt="Kiumin" width="702" height="192"></span>
       <nav class="ft-fam" aria-label="패밀리 사이트 바로가기">
         <a href="https://www.xn--cp5b6mf1u.com/" target="_blank" rel="noopener">키움인 교육</a>
         <a href="http://kiumin.co.kr/" target="_blank" rel="noopener">AI 교육 플랫폼</a>
