@@ -10,9 +10,9 @@
 :root{
   --bg:#F7F5F0; --paper:#FFFFFF; --ink:#121726; --ink-2:#2B3245; --sub:#5A6174; --line:#E6E1D6;
   /* 연결망 공과 같은 색 (교육·플랫폼·행사·온저널·AX) */
-  --c-edu:#0073BB; --c-plat:#3D509C; --c-event:#00A79E; --c-journal:#8458A0; --c-ax:#CF3F6A;
+  --c-edu:#0073BB; --c-plat:#3D509C; --c-event:#00A79E; --c-journal:#CF3F6A; --c-ax:#8458A0;   /* 형 지정: AI 온저널 분홍, AI·AX 보라 (11/25 맞바꿈) */
   --indigo:var(--c-plat);
-  --grad:linear-gradient(100deg,var(--c-edu),var(--c-plat) 55%,var(--c-journal));
+  --grad:linear-gradient(100deg,var(--c-edu),var(--c-plat) 55%,#8458A0);
   --glass:rgba(255,255,255,.62);
   --wrap:1240px;
   --font:"Pretendard Variable",Pretendard,"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;
@@ -226,7 +226,7 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
   --glass:rgba(255,255,255,.06);
   --accent-light:#7CC4F2;                                         /* 남색 위 링크·작은 제목용 밝은 하늘색 */
   --grad:linear-gradient(100deg,#55B6EE,#93A6EC 55%,#C7A0E2);    /* 남색 위 글자 그라데이션 (밝게) */
-  --grad-btn:linear-gradient(100deg,var(--c-edu),var(--c-journal));
+  --grad-btn:linear-gradient(100deg,var(--c-edu),#8458A0);   /* 버튼 그라데이션은 파랑→보라 그대로 */
 }
 :focus-visible{outline-color:var(--accent-light)}
 .aurora i:nth-child(1){background:#0073BB;opacity:.35}
@@ -251,7 +251,7 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 .site-k{color:color-mix(in srgb,var(--c) 45%,#fff)}             /* 브랜드 색을 밝혀 남색 위에서 읽히게 */
 .site-url{color:var(--ink-2)}
 .arrow{background:transparent;border-color:var(--line);color:var(--ink)}
-.site-wide{background:linear-gradient(120deg,rgba(207,63,106,.38),rgba(207,63,106,.12) 60%,rgba(255,255,255,.05))}   /* AX 칸 배경 조금 더 진하게 */
+.site-wide{background:linear-gradient(120deg,rgba(132,88,160,.42),rgba(132,88,160,.14) 60%,rgba(255,255,255,.05))}   /* AX 칸 배경 조금 더 진하게 */
 .ax-tags li{background:rgba(255,255,255,.08);border-color:var(--line)}
 /* 섹션·맞춤 안내 */
 .kicker{color:var(--accent-light)}
@@ -735,7 +735,7 @@ body{background:transparent}
    - '동작 줄이기' 설정이면 저절로 돌지 않는다. Three.js를 못 불러와도 페이지는 그대로 동작한다. */
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 
-const SITE_COLORS = ['#0073BB', '#3D509C', '#00A79E', '#8458A0', '#CF3F6A'];
+const SITE_COLORS = ['#0073BB', '#3D509C', '#00A79E', '#CF3F6A', '#8458A0'];   // 교육·플랫폼·행사·온저널(분홍)·AX(보라)
 const BALL_R = 0.15, DEPTH_NEAR = 1.4, DEPTH_FAR = 0.6, GROW = 1.6;
 const SPOKE_COLOR = new THREE.Color('#A9BAD8'), SPOKE_OPACITY = 0.85;   // 남색 바탕 위 밝은 연결선
 
