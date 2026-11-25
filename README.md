@@ -8,5 +8,6 @@
 | platform.html | AI 교육 플랫폼 소개 페이지 |
 | hub-d.html | 허브 시안 D (카드형) |
 | about.html | 회사 소개 시안 |
+| work/ | 작업방: 허브 시안 D를 계속 고치는 곳 (hub-d.html은 11/25 저장본) |
 
 작업 원본: 바탕화면 `키움인허브/` 폴더
