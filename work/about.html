@@ -301,6 +301,15 @@ footer.rf{margin-top:0;border-top:0;background:#00143f;color:#c9ccd1;padding:40p
 .rf .copy{font-size:12px;margin-top:10px;color:#8f949b}
 @media (max-width:860px){.rf .f-top{flex-wrap:wrap}.rf .f-sns{width:100%}}
 @media (max-width:680px){.rf .flogo{height:32px}.rf address{flex-direction:column;gap:0}.rf .f-links{gap:6px 18px}}
+
+/* 바닥글 정리: 바탕은 위 메뉴와 같은 남색, 위아래 구분선 없앰, 패밀리 사이트(왼쪽)·정책 링크(오른쪽)를 한 줄로, 간격 줄임 */
+footer.rf{background:#001d5b;padding:32px 0 24px}
+.rf .f-top{padding-bottom:18px}
+.rf .f-mid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px 24px}
+.rf .f-fam{border:0;padding:0}
+.rf .f-links{margin-top:0;gap:6px 22px;font-size:13px}
+.rf .f-bottom{border-top:0;margin-top:10px;padding-top:0}
+.rf .copy{margin-top:4px}
 </style>
 </head>
 <body>
@@ -500,6 +509,7 @@ footer.rf{margin-top:0;border-top:0;background:#00143f;color:#c9ccd1;padding:40p
         <a class="yt" href="https://www.youtube.com/@kiumedu" target="_blank" rel="noopener" aria-label="유튜브"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="currentColor"/><path d="M10 9l5 3-5 3z" fill="#fff"/></svg></a>
       </div>
     </div>
+    <div class="f-mid">
     <nav class="f-fam" aria-label="패밀리 사이트 바로가기">
       <span class="f-fam-t">FAMILY SITE</span>
       <a href="https://www.xn--cp5b6mf1u.com/" target="_blank" rel="noopener">키움인 교육<span class="sr-only">(새 창)</span></a>
@@ -513,6 +523,7 @@ footer.rf{margin-top:0;border-top:0;background:#00143f;color:#c9ccd1;padding:40p
       <a href="https://kiumin.cafe24.com/default/policy/policy02.php?sub=02" target="_blank" rel="noopener">이메일무단수집거부</a>
       <a href="#contact">1:1문의</a>
     </nav>
+    </div>
     <div class="f-bottom">
       <address>
         <span>회사 : ㈜키움인</span><span>주소 : 광주광역시 북구 첨단벤처로 46, B동 1층</span><span>사업자등록번호 : 639-87-00847</span><span>TEL : 1899-6432</span><span>EMAIL : kiumedu@kiumin.kr</span>
