@@ -255,6 +255,14 @@ footer.on-white{margin-top:0;padding-top:134px}
 footer.on-white{border-top:0}
 
 .ft-fam a:hover,.ft-links a:hover{color:var(--blue)}
+
+/* 위쪽 메뉴: 한글 아래 작고 가는 영문, 메뉴 사이 세로줄로 칸 구분, 마우스를 올리면 바탕 대신 글자 색이 바뀜 */
+.gnb{gap:0;align-items:center}
+.gnb a{flex-direction:column;justify-content:center;gap:3px;line-height:1.15;padding:0 24px;border-radius:0;background:none!important;box-shadow:none!important;transition:color .2s}
+.gnb a + a{border-left:1px solid rgba(255,255,255,.18)}
+.gnb .ko{font-size:15px;font-weight:600}
+.gnb .en{font-size:10px;font-weight:300;letter-spacing:.16em;opacity:.85}
+.gnb a:hover,.gnb a[aria-current="page"]{color:#7CC4F2}
 </style>
 </head>
 <body>
@@ -266,9 +274,9 @@ footer.on-white{border-top:0}
     <div class="hd">
       <a class="logo" href="./" aria-label="키움인 처음으로"><img src="../assets/kiumin_logo_white.png" alt="Kiumin" width="702" height="192"></a>
       <nav class="gnb" aria-label="주메뉴">
-        <a href="./#top">패밀리 사이트</a>
-        <a href="./#finder">맞춤 안내</a>
-        <a href="about.html" aria-current="page">회사 소개</a>
+        <a href="./#top"><span class="ko">패밀리 사이트</span><span class="en">FAMILY SITES</span></a>
+        <a href="./#finder"><span class="ko">맞춤 안내</span><span class="en">FIND YOUR WAY</span></a>
+        <a href="about.html" aria-current="page"><span class="ko">회사 소개</span><span class="en">ABOUT US</span></a>
       </nav>
       <a class="hd-cta" href="#contact">문의하기</a>
       <button class="menu-toggle" type="button" aria-controls="m-panel" aria-expanded="false" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
