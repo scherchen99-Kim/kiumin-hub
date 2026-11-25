@@ -844,10 +844,17 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
   var PAD = 28, textBoxes = [];
   function readBoxes() {
     textBoxes = [];
-    var els = document.querySelectorAll(TEXT_SEL);
+    var els = document.querySelectorAll(TEXT_SEL), rg = document.createRange();
     for (var i = 0; i < els.length; i++) {
-      var r = els[i].getBoundingClientRect();
-      if (r.bottom > -PAD && r.top < H + PAD && r.width > 0) textBoxes.push(r);
+      // 상자 전체가 아니라 실제 글자가 있는 줄 영역만 잰다 (제목처럼 줄이 짧아도 상자는 가로로 꽉 차서 옆 빈 곳까지 별이 사라지던 문제)
+      var boxy = els[i].matches('.site, .hd-cta, .btn, .toc a, .line-art');   // 카드·버튼은 상자 전체를 피함
+      if (!boxy) rg.selectNodeContents(els[i]);
+      var rs = boxy ? [] : rg.getClientRects();
+      if (!rs.length) rs = [els[i].getBoundingClientRect()];
+      for (var j = 0; j < rs.length; j++) {
+        var r = rs[j];
+        if (r.bottom > -PAD && r.top < H + PAD && r.width > 0) textBoxes.push(r);
+      }
     }
   }
   function nearText(x, y) {                      // 0 = 글자 바로 위, 1 = 충분히 떨어짐

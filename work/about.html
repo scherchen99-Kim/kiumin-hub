@@ -599,10 +599,10 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
         c: Math.random() < .18 ? '205,220,255' : Math.random() < .1 ? '255,232,205' : '255,255,255' });
     }
     // 회사 소개 첫 화면 오른쪽 빈자리: 별자리가 생길 별 무리를 따로 뿌린다
-    var nC = Math.round(Math.min(90, Math.max(40, W * H / 18000)));
+    var nC = Math.round(Math.min(120, Math.max(50, W * H / 13000)));
     for (var c2 = 0; c2 < nC; c2++) {
       var bigC = Math.random() < .22;
-      stars.push({ x: rnd(W * .5, W * .98), y: rnd(H * .08, H * .62),
+      stars.push({ x: rnd(W * .3, W * .98), y: rnd(H * .08, H * .62),   // 제목 옆 빈 곳부터 오른쪽 끝까지
         r: bigC ? rnd(1.2, 1.9) : rnd(.6, 1.2), a: bigC ? rnd(.75, 1) : rnd(.45, .8),
         tw: rnd(.8, 2.4), ph: rnd(0, 6.28), k: 1, c: Math.random() < .3 ? '205,220,255' : '255,255,255' });
     }
@@ -612,10 +612,17 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
   var PAD = 28, textBoxes = [];
   function readBoxes() {
     textBoxes = [];
-    var els = document.querySelectorAll(TEXT_SEL);
+    var els = document.querySelectorAll(TEXT_SEL), rg = document.createRange();
     for (var i = 0; i < els.length; i++) {
-      var r = els[i].getBoundingClientRect();
-      if (r.bottom > -PAD && r.top < H + PAD && r.width > 0) textBoxes.push(r);
+      // 상자 전체가 아니라 실제 글자가 있는 줄 영역만 잰다 (제목처럼 줄이 짧아도 상자는 가로로 꽉 차서 옆 빈 곳까지 별이 사라지던 문제)
+      var boxy = els[i].matches('.site, .hd-cta, .btn, .toc a, .line-art');   // 카드·버튼은 상자 전체를 피함
+      if (!boxy) rg.selectNodeContents(els[i]);
+      var rs = boxy ? [] : rg.getClientRects();
+      if (!rs.length) rs = [els[i].getBoundingClientRect()];
+      for (var j = 0; j < rs.length; j++) {
+        var r = rs[j];
+        if (r.bottom > -PAD && r.top < H + PAD && r.width > 0) textBoxes.push(r);
+      }
     }
   }
   function nearText(x, y) {                      // 0 = 글자 바로 위, 1 = 충분히 떨어짐
