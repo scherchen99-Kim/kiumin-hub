@@ -359,6 +359,9 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
 .to-top span{font-size:9px;font-weight:700;letter-spacing:.12em;line-height:1;margin-top:-6px}
 @media (max-width:560px){.to-top{right:16px;bottom:16px;width:46px;height:46px}}
 @media (min-width:1101px){.page-head .lead{max-width:none}}
+
+/* 숫자 칸: 리뉴얼 시안처럼 숫자 위에 선 아이콘, 숫자와 같은 파랑 그라데이션 */
+.stat-ic{display:block;width:40px;height:40px;margin-bottom:14px;fill:none;stroke:url(#statGrad);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 </style>
 </head>
 <body>
@@ -386,6 +389,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
   <a href="#contact">문의하기</a>
 </nav>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="statGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0073BB"/><stop offset=".55" stop-color="#1656c9"/><stop offset="1" stop-color="#3D509C"/></linearGradient></defs></svg>
 <main id="main">
   <header class="page-head">
     <div class="wrap">
@@ -462,10 +466,10 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
       <span class="kicker" data-reveal>KIUMIN IN NUMBERS</span>
       <h2 class="sec-title" id="num-h" data-reveal>숫자와 인증으로 보는 키움인</h2>
       <div class="glass stats" data-reveal>
-        <div class="stat"><strong data-count="2018" data-from="1990" data-plain>2018</strong><span>설립</span></div>
-        <div class="stat"><strong data-count="1853">1,853</strong><span>함께한 학교</span></div>
-        <div class="stat"><strong data-count="287105">287,105</strong><span>교육에 참여한 학생</span></div>
-        <div class="stat"><strong data-count="2673">2,673</strong><span>함께한 교사</span></div>
+        <div class="stat"><svg class="stat-ic" viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="11" width="34" height="30" rx="3"/><path d="M7 19h34M16 6v9M32 6v9M15 27h4M22 27h4M29 27h4M15 33h4M22 33h4"/></svg><strong data-count="2018" data-from="1990" data-plain>2018</strong><span>설립</span></div>
+        <div class="stat"><svg class="stat-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 41h36M10 41V21l14-9 14 9v20M24 12V5l8 3-8 3M20 41v-9h8v9M15 25h4M29 25h4M15 32h4M29 32h4"/></svg><strong data-count="1853">1,853</strong><span>함께한 학교</span></div>
+        <div class="stat"><svg class="stat-ic" viewBox="0 0 48 48" aria-hidden="true"><circle cx="18" cy="16" r="6"/><path d="M6 40c0-7 5.4-12 12-12s12 5 12 12"/><circle cx="33" cy="18" r="5"/><path d="M31 28.4c1-.3 1.6-.4 2.5-.4 5.5 0 9.5 4.4 9.5 10"/></svg><strong data-count="287105">287,105</strong><span>교육에 참여한 학생</span></div>
+        <div class="stat"><svg class="stat-ic" viewBox="0 0 48 48" aria-hidden="true"><rect x="18" y="6" width="25" height="18" rx="2"/><path d="M24 13h12M24 18h8"/><circle cx="12" cy="20" r="5"/><path d="M3 42c0-6 4-11 9-11 3 0 5 1 7 3l6-6"/></svg><strong data-count="2673">2,673</strong><span>함께한 교사</span></div>
       </div>
       <ul class="trust" aria-label="인증·인정" data-reveal style="--d:.08s">
         <li>고용노동부 인증 사회적기업</li>
