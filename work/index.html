@@ -251,7 +251,14 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 .site-k{color:color-mix(in srgb,var(--c) 45%,#fff)}             /* 브랜드 색을 밝혀 남색 위에서 읽히게 */
 .site-url{color:var(--ink-2)}
 .arrow{background:transparent;border-color:var(--line);color:var(--ink)}
-.site-wide{background:linear-gradient(120deg,rgba(132,88,160,.42),rgba(132,88,160,.14) 60%,rgba(255,255,255,.05))}   /* AX 칸 배경 조금 더 진하게 */
+/* AX 칸: 번진 색 없이 진한 남색 한 가지로 깨끗하게. 아이콘 옆에 설명, 그 아래 한 줄에 대상 3개, NEW는 오른쪽 위 동그라미 */
+.site-wide{background:#071a52;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:14px}
+.ax-head{display:flex;align-items:center;gap:14px;padding-right:52px}
+.ax-text .site-k{margin-top:0}
+.site-wide .ax-tags{justify-content:flex-start;max-width:none;flex-wrap:nowrap}
+.site > .ax-new{position:absolute;top:16px;right:20px;width:40px;height:40px;min-height:0;padding:0;border-radius:50%;
+  justify-content:center;font-size:10px;letter-spacing:.04em;background:var(--c-ax)}
+@media (max-width:560px){.site-wide .ax-tags{flex-wrap:wrap}}   /* AX 칸 배경 조금 더 진하게 */
 .ax-tags li{background:rgba(255,255,255,.08);border-color:var(--line)}
 /* 섹션·맞춤 안내 */
 .kicker{color:var(--accent-light)}
@@ -340,7 +347,7 @@ body{background:transparent}
           <div class="site-top"><span class="mark" aria-hidden="true">P</span><span class="arrow" aria-hidden="true">→</span></div>
           <span class="site-k">PLATFORM</span>
           <h2>AI 교육 플랫폼</h2>
-          <p>온라인에서 배우고, 현장에서 완성하는 AI 교육</p>
+          <p>온라인에서 배우고, 현장에서 완성하는 AI&nbsp;교육</p>
           <span class="site-url">kiumin.co.kr<span class="sr-only">(새 창)</span></span>
         </a>
         <a class="site s-event" data-node="2" data-glow data-reveal style="--d:.26s" href="https://www.xn--cp5b6mf1u.kr/" target="_blank" rel="noopener">
@@ -358,11 +365,14 @@ body{background:transparent}
           <span class="site-url">aionjournal.com<span class="sr-only">(새 창)</span></span>
         </a>
         <div class="site s-ax site-wide" data-node="4" data-glow data-reveal style="--d:.42s">
-          <div class="ax-body">
-            <div class="site-top"><span class="mark" aria-hidden="true">AX</span><span class="badge">NEW</span></div>
-            <span class="site-k">AI·AX JOB TRAINING</span>
-            <h2>AI·AX 직무교육</h2>
-            <p>기업 재직자를 위한 AI 활용·AX 전환 직무교육</p>
+          <span class="badge ax-new">NEW</span>
+          <div class="ax-head">
+            <span class="mark" aria-hidden="true">AX</span>
+            <div class="ax-text">
+              <span class="site-k">AI·AX JOB TRAINING</span>
+              <h2>AI·AX 직무교육</h2>
+              <p>기업 재직자를 위한 AI 활용·AX 전환 직무교육</p>
+            </div>
           </div>
           <ul class="ax-tags" aria-label="교육 대상">
             <li>중소기업 재직자</li><li>AI 업무 활용</li><li>AX 전환</li>
