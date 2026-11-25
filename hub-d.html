@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>시안 D · 허브 라이트 오로라 — (주)키움인</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
+<style>
+:root{
+  --bg:#F7F5F0; --paper:#FFFFFF; --ink:#121726; --ink-2:#2B3245; --sub:#5A6174; --line:#E6E1D6;
+  --teal:#0891B2; --indigo:#4F46E5; --violet:#7C3AED;
+  --grad:linear-gradient(100deg,var(--teal),var(--indigo) 52%,var(--violet));
+  --glass:rgba(255,255,255,.62);
+  --wrap:1240px;
+  --font:"Pretendard Variable",Pretendard,"Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+.reduce-motion{scroll-behavior:auto}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.6;word-break:keep-all;-webkit-font-smoothing:antialiased}
+main{overflow-x:clip}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--indigo);outline-offset:3px;border-radius:8px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;padding:10px 16px;z-index:999;border-radius:8px}
+.skip:focus{left:8px}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* 배경: 아이보리 위 파스텔 오로라 */
+.aurora{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.aurora i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(110px);animation:drift 24s ease-in-out infinite alternate}
+.aurora i:nth-child(1){background:#C9D4FF;left:-18vmax;top:-22vmax;opacity:.75}
+.aurora i:nth-child(2){background:#BDEFF6;right:-22vmax;top:18vh;opacity:.6;animation-duration:30s}
+.aurora i:nth-child(3){background:#E3D3FF;left:22vw;bottom:-34vmax;opacity:.6;animation-duration:36s}
+@keyframes drift{to{transform:translate(7vmax,5vmax) scale(1.12)}}
+
+/* 헤더 */
+.site-header{position:fixed;top:14px;left:0;right:0;z-index:50}
+.hd{display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 10px 0 24px;border-radius:999px;border:1px solid transparent;transition:background .35s,border-color .35s,box-shadow .35s}
+.site-header.is-scrolled .hd{background:rgba(255,255,255,.75);backdrop-filter:blur(14px);border-color:var(--line);box-shadow:0 10px 30px rgba(18,23,38,.06)}
+.logo{display:inline-flex;align-items:center;min-height:44px;font-weight:900;font-size:22px;letter-spacing:.06em}
+.logo i{font-style:normal;color:var(--indigo)}
+.gnb{display:flex;gap:4px}
+.gnb a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;font-weight:600;color:var(--ink-2);transition:background .2s}
+.gnb a:hover{background:rgba(79,70,229,.08)}
+.hd-cta{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;transition:background .25s}
+.hd-cta:hover{background:var(--indigo)}
+.menu-toggle{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:#fff;cursor:pointer}
+.menu-toggle span{display:block;width:18px;height:2px;background:var(--ink);margin:4px auto;transition:.3s}
+.menu-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.m-panel{position:fixed;inset:0;background:rgba(247,245,240,.97);backdrop-filter:blur(10px);padding:104px 24px 24px;z-index:48;opacity:0;visibility:hidden;transition:.3s}
+.m-panel.is-open{opacity:1;visibility:visible}
+.m-panel a{display:flex;justify-content:space-between;padding:16px 0;font-size:24px;font-weight:800;border-bottom:1px solid var(--line)}
+.m-panel a::after{content:"→";color:var(--indigo)}
+
+/* 히어로 = 허브 */
+.hub{min-height:100vh;min-height:100svh;padding:132px 0 64px;display:flex;align-items:center}
+.hub-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:48px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(8px);font-size:14px;font-weight:600;color:var(--ink-2)}
+.pill b{background:var(--grad);color:#fff;font-size:12px;padding:2px 9px;border-radius:999px;letter-spacing:.06em}
+.hub h1{font-size:clamp(34px,4.2vw,56px);line-height:1.12;letter-spacing:-.035em;font-weight:800;margin:22px 0 20px}
+.hub h1 .grad-text{white-space:nowrap}
+.hub-desc{color:var(--sub);font-size:clamp(16px,1.5vw,18px);max-width:500px}
+.domains{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;list-style:none}
+.domains li{font-size:14px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.7);border:1px solid var(--line);color:var(--ink-2)}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:52px;padding:0 24px;border-radius:999px;font-weight:700;transition:transform .25s,box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn-grad{background:var(--grad);color:#fff;box-shadow:0 12px 32px rgba(79,70,229,.28)}
+.btn-line{border:1.5px solid var(--ink);background:rgba(255,255,255,.4)}
+.btn-line:hover{background:var(--ink);color:#fff}
+
+/* 사이트 카드 */
+.sites{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.site{position:relative;display:flex;flex-direction:column;min-height:188px;padding:24px 24px 22px;border-radius:24px;background:var(--glass);border:1px solid rgba(255,255,255,.9);box-shadow:0 1px 0 var(--line),0 18px 40px rgba(18,23,38,.06);backdrop-filter:blur(14px);overflow:hidden;transition:transform .35s,box-shadow .35s}
+.site::before{content:"";position:absolute;inset:0;background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--c) 22%,transparent),transparent 62%);opacity:0;transition:opacity .3s}
+.site::after{content:"";position:absolute;left:0;top:0;width:100%;height:4px;background:var(--c);transform:scaleX(0);transform-origin:left;transition:transform .45s}
+.site:hover{transform:translateY(-6px);box-shadow:0 1px 0 var(--line),0 26px 50px rgba(18,23,38,.12)}
+.site:hover::before{opacity:1}
+.site:hover::after{transform:scaleX(1)}
+.site > *{position:relative}
+.site-top{display:flex;justify-content:space-between;align-items:center}
+.mark{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-weight:900;font-size:17px;color:#fff;background:var(--c);box-shadow:0 8px 18px color-mix(in srgb,var(--c) 35%,transparent);flex:none}
+.arrow{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:#fff;transition:transform .3s,background .3s,color .3s;flex:none}
+.site:hover .arrow{background:var(--c);color:#fff;border-color:var(--c);transform:rotate(-45deg)}
+.site-k{margin-top:18px;font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--c)}
+.site h2{font-size:22px;letter-spacing:-.02em;margin:4px 0 6px}
+.site p{color:var(--sub);font-size:15px}
+.site-url{margin-top:auto;padding-top:14px;font-size:13px;font-weight:600;color:var(--ink-2);opacity:.75}
+.s-edu{--c:#2747F5}.s-plat{--c:#0E8CA8}.s-event{--c:#D9467A}.s-journal{--c:#7C3AED}.s-ax{--c:#4F46E5}
+.site-wide{grid-column:1/-1;min-height:0;flex-direction:row;align-items:flex-end;justify-content:space-between;gap:20px;background:linear-gradient(120deg,rgba(79,70,229,.1),rgba(8,145,178,.08) 50%,rgba(124,58,237,.1)),var(--glass);border-color:rgba(79,70,229,.25)}
+.site-wide .mark{background:var(--grad);font-size:15px}
+.site-wide .site-top{justify-content:flex-start;gap:10px}
+.ax-body{flex:1}
+.badge{display:inline-flex;align-items:center;min-height:28px;padding:0 12px;border-radius:999px;background:var(--grad);color:#fff;font-size:12px;font-weight:800;letter-spacing:.1em}
+.ax-tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;justify-content:flex-end;max-width:260px}
+.ax-tags li{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:#fff;border:1px solid var(--line)}
+
+/* Three.js 연결망 (첫 화면 배경) */
+.hub{position:relative}
+.hub .hub-grid{position:relative;z-index:1}
+.net{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity 1.2s ease;pointer-events:none}
+.net.is-ready{opacity:1}
+.net canvas{display:block;width:100%;height:100%}
+
+/* 섹션 공통 */
+section{scroll-margin-top:96px}
+.sec{padding:100px 0}
+.kicker{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.16em;color:var(--indigo)}
+.sec-title{font-size:clamp(28px,3.6vw,46px);line-height:1.2;letter-spacing:-.03em;font-weight:800;margin:10px 0 12px}
+.lead{color:var(--sub);max-width:600px;font-size:17px}
+
+/* 나에게 맞는 곳 찾기 */
+.finder{margin-top:36px;border-radius:28px;background:var(--glass);border:1px solid rgba(255,255,255,.9);box-shadow:0 1px 0 var(--line),0 18px 40px rgba(18,23,38,.05);backdrop-filter:blur(14px);padding:10px}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:4px;border-radius:20px;background:rgba(18,23,38,.04)}
+.tab{min-height:52px;border:0;border-radius:16px;background:transparent;font:inherit;font-weight:700;font-size:16px;color:var(--sub);cursor:pointer;transition:background .25s,color .25s,box-shadow .25s}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:#fff;color:var(--ink);box-shadow:0 6px 16px rgba(18,23,38,.08)}
+.panel{display:grid;grid-template-columns:.8fr 1.2fr;gap:36px;padding:34px 30px 30px}
+.panel[hidden]{display:none}
+.panel.is-shown{animation:panelIn .45s cubic-bezier(.2,.7,.2,1)}
+@keyframes panelIn{from{opacity:0;transform:translateY(8px)}}
+.panel h3{font-size:24px;letter-spacing:-.02em;line-height:1.35}
+.panel .who{margin-top:10px;color:var(--sub)}
+.recs{list-style:none;display:grid;gap:10px}
+.rec{display:flex;align-items:center;gap:16px;min-height:76px;padding:14px 16px;border-radius:18px;background:#fff;border:1px solid var(--line);transition:border-color .25s,transform .25s,box-shadow .25s}
+.rec:hover{border-color:var(--c);transform:translateX(4px);box-shadow:0 10px 24px rgba(18,23,38,.06)}
+.rec .mark{width:40px;height:40px;border-radius:12px;font-size:15px}
+.rec-txt{flex:1;min-width:0}
+.rec-txt strong{display:block;font-size:17px}
+.rec-txt span{display:block;color:var(--sub);font-size:14px}
+.rec:hover .arrow{background:var(--c);color:#fff;border-color:var(--c)}
+
+/* 회사 한 줄 소개 + 인증 */
+.about{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.about p{font-size:17px;color:var(--ink-2);max-width:560px}
+.about p b{color:var(--ink)}
+.about .more{display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:var(--indigo)}
+.about .more:hover{text-decoration:underline;text-underline-offset:3px}
+.trust{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.trust li{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:14px;font-weight:600}
+.trust li::before{content:"✓";display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--grad);color:#fff;font-size:11px}
+
+/* 문의 */
+.contact{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;padding:52px;border-radius:32px;background:linear-gradient(135deg,rgba(201,212,255,.6),rgba(189,239,246,.45) 55%,rgba(227,211,255,.55));border:1px solid rgba(255,255,255,.9)}
+.ct-links{display:grid;gap:10px}
+.ct-links a{display:flex;justify-content:space-between;align-items:center;min-height:62px;padding:0 22px;border-radius:16px;background:#fff;font-weight:700;font-size:18px;transition:background .25s,color .25s}
+.ct-links a:hover{background:var(--ink);color:#fff}
+.ct-links small{font-size:14px;font-weight:600;color:var(--sub)}
+.ct-links a:hover small{color:rgba(255,255,255,.7)}
+
+footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;color:var(--sub);font-size:14px}
+.ft{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.ft-fam{display:flex;gap:6px 18px;flex-wrap:wrap}
+.ft-fam a,.ft-links a{display:inline-flex;align-items:center;min-height:44px;font-weight:600;color:var(--ink-2)}
+.ft-fam a:hover,.ft-links a:hover{color:var(--indigo)}
+.ft-soon{display:inline-flex;align-items:center;min-height:44px;font-weight:600;color:var(--sub)}
+.ft-info{margin-top:16px;line-height:1.9}
+.ft-info span{display:inline-block;margin-right:16px}
+.ft-bottom{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:10px}
+.ft-links{display:flex;gap:18px}
+
+/* 등장 */
+.js [data-reveal]{opacity:0;transform:translateY(28px) scale(.985);filter:blur(6px);transition:opacity .95s cubic-bezier(.2,.7,.2,1),transform .95s cubic-bezier(.2,.7,.2,1),filter .95s;transition-delay:var(--d,0s)}
+.js [data-reveal].is-in{opacity:1;transform:none;filter:none}
+.reduce-motion *,.reduce-motion *::before,.reduce-motion *::after{animation:none!important;transition:none!important}
+
+@media (max-width:1024px){
+  .gnb,.hd-cta{display:none}
+  .menu-toggle{display:block}
+  .hub{min-height:0}
+  .hub-grid{grid-template-columns:1fr}
+  .panel{grid-template-columns:1fr;gap:20px}
+  .contact{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .wrap{padding:0 16px}
+  .site-header{top:8px}
+  .hub{padding:108px 0 40px}
+  .net.is-ready{opacity:.4}
+  .sites{grid-template-columns:1fr;gap:10px}
+  .sites .site:not(.site-wide){min-height:0;display:grid;grid-template-columns:44px 1fr 40px;grid-template-areas:"mark k arrow" "mark h arrow" "mark p arrow";column-gap:14px;padding:16px;align-items:center}
+  .sites .site:not(.site-wide) .site-top{display:contents}
+  .sites .site:not(.site-wide) .mark{grid-area:mark;align-self:start}
+  .sites .site:not(.site-wide) .arrow{grid-area:arrow}
+  .sites .site:not(.site-wide) .site-k{grid-area:k;margin-top:0}
+  .sites .site:not(.site-wide) h2{grid-area:h;font-size:19px;margin:0}
+  .sites .site:not(.site-wide) p{grid-area:p;font-size:14px}
+  .sites .site:not(.site-wide) .site-url{display:none}
+  .site-wide{flex-direction:column;align-items:stretch}
+  .ax-tags{justify-content:flex-start;max-width:none}
+  .sec{padding:72px 0}
+  .tabs{grid-template-columns:repeat(2,1fr)}
+  .tab{font-size:15px}
+  .panel{padding:24px 12px 14px}
+  .panel h3{font-size:20px}
+  .rec{gap:12px;padding:12px}
+  .contact{padding:32px 20px;border-radius:22px}
+  .btn{flex:1 1 100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="hd">
+      <a class="logo" href="#top" aria-label="키움인 처음으로">KIUM<i>IN</i></a>
+      <nav class="gnb" aria-label="주메뉴">
+        <a href="#sites">패밀리 사이트</a>
+        <a href="#finder">맞춤 안내</a>
+        <a href="about.html">회사 소개</a>
+      </nav>
+      <a class="hd-cta" href="#contact">문의하기</a>
+      <button class="menu-toggle" type="button" aria-controls="m-panel" aria-expanded="false" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<nav id="m-panel" class="m-panel" aria-label="모바일 메뉴">
+  <a href="#sites">패밀리 사이트</a>
+  <a href="#finder">맞춤 안내</a>
+  <a href="about.html">회사 소개</a>
+  <a href="#contact">문의하기</a>
+</nav>
+
+<main id="main">
+  <section class="hub" id="top" aria-labelledby="hub-h">
+    <div class="net" data-net aria-hidden="true"></div>
+    <div class="wrap hub-grid">
+      <div>
+        <span class="pill" data-reveal><b>KIUMIN FAMILY</b> (주)키움인 패밀리 사이트</span>
+        <h1 id="hub-h" data-reveal style="--d:.08s">키움인의 모든 서비스,<br><span class="grad-text">한 곳에서</span> 연결합니다</h1>
+        <p class="hub-desc" data-reveal style="--d:.16s">교육 서비스부터 기업의 AI 전환, AI 교육 플랫폼, 행사·전시, AI 미디어까지. 필요한 곳으로 바로 이동하세요.</p>
+        <ul class="domains" aria-label="키움인 사업 영역" data-reveal style="--d:.22s">
+          <li>교육 서비스</li><li>기업 AI·AX 전환</li><li>AI 교육 플랫폼</li><li>행사·전시</li><li>AI 미디어</li>
+        </ul>
+        <div class="btns" data-reveal style="--d:.28s">
+          <a class="btn btn-grad" href="#finder">나에게 맞는 곳 찾기</a>
+          <a class="btn btn-line" href="#contact">문의하기</a>
+        </div>
+      </div>
+      <div class="sites" id="sites" aria-label="패밀리 사이트">
+        <a class="site s-edu" data-node="0" data-glow data-reveal style="--d:.1s" href="https://kiumin.cafe24.com/" target="_blank" rel="noopener">
+          <div class="site-top"><span class="mark" aria-hidden="true">E</span><span class="arrow" aria-hidden="true">→</span></div>
+          <span class="site-k">EDUCATION</span>
+          <h2>키움인 교육</h2>
+          <p>AI·SW 교육, 진로·진학 교육, 교육분야 공공서비스</p>
+          <span class="site-url">kiumin.cafe24.com<span class="sr-only">(새 창)</span></span>
+        </a>
+        <a class="site s-plat" data-node="1" data-glow data-reveal style="--d:.18s" href="http://kiumin.co.kr/" target="_blank" rel="noopener">
+          <div class="site-top"><span class="mark" aria-hidden="true">P</span><span class="arrow" aria-hidden="true">→</span></div>
+          <span class="site-k">PLATFORM</span>
+          <h2>AI 교육 플랫폼</h2>
+          <p>온라인에서 배우고, 현장에서 완성하는 AI 교육</p>
+          <span class="site-url">kiumin.co.kr<span class="sr-only">(새 창)</span></span>
+        </a>
+        <a class="site s-event" data-node="2" data-glow data-reveal style="--d:.26s" href="https://www.xn--cp5b6mf1u.kr/" target="_blank" rel="noopener">
+          <div class="site-top"><span class="mark" aria-hidden="true">F</span><span class="arrow" aria-hidden="true">→</span></div>
+          <span class="site-k">EVENT</span>
+          <h2>행사·전시</h2>
+          <p>교육박람회·진로박람회, Edu Camp&amp;Festa 기획과 운영</p>
+          <span class="site-url">키움인.kr<span class="sr-only">(새 창)</span></span>
+        </a>
+        <a class="site s-journal" data-node="3" data-glow data-reveal style="--d:.34s" href="https://www.aionjournal.com/" target="_blank" rel="noopener">
+          <div class="site-top"><span class="mark" aria-hidden="true">J</span><span class="arrow" aria-hidden="true">→</span></div>
+          <span class="site-k">MEDIA</span>
+          <h2>AI 온저널</h2>
+          <p>키움인이 발행하는 AI 전문 인터넷 신문</p>
+          <span class="site-url">aionjournal.com<span class="sr-only">(새 창)</span></span>
+        </a>
+        <div class="site s-ax site-wide" data-node="4" data-glow data-reveal style="--d:.42s">
+          <div class="ax-body">
+            <div class="site-top"><span class="mark" aria-hidden="true">AX</span><span class="badge">NEW</span></div>
+            <span class="site-k">AI·AX JOB TRAINING</span>
+            <h2>AI·AX 직무교육</h2>
+            <p>기업 재직자를 위한 AI 활용·AX 전환 직무교육</p>
+          </div>
+          <ul class="ax-tags" aria-label="교육 대상">
+            <li>중소기업 재직자</li><li>AI 업무 활용</li><li>AX 전환</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="finder" aria-labelledby="finder-h" style="padding-top:40px">
+    <div class="wrap">
+      <span class="kicker" data-reveal>FIND YOUR WAY</span>
+      <h2 class="sec-title" id="finder-h" data-reveal style="--d:.06s">나에게 맞는 곳 찾기</h2>
+      <p class="lead" data-reveal style="--d:.12s">어떤 일로 오셨나요? 하시는 일을 고르면 가장 맞는 곳을 안내해 드립니다.</p>
+
+      <div class="finder" data-reveal style="--d:.18s">
+        <div class="tabs" role="tablist" aria-label="방문 목적">
+          <button class="tab" type="button" role="tab" id="t-biz" aria-controls="p-biz" aria-selected="true">기업 담당자</button>
+          <button class="tab" type="button" role="tab" id="t-school" aria-controls="p-school" aria-selected="false">학교·교육청</button>
+          <button class="tab" type="button" role="tab" id="t-public" aria-controls="p-public" aria-selected="false">공공기관·지자체</button>
+          <button class="tab" type="button" role="tab" id="t-event" aria-controls="p-event" aria-selected="false">행사·미디어</button>
+        </div>
+
+        <div class="panel" role="tabpanel" id="p-biz" aria-labelledby="t-biz">
+          <div><h3>직원들의 AI 활용 역량을<br>키우고 싶다면</h3><p class="who">중소기업 대표·인사·교육 담당자</p></div>
+          <ul class="recs">
+            <li><a class="rec s-ax" href="#contact"><span class="mark" aria-hidden="true">AX</span><span class="rec-txt"><strong>AI·AX 직무교육 상담</strong><span>재직자 대상 AI 업무 활용·AX 전환 교육</span></span><span class="arrow" aria-hidden="true">→</span></a></li>
+            <li><a class="rec s-plat" href="http://kiumin.co.kr/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">P</span><span class="rec-txt"><strong>AI 교육 플랫폼</strong><span>시간과 장소에 구애받지 않는 온라인 AI 강의</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
+            <li><a class="rec s-journal" href="https://www.aionjournal.com/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">J</span><span class="rec-txt"><strong>AI 온저널</strong><span>AI 산업과 경제 흐름을 정리한 기사</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
+          </ul>
+        </div>
+
+        <div class="panel" role="tabpanel" id="p-school" aria-labelledby="t-school">
+          <div><h3>학생과 교사를 위한<br>교육 프로그램을 찾는다면</h3><p class="who">초·중·고 교사, 교육청·교육지원청 담당자</p></div>
+          <ul class="recs">
+            <li><a class="rec s-edu" href="https://kiumin.cafe24.com/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">E</span><span class="rec-txt"><strong>키움인 교육</strong><span>AI·SW 교육, 진로·진학 교육, 교원 연수</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
+            <li><a class="rec s-event" href="https://www.xn--cp5b6mf1u.kr/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">F</span><span class="rec-txt"><strong>행사·전시</strong><span>진로박람회, Edu Camp&amp;Festa</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
+            <li><a class="rec s-plat" href="http://kiumin.co.kr/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">P</span><span class="rec-txt"><strong>AI 교육 플랫폼</strong><span>수업과 연수에 함께 쓰는 온라인 AI 강의</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
+          </ul>
+        </div>
+
+        <div class="panel" role="tabpanel" id="p-public" aria-labelledby="t-public">
+          <div><h3>지역과 기관에 필요한<br>사업을 함께할 곳을 찾는다면</h3><p class="who">공공기관·지자체 사업 담당자</p></div>
+          <ul class="recs">
+            <li><a class="rec s-edu" href="https://kiumin.cafe24.com/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">E</span><span class="rec-txt"><strong>키움인 교육</strong><span>교육분야 공공서비스 기획·운영</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
+            <li><a class="rec s-plat" href="http://kiumin.co.kr/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">P</span><span class="rec-txt"><strong>AI 교육 플랫폼</strong><span>기관 구성원을 위한 AI 교육</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
+            <li><a class="rec s-event" href="https://www.xn--cp5b6mf1u.kr/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">F</span><span class="rec-txt"><strong>행사·전시</strong><span>박람회·행사의 기획과 현장 운영</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
+          </ul>
+        </div>
+
+        <div class="panel" role="tabpanel" id="p-event" aria-labelledby="t-event">
+          <div><h3>행사 소식이나<br>AI 뉴스가 궁금하다면</h3><p class="who">행사 참가자, 언론·협력사, AI에 관심 있는 누구나</p></div>
+          <ul class="recs">
+            <li><a class="rec s-event" href="https://www.xn--cp5b6mf1u.kr/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">F</span><span class="rec-txt"><strong>행사·전시</strong><span>진행 중인 행사와 지난 행사 기록</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
+            <li><a class="rec s-journal" href="https://www.aionjournal.com/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">J</span><span class="rec-txt"><strong>AI 온저널</strong><span>AI 기술·산업·경제 기사와 주간 브리핑</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" aria-label="회사 소개" style="padding-bottom:80px">
+    <div class="wrap about" data-reveal>
+      <p><b>(주)키움인</b>은 2018년 광주에서 시작해, 교육과 AI를 중심으로 사람과 기관, 기업의 성장을 돕고 있습니다. <a class="more" href="about.html">회사 소개 자세히 보기 →</a></p>
+      <ul class="trust" aria-label="인증 현황">
+        <li>고용노동부 인증 사회적기업</li>
+        <li>교육부 교육기부 진로체험 인증기관</li>
+        <li>연구개발전담부서 인정</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="ct-h">
+    <div class="wrap">
+      <div class="contact" data-reveal>
+        <div>
+          <span class="kicker">CONTACT US</span>
+          <h2 class="sec-title" id="ct-h">어떤 일이든<br><span class="grad-text">키움인</span>과 상의하세요</h2>
+          <p class="lead">교육, 기업 AI 전환, 행사·전시까지 목적에 맞는 담당자가 안내해 드립니다.</p>
+        </div>
+        <div class="ct-links">
+          <a href="tel:18996432">1899-6432 <small>전화 문의</small></a>
+          <a href="mailto:kiumedu@kiumin.kr">kiumedu@kiumin.kr <small>이메일 문의</small></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <span class="logo">KIUM<i>IN</i></span>
+      <nav class="ft-fam" aria-label="패밀리 사이트 바로가기">
+        <a href="https://kiumin.cafe24.com/" target="_blank" rel="noopener">키움인 교육</a>
+        <a href="http://kiumin.co.kr/" target="_blank" rel="noopener">AI 교육 플랫폼</a>
+        <a href="https://www.xn--cp5b6mf1u.kr/" target="_blank" rel="noopener">행사·전시</a>
+        <a href="https://www.aionjournal.com/" target="_blank" rel="noopener">AI 온저널</a>
+        <span class="ft-soon">AI·AX 직무교육</span>
+      </nav>
+    </div>
+    <p class="ft-info"><span>(주)키움인</span><span>광주광역시 북구 첨단벤처로 46, B동 1층</span><span>사업자등록번호 639-87-00847</span><span>TEL 1899-6432</span><span>kiumedu@kiumin.kr</span></p>
+    <div class="ft-bottom">
+      <p>© 2026 KIUMIN. All rights reserved.</p>
+      <nav class="ft-links" aria-label="정책 링크">
+        <a href="https://kiumin.cafe24.com/default/policy/policy01.php?sub=01" target="_blank" rel="noopener">개인정보처리방침</a>
+        <a href="https://kiumin.cafe24.com/default/policy/policy02.php?sub=02" target="_blank" rel="noopener">이메일무단수집거부</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+<script>
+/* 키움인 개편 시안 공통 모션 — 시안 A·B·C 공용
+   - 스크롤 등장, 숫자 카운트, 무빙워크(가로 흐름 띠), 헤더 상태, 모바일 메뉴, 배경 영상 제어
+   - 사용자의 "동작 줄이기" 설정을 따른다. */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  root.classList.add('js');
+  if (reduce) root.classList.add('reduce-motion');
+
+  /* 1. 스크롤 등장 */
+  var revealEls = [].slice.call(document.querySelectorAll('[data-reveal]'));
+  if (reduce || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('is-in'); });
+  } else {
+    var ro = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); ro.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { ro.observe(el); });
+  }
+
+  /* 2. 숫자 카운트 (화면에 일부만 보여도 시작) */
+  function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function runCount(el) {
+    var to = parseInt(el.getAttribute('data-count'), 10);
+    var from = parseInt(el.getAttribute('data-from') || '0', 10);
+    var plain = el.hasAttribute('data-plain');
+    if (reduce) { el.textContent = plain ? to : fmt(to); return; }
+    var dur = 1600, t0 = null;
+    function step(t) {
+      if (!t0) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      var v = Math.round(from + (to - from) * eased);
+      el.textContent = plain ? v : fmt(v);
+      if (p < 1) requestAnimationFrame(step);
+      else el.classList.add('is-done');
+    }
+    requestAnimationFrame(step);
+  }
+  var countEls = [].slice.call(document.querySelectorAll('[data-count]'));
+  if ('IntersectionObserver' in window) {
+    var co = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { runCount(e.target); co.unobserve(e.target); }
+      });
+    }, { threshold: 0.2 });
+    countEls.forEach(function (el) { co.observe(el); });
+  } else {
+    countEls.forEach(runCount);
+  }
+
+  /* 3. 무빙워크 띠: 내용을 한 번 복제해 끊김 없이 흐르게 한다 */
+  [].slice.call(document.querySelectorAll('[data-marquee]')).forEach(function (track) {
+    var clone = track.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    clone.removeAttribute('data-marquee');
+    [].slice.call(clone.querySelectorAll('a,button')).forEach(function (n) { n.setAttribute('tabindex', '-1'); });
+    track.parentNode.appendChild(clone);
+  });
+
+  /* 4. 헤더 상태 + 스크롤 진행률 + 스크럽(스크롤에 따라 변하는 값) */
+  var header = document.querySelector('.site-header');
+  var scrubs = [].slice.call(document.querySelectorAll('[data-scrub]'));
+  var ticking = false;
+  function onScroll() {
+    var y = window.scrollY || window.pageYOffset;
+    if (header) header.classList.toggle('is-scrolled', y > 12);
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    root.style.setProperty('--scroll', max > 0 ? (y / max).toFixed(4) : 0);
+    if (!reduce) {
+      scrubs.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        var p = 1 - Math.min(Math.max(r.bottom / (window.innerHeight + r.height), 0), 1);
+        el.style.setProperty('--p', p.toFixed(4));
+      });
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  onScroll();
+
+  /* 5. 모바일 메뉴 (Esc로 닫기, 닫으면 버튼으로 포커스 복귀) */
+  var toggle = document.querySelector('.menu-toggle');
+  var panel = toggle && document.getElementById(toggle.getAttribute('aria-controls'));
+  function setMenu(open) {
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+    panel.classList.toggle('is-open', open);
+    document.body.classList.toggle('menu-open', open);
+    if (open) { var f = panel.querySelector('a'); if (f) setTimeout(function () { f.focus(); }, 60); }
+  }
+  if (toggle && panel) {
+    toggle.addEventListener('click', function () { setMenu(toggle.getAttribute('aria-expanded') !== 'true'); });
+    panel.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { setMenu(false); toggle.focus(); }
+    });
+  }
+
+  /* 6. 배경 영상: 정지/재생 버튼, 다른 앱에 다녀오면 이어서 재생 */
+  var video = document.querySelector('.hero-video');
+  var vbtn = document.querySelector('.video-toggle');
+  var userPaused = false;
+  function syncBtn() {
+    if (!vbtn || !video) return;
+    var playing = !video.paused;
+    vbtn.setAttribute('aria-pressed', playing ? 'false' : 'true');
+    vbtn.setAttribute('aria-label', playing ? '배경 영상 정지' : '배경 영상 재생');
+    vbtn.classList.toggle('is-paused', !playing);
+  }
+  if (video) {
+    if (reduce) { video.removeAttribute('autoplay'); video.pause(); userPaused = true; }
+    video.addEventListener('play', syncBtn);
+    video.addEventListener('pause', syncBtn);
+    if (vbtn) vbtn.addEventListener('click', function () {
+      if (video.paused) { userPaused = false; video.play(); } else { userPaused = true; video.pause(); }
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden && !userPaused) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+    });
+    ['touchstart', 'scroll'].forEach(function (ev) {
+      window.addEventListener(ev, function once() {
+        if (video.paused && !userPaused) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+        window.removeEventListener(ev, once);
+      }, { passive: true });
+    });
+    syncBtn();
+  }
+
+  /* 7-0. 탭 (방향키·Home·End 지원, 스크립트가 없으면 모든 패널이 보임) */
+  [].slice.call(document.querySelectorAll('[role="tablist"]')).forEach(function (list) {
+    var tabs = [].slice.call(list.querySelectorAll('[role="tab"]'));
+    function select(tab, focus) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.setAttribute('tabindex', on ? '0' : '-1');
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        if (panel) { panel.hidden = !on; if (on) { panel.classList.remove('is-shown'); void panel.offsetWidth; panel.classList.add('is-shown'); } }
+      });
+      if (focus) tab.focus();
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { select(t, false); });
+      t.addEventListener('keydown', function (e) {
+        var n = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = tabs[(i + 1) % tabs.length];
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = tabs[(i - 1 + tabs.length) % tabs.length];
+        else if (e.key === 'Home') n = tabs[0];
+        else if (e.key === 'End') n = tabs[tabs.length - 1];
+        if (n) { e.preventDefault(); select(n, true); }
+      });
+    });
+    var first = tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0] || tabs[0];
+    if (first) select(first, false);
+  });
+
+  /* 7. 카드 위 빛 따라가기 (data-glow) */
+  if (!reduce) {
+    [].slice.call(document.querySelectorAll('[data-glow]')).forEach(function (card) {
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+  }
+})();
+
+</script>
+<script type="module">
+/* 허브 첫 화면 — Three.js 연결망 인터랙션
+   가운데 '키움인'에서 다섯 사이트(색 점)와 여러 사람·기관(작은 회색 점)이 가는 선으로 이어진 구.
+   - 천천히 돌고, 마우스·손가락 위치에 따라 살짝 기운다.
+   - 사이트 카드에 마우스를 올리거나 키보드로 고르면 해당 색 점이 커지고 연결선이 그 색으로 바뀐다.
+   - 빛·그라데이션 없이 평면 재질만 쓴다. '동작 줄이기' 설정이면 한 장면만 그리고 멈춘다.
+   - Three.js를 불러오지 못하면 아무것도 그리지 않고 페이지는 그대로 동작한다. */
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+
+const host = document.querySelector('[data-net]');
+if (host) init(host);
+
+function init(host) {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const small = () => host.clientWidth < 700;
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.domElement.setAttribute('aria-hidden', 'true');
+  host.appendChild(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 50);
+  camera.position.set(0, 0, 7.2);
+
+  const world = new THREE.Group();
+  scene.add(world);
+
+  // 사이트 색 (카드 순서와 같다: 교육, 플랫폼, 행사·전시, AI 온저널, AI·AX)
+  const SITE_COLORS = ['#2747F5', '#0E8CA8', '#D9467A', '#7C3AED', '#4F46E5'];
+  const R = 2.1;
+
+  // 구 위에 고르게 흩어진 점 (피보나치 구)
+  const count = small() ? 70 : 140;
+  const pts = [];
+  for (let i = 0; i < count; i++) {
+    const y = 1 - (i / (count - 1)) * 2;
+    const r = Math.sqrt(1 - y * y);
+    const th = i * Math.PI * (3 - Math.sqrt(5));
+    pts.push(new THREE.Vector3(Math.cos(th) * r * R, y * R, Math.sin(th) * r * R));
+  }
+
+  // 작은 점(사람·기관)
+  const dotGeo = new THREE.SphereGeometry(0.028, 8, 8);
+  const dotMat = new THREE.MeshBasicMaterial({ color: '#9AA1B2' });
+  const dots = new THREE.InstancedMesh(dotGeo, dotMat, count);
+  const m = new THREE.Matrix4();
+  pts.forEach((p, i) => { m.makeTranslation(p.x, p.y, p.z); dots.setMatrixAt(i, m); });
+  world.add(dots);
+
+  // 가까운 점끼리 잇는 가는 선
+  const segs = [];
+  const maxD = small() ? 0.95 : 0.72;
+  for (let i = 0; i < count; i++) for (let j = i + 1; j < count; j++) {
+    if (pts[i].distanceTo(pts[j]) < maxD) segs.push(pts[i], pts[j]);
+  }
+  const web = new THREE.LineSegments(
+    new THREE.BufferGeometry().setFromPoints(segs),
+    new THREE.LineBasicMaterial({ color: '#B8BDC9', transparent: true, opacity: 0.38 })
+  );
+  world.add(web);
+
+  // 가운데 '키움인'
+  const core = new THREE.Mesh(new THREE.SphereGeometry(0.16, 24, 24), new THREE.MeshBasicMaterial({ color: '#121726' }));
+  world.add(core);
+
+  // 다섯 사이트 점과 가운데로 잇는 선
+  const sitePos = [[0.2, 0.9, 0.35], [-0.85, 0.25, 0.45], [0.75, -0.45, 0.5], [-0.35, -0.85, 0.4], [0.9, 0.35, -0.2]]
+    .map(v => new THREE.Vector3(...v).normalize().multiplyScalar(R));
+  const sites = sitePos.map((p, i) => {
+    const color = new THREE.Color(SITE_COLORS[i]);
+    const node = new THREE.Mesh(new THREE.SphereGeometry(0.11, 24, 24), new THREE.MeshBasicMaterial({ color }));
+    node.position.copy(p);
+    const ring = new THREE.Mesh(new THREE.RingGeometry(0.17, 0.19, 40), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.0, side: THREE.DoubleSide }));
+    ring.position.copy(p);
+    const spoke = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), p]),
+      new THREE.LineBasicMaterial({ color: '#8A90A2', transparent: true, opacity: 0.55 })
+    );
+    world.add(spoke, node, ring);
+    return { node, ring, spoke, color, scale: 1, target: 1 };
+  });
+
+  // 카드와 연결: data-node="0~4"
+  let active = -1;
+  document.querySelectorAll('[data-node]').forEach(card => {
+    const i = +card.getAttribute('data-node');
+    const on = () => { active = i; if (reduce) draw(); };
+    const off = () => { if (active === i) active = -1; if (reduce) draw(); };
+    card.addEventListener('pointerenter', on);
+    card.addEventListener('pointerleave', off);
+    card.addEventListener('focusin', on);
+    card.addEventListener('focusout', off);
+  });
+
+  // 마우스·손가락 기울기
+  const tilt = { x: 0, y: 0, tx: 0, ty: 0 };
+  addEventListener('pointermove', e => {
+    tilt.tx = (e.clientY / innerHeight - 0.5) * 0.35;
+    tilt.ty = (e.clientX / innerWidth - 0.5) * 0.5;
+  }, { passive: true });
+
+  function resize() {
+    const w = host.clientWidth, h = host.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    // 절반 크기로 줄여 넓은 화면에서는 왼쪽 위(제목 위)에, 좁은 화면에서는 오른쪽 위에 둔다
+    world.position.set(small() ? 0.8 : -1.98, small() ? 1.9 : 0.94, 0);
+    world.scale.setScalar(small() ? 0.4 : 0.5);
+  }
+
+  function update(dt) {
+    world.rotation.y += reduce ? 0 : dt * 0.1;
+    tilt.x += (tilt.tx - tilt.x) * 0.04;
+    tilt.y += (tilt.ty - tilt.y) * 0.04;
+    world.rotation.x = tilt.x;
+    world.rotation.z = tilt.y * 0.2;
+    sites.forEach((s, i) => {
+      s.target = i === active ? 1.8 : 1;
+      s.scale += (s.target - s.scale) * (reduce ? 1 : 0.12);
+      s.node.scale.setScalar(s.scale);
+      s.ring.material.opacity = (s.scale - 1) / 0.8 * 0.9;
+      s.ring.scale.setScalar(s.scale);
+      s.ring.lookAt(camera.position.clone().sub(world.position));
+      s.spoke.material.color.set(i === active ? s.color : '#8A90A2');
+      s.spoke.material.opacity = i === active ? 1 : 0.55;
+    });
+    web.material.opacity = active >= 0 ? 0.22 : 0.38;
+  }
+
+  function draw() { update(0); renderer.render(scene, camera); }
+
+  let visible = true, last = performance.now();
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(host);
+  function loop(t) {
+    const dt = Math.min((t - last) / 1000, 0.05); last = t;
+    if (visible && !document.hidden) { update(dt); renderer.render(scene, camera); }
+    requestAnimationFrame(loop);
+  }
+
+  resize();
+  addEventListener('resize', () => { resize(); if (reduce) draw(); });
+  host.classList.add('is-ready');
+  if (reduce) draw(); else requestAnimationFrame(loop);
+}
+
+</script>
+</body>
+</html>

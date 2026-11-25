@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연결망 공 테스트 — (주)키움인</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#F7F5F0;overflow:hidden}
+body{font-family:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.net{position:fixed;inset:0;opacity:0;transition:opacity 1.2s ease;touch-action:none}
+.net.is-ready{opacity:1}
+.net{cursor:grab}
+.net.is-hover{cursor:pointer}
+.net.is-drag{cursor:grabbing}
+.net canvas{display:block;width:100%;height:100%}
+
+/* 공과 안내 글을 잇는 선 */
+.lead{display:none;position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+.lead polyline{fill:none;stroke-width:1;stroke-linejoin:round;stroke-linecap:round}
+
+/* 안내 글: 공 색으로 나타난다 */
+/* 공 옆, 같은 높이에 나온다. 공이 오른쪽에 있으면 오른쪽, 왼쪽에 있으면 왼쪽 (위치는 스크립트가 정함) */
+.info{position:fixed;left:0;top:0;z-index:3;color:var(--c,#121726);pointer-events:none;width:max-content;max-width:24vw}
+/* 글자 뒤 흰 그림자: 점과 선 위에서도 글이 잘 읽히게 */
+.info{text-shadow:0 0 2px #fff,0 0 6px #fff,0 0 12px #fff,0 0 18px rgba(255,255,255,.8)}
+.info.at-right{text-align:left}
+.info.at-left{text-align:right}
+.info > *{opacity:0;transform:translateY(12px);filter:blur(4px);transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1),filter .55s}
+.info.is-on > *{opacity:1;transform:none;filter:none}
+.info.is-on > :nth-child(2){transition-delay:.07s}
+.info.is-on > :nth-child(3){transition-delay:.14s}
+.info.is-on > :nth-child(4){transition-delay:.21s}
+.info-k{font-size:clamp(11.7px,1.107vw,17.1px);font-weight:800;letter-spacing:.02em;line-height:1.2}
+.info-name{font-size:clamp(21.6px,2.295vw,35.1px);font-weight:900;letter-spacing:-.03em;line-height:1.2;margin-top:4.5px}
+.info-desc{font-size:clamp(12.6px,1.224vw,18px);font-weight:500;line-height:1.4;margin-top:9px}
+.info-url{font-size:clamp(10.8px,1.071vw,16.2px);font-weight:400;margin-top:9px}
+.info-url:empty{display:none}
+
+@media (max-width:899px){
+  .lead{display:none}
+  .info.at-left,.info.at-right{left:24px!important;right:24px!important;top:auto!important;bottom:32px;width:auto;max-width:none;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  .info > *{transition:opacity .2s;transform:none;filter:none}
+}
+</style>
+</head>
+<body>
+<div class="net" data-net aria-hidden="true"></div>
+<svg class="lead" aria-hidden="true"><polyline id="lead-line" points=""/></svg>
+<div class="info at-right" id="info" aria-live="polite">
+  <p class="info-k"></p>
+  <h2 class="info-name"></h2>
+  <p class="info-desc"></p>
+  <p class="info-url"></p>
+</div>
+
+<script type="module">
+/* 연결망 공 테스트 페이지 (원본: 1_hub.html)
+   - 공은 천천히 돌고, 마우스 위치에 따라 살짝 기운다.
+   - 효과는 색 있는 공 5개에만 준다. 가운데 검은 점과 작은 회색 점은 변화 없음.
+   - 색 공에 마우스를 올리면(휴대폰은 누르면):
+     공이 커지고 같은 색 그라데이션 빛이 퍼진다. 가운데로 가는 선이 같은 색이 된다.
+     공에서 오른쪽으로 꺾인 선이 그려지고, 그 끝에 같은 색으로 안내 글이 차례로 나타난다.
+   - 마우스를 떼면 잠시 뒤 원래대로 돌아간다.
+   - 색 공 크기는 모두 같고, 앞으로 나오면 커지고 뒤로 가면 작아진다(원근감).
+   - 안내 글은 연결망 공 바깥, 손댄 공과 같은 높이에 나온다. */
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+
+// 형 지정 색·크기 (크기는 서로 간의 비율)
+// AI교육 플랫폼은 외부 강의실로 바로 보내지 않고 소개 페이지를 먼저 보여 준다
+const SITES = [
+  { k: 'EDUCATION',          name: '키움인 교육',     desc: 'AI·SW 교육, 진로·진학 교육,<br>교육분야 공공서비스',       url: 'scherchen99-kim.github.io/kiumin-renewal', href: 'https://scherchen99-kim.github.io/kiumin-renewal/', color: '#0073BB', size: 100 },
+  { k: 'PLATFORM',           name: 'AI교육 플랫폼',   desc: '온라인에서 배우고,<br>현장에서 완성하는 AI교육',           url: 'kiumin.co.kr', href: 'platform.html', color: '#3D509C', size: 80 },
+  { k: 'EVENT',              name: '행사·전시',       desc: '교육박람회·진로박람회,<br>Edu Camp&amp;Festa 기획과 운영', url: '키움인.kr', href: 'https://www.xn--cp5b6mf1u.kr/',         color: '#00A79E', size: 60 },
+  { k: 'MEDIA',              name: 'AI 온저널',       desc: '키움인이 발행하는<br>AI 전문 인터넷 신문',               url: 'aionjournal.com', href: 'https://www.aionjournal.com/',   color: '#8458A0', size: 60 },
+  { k: 'AI·AX JOB TRAINING', name: 'AI·AX 직무교육',  desc: '기업 재직자를 위한<br>AI 활용·AX 전환 직무교육',          url: '', href: '',                  color: '#CF3F6A', size: 50 },
+];
+// 색 공 크기는 모두 같다. 대신 앞으로 나오면 커지고 뒤로 가면 작아진다(원근감).
+const BALL_R = 0.15;       // 색 공 반지름
+const DEPTH_NEAR = 1.4;    // 맨 앞에 왔을 때 배율
+const DEPTH_FAR = 0.6;     // 맨 뒤로 갔을 때 배율
+const GROW = 1.6;          // 손을 댔을 때 커지는 배율
+// 가운데와 색 공을 잇는 선 (이전: #8A90A2, 투명도 0.55 → 더 진하게)
+const SPOKE_COLOR = new THREE.Color('#4A5063');
+const SPOKE_OPACITY = 0.9;
+const SHOW_SPOKES = true;    // 가운데와 색 공을 잇는 선 보이기 (true로 바꾸면 다시 보인다)
+const NET_SCALE = 0.85 * 0.85;   // 연결망 공 전체 크기 (85%로 두 번 줄임)
+
+const host = document.querySelector('[data-net]');
+if (host) init(host);
+
+function init(host) {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const small = () => host.clientWidth < 900;
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  host.appendChild(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 50);
+  camera.position.set(0, 0, 7.2);
+
+  const world = new THREE.Group();
+  scene.add(world);
+  const R = 2.1;
+
+  /* ---------- 회색 점과 선 (변화 없음) ---------- */
+  const count = innerWidth < 700 ? 70 : 140;
+  const pts = [];
+  for (let i = 0; i < count; i++) {
+    const y = 1 - (i / (count - 1)) * 2;
+    const r = Math.sqrt(1 - y * y);
+    const th = i * Math.PI * (3 - Math.sqrt(5));
+    pts.push(new THREE.Vector3(Math.cos(th) * r * R, y * R, Math.sin(th) * r * R));
+  }
+  const dots = new THREE.InstancedMesh(new THREE.SphereGeometry(0.028, 10, 10), new THREE.MeshBasicMaterial({ color: '#ffffff' }), count);
+  // 작은 점: 앞쪽은 원래 색 그대로, 뒤로 갈수록 바탕색에 묻혀 흐려진다
+  const DOT_COLOR = new THREE.Color('#9AA1B2');
+  const BG_COLOR = new THREE.Color('#F7F5F0');
+  const DOT_BACK_FADE = 0.75;   // 맨 뒤에서 흐려지는 정도 (0 = 그대로, 1 = 완전히 사라짐)
+  const dotCol = new THREE.Color();
+  for (let i = 0; i < count; i++) dots.setColorAt(i, DOT_COLOR);
+  const m4 = new THREE.Matrix4();
+  pts.forEach((p, i) => { m4.makeTranslation(p.x, p.y, p.z); dots.setMatrixAt(i, m4); });
+  world.add(dots);
+
+  const segs = [];
+  const maxD = innerWidth < 700 ? 0.95 : 0.72;
+  for (let i = 0; i < count; i++) for (let j = i + 1; j < count; j++) {
+    if (pts[i].distanceTo(pts[j]) < maxD) segs.push(pts[i], pts[j]);
+  }
+  world.add(new THREE.LineSegments(
+    new THREE.BufferGeometry().setFromPoints(segs),
+    new THREE.LineBasicMaterial({ color: '#B8BDC9', transparent: true, opacity: 0.38 })
+  ));
+
+  /* ---------- 가운데 '키움인' (변화 없음) ---------- */
+  world.add(new THREE.Mesh(new THREE.SphereGeometry(0.16, 32, 32), new THREE.MeshBasicMaterial({ color: '#121726' })));
+
+  /* ---------- 색 공 5개 ---------- */
+  // 위·아래·좌·우·앞·뒤로 고르게 퍼진 다섯 방향 (서로 최소 80도 이상 떨어짐)
+  const balls = [[0.15, 0.95, 0.25], [-0.9, 0.2, 0.4], [0.85, -0.1, 0.5], [-0.2, -0.9, -0.4], [0.3, 0.25, -0.92]]
+    .map(v => new THREE.Vector3(...v).normalize().multiplyScalar(R))
+    .map((p, i) => {
+      const s = SITES[i];
+      const color = new THREE.Color(s.color);
+      const radius = BALL_R;
+      // 색 공은 회색 점·선에 가리지 않도록 항상 맨 위에 그린다 (투명 처리 순서에 넣어야 반투명 선보다 뒤에 그려진다)
+      const mesh = new THREE.Mesh(new THREE.SphereGeometry(radius, 40, 40), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 1, depthTest: false, depthWrite: false }));
+      mesh.renderOrder = 10;
+      mesh.position.copy(p);
+      const spokeMat = new THREE.LineBasicMaterial({ color: SPOKE_COLOR, transparent: true, opacity: SPOKE_OPACITY });
+      const spoke = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), p]), spokeMat);
+      spoke.visible = SHOW_SPOKES;
+      world.add(spoke, mesh);
+      return { pos: p, mesh, spokeMat, color, radius, scale: 1, vel: 0, depthF: 1 };
+    });
+
+  /* ---------- 부드럽게 퍼지는 그라데이션 빛 ---------- */
+  const glowTex = (() => {
+    const c = document.createElement('canvas');
+    c.width = c.height = 256;
+    const g = c.getContext('2d');
+    const grd = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+    // 공 가운데 가까이는 진하게, 바깥으로 갈수록 부드럽게 약해진다
+    grd.addColorStop(0, 'rgba(255,255,255,1)');
+    grd.addColorStop(0.2, 'rgba(255,255,255,.9)');
+    grd.addColorStop(0.4, 'rgba(255,255,255,.5)');
+    grd.addColorStop(0.65, 'rgba(255,255,255,.18)');
+    grd.addColorStop(0.85, 'rgba(255,255,255,.05)');
+    grd.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = grd;
+    g.fillRect(0, 0, 256, 256);
+    const t = new THREE.CanvasTexture(c);
+    t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  })();
+  const GLOW_PEAK = 0.85;   // 번짐 진하기 (이전 0.55)
+  const GLOW_TIME = 1.6, GLOW_START = 0.1, GLOW_SIZE = 1.3;   // 번지는 폭 (이전의 50%)
+  const glows = [];
+  function glow(b) {
+    if (reduce) return;
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: b.color, transparent: true, opacity: 0, depthWrite: false }));
+    sp.position.copy(b.pos);
+    sp.scale.setScalar(0.01);
+    world.add(sp);
+    glows.push({ sp, t: 0, b });
+  }
+
+  /* ---------- 안내 글과 선 ---------- */
+  const info = document.getElementById('info');
+  const line = document.getElementById('lead-line');
+  const elK = info.querySelector('.info-k'), elName = info.querySelector('.info-name'),
+        elDesc = info.querySelector('.info-desc'), elUrl = info.querySelector('.info-url');
+  let active = -1;      // 지금 보여 주는 공
+  let leadP = 0;        // 선이 그려진 정도 0~1
+  let side = 1;         // 글이 나오는 쪽: 1 오른쪽, -1 왼쪽
+
+  function show(i) {
+    if (i === active) return;
+    active = i;
+    info.classList.remove('is-on');
+    if (i < 0) return;
+    const s = SITES[i];
+    info.style.setProperty('--c', s.color);
+    line.style.stroke = s.color;
+    elK.textContent = s.k;
+    elName.textContent = s.name;
+    elDesc.innerHTML = s.desc;
+    elUrl.textContent = s.url;
+    // 공이 화면 가운데보다 오른쪽이면 글도 오른쪽, 아니면 왼쪽 (보이는 동안은 고정)
+    world.updateMatrixWorld();
+    side = screenOf(balls[i]).x > host.clientWidth / 2 ? 1 : -1;
+    info.classList.toggle('at-right', side > 0);
+    info.classList.toggle('at-left', side < 0);
+    leadP = 0;
+    glow(balls[i]);
+    if (small() || reduce) requestAnimationFrame(() => info.classList.add('is-on'));
+  }
+
+  /* ---------- 화면에서 가장 가까운 색 공 찾기 ---------- */
+  const v = new THREE.Vector3();
+  function screenOf(b) {
+    const rect = host.getBoundingClientRect();
+    v.copy(b.pos).applyMatrix4(world.matrixWorld);
+    const depth = camera.position.distanceTo(v);
+    v.project(camera);
+    const pxPerUnit = (rect.height / 2) / Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) / depth;
+    return { x: (v.x + 1) / 2 * rect.width, y: (1 - v.y) / 2 * rect.height, r: b.radius * b.scale * b.depthF * world.scale.x * pxPerUnit, depth };
+  }
+  // 연결망 공 전체가 화면에서 차지하는 가로 범위 (글이 공과 겹치지 않게)
+  function netEdges() {
+    const rect = host.getBoundingClientRect();
+    const tanH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    v.set(0, 0, 0).applyMatrix4(world.matrixWorld);
+    const cx = (v.clone().project(camera).x + 1) / 2 * rect.width;
+    const rr = (R + BALL_R * DEPTH_NEAR * GROW) * world.scale.x;      // 앞에 나와 커진 공까지 포함
+    const px = (rect.height / 2) / tanH / (camera.position.z - rr) * rr;
+    return { left: cx - px, right: cx + px };
+  }
+  function pick(x, y) {
+    world.updateMatrixWorld();
+    let best = -1, bestZ = Infinity;
+    balls.forEach((b, i) => {
+      const s = screenOf(b);
+      if (Math.hypot(s.x - x, s.y - y) < Math.max(s.r + 8, 16) && s.depth < bestZ) { best = i; bestZ = s.depth; }
+    });
+    return best;
+  }
+
+  // 사이트로 이동 (새 탭). 주소가 아직 없는 공은 이동하지 않는다
+  function go(i) {
+    const url = SITES[i].href;
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+
+  /* ---------- 누른 채로 끌어서 돌리기 (마우스·손가락 모두) ----------
+     물리처럼 움직인다: 끄는 방향으로 돌고, 놓으면 그 속도로 계속 돌다가 마찰로 점점 느려진다.
+     다만 완전히 멈추지 않고, 마지막에 돌던 방향으로 천천히 계속 돈다. */
+  const DRAG_SPEED = 0.006;      // 끄는 거리(px) 대비 회전(라디안)
+  const MAX_SPIN = 2.2;          // 놓았을 때 최대 회전 속도(초당 라디안) — 너무 빨리 돌지 않게
+  const IDLE_SPIN = 0.1;         // 느려진 뒤 계속 도는 속도
+  const IDLE_SPIN_FOCUS = 0.025; // 색 공에 손을 댔을 때 도는 속도
+  const FRICTION = 0.9;          // 클수록 빨리 느려진다
+  const orient = new THREE.Quaternion();                 // 공의 방향 (끌기·관성으로 바뀜)
+  const omega = new THREE.Vector3(0, IDLE_SPIN, 0);      // 회전 속도 (방향 = 회전축, 길이 = 속도)
+  const dragVel = new THREE.Vector3();
+  const tmpQ = new THREE.Quaternion(), axis = new THREE.Vector3();
+  const drag = { on: false, x: 0, y: 0, sx: 0, sy: 0, t: 0, moved: 0 };
+  function turn(ax, ay, angle) {                          // 화면 기준 축으로 돌린다
+    if (!angle) return;
+    axis.set(ax, ay, 0).normalize();
+    orient.premultiply(tmpQ.setFromAxisAngle(axis, angle));
+  }
+  host.addEventListener('pointerdown', e => {
+    drag.on = true; drag.x = drag.sx = e.clientX; drag.y = drag.sy = e.clientY; drag.t = e.timeStamp; drag.moved = 0;
+    dragVel.set(0, 0, 0);
+    host.setPointerCapture(e.pointerId);
+    host.classList.add('is-drag');
+  });
+  host.addEventListener('pointermove', e => {
+    if (!drag.on) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    const dt = Math.max((e.timeStamp - drag.t) / 1000, 0.001);
+    drag.x = e.clientX; drag.y = e.clientY; drag.t = e.timeStamp;
+    drag.moved = Math.max(drag.moved, Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy));
+    const angle = Math.hypot(dx, dy) * DRAG_SPEED;
+    turn(dy, dx, angle);                                   // 오른쪽으로 끌면 오른쪽으로, 아래로 끌면 아래로 돈다
+    dragVel.lerp(new THREE.Vector3(dy, dx, 0).multiplyScalar(DRAG_SPEED / dt), 0.35);
+  });
+  const endDrag = e => {
+    if (!drag.on) return;
+    drag.on = false; host.classList.remove('is-drag');
+    if (drag.moved < 6) return;                            // 그냥 누른 것은 회전에 영향 없음
+    const still = e && e.timeStamp - drag.t > 90;          // 멈췄다가 놓으면 힘이 거의 없다
+    const v = dragVel.clone();
+    if (still) v.setLength(Math.min(v.length(), IDLE_SPIN));
+    if (v.length() < 1e-4) return;
+    if (v.length() > MAX_SPIN) v.setLength(MAX_SPIN);
+    if (v.length() < IDLE_SPIN) v.setLength(IDLE_SPIN);   // 놓은 방향으로 최소한 천천히는 돈다
+    omega.copy(v);
+  };
+  host.addEventListener('pointercancel', () => endDrag());
+
+  // 마우스: 올리면 보이고, 떼면 잠시 뒤 사라진다 (끄는 동안은 바꾸지 않는다)
+  let leaveTimer = 0;
+  host.addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse' || drag.on) return;
+    const h = pick(e.clientX, e.clientY);
+    host.classList.toggle('is-hover', h >= 0);
+    if (h >= 0) { clearTimeout(leaveTimer); leaveTimer = 0; show(h); }
+    else if (active >= 0 && !leaveTimer) leaveTimer = setTimeout(() => { leaveTimer = 0; show(-1); }, 450);
+  });
+  host.addEventListener('pointerleave', () => { host.classList.remove('is-hover'); clearTimeout(leaveTimer); leaveTimer = setTimeout(() => show(-1), 450); });
+  // 휴대폰·태블릿: 누르면 보이고, 같은 공이나 빈 곳을 누르면 사라진다
+  host.addEventListener('pointerup', e => {
+    const wasTap = drag.moved < 6;
+    endDrag(e);
+    if (!wasTap) return;                                 // 끌어서 돌린 것은 누른 것으로 치지 않는다
+    const h = pick(e.clientX, e.clientY);
+    // 마우스: 색 공을 누르면 바로 그 사이트로 이동
+    // 휴대폰: 처음 누르면 안내 글, 같은 공을 한 번 더 누르면 이동
+    if (e.pointerType === 'mouse' || h === active) { if (h >= 0) go(h); return; }
+    show(h);
+  });
+
+  // 마우스 기울기
+  const tilt = { x: 0, y: 0, tx: 0, ty: 0 };
+  addEventListener('pointermove', e => {
+    tilt.tx = (e.clientY / innerHeight - 0.5) * 0.35;
+    tilt.ty = (e.clientX / innerWidth - 0.5) * 0.5;
+  }, { passive: true });
+
+  function resize() {
+    const w = host.clientWidth, h = host.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    // 넓은 화면: 공은 가운데, 안내 글은 양쪽 / 좁은 화면: 공은 위쪽 가운데, 글은 아래
+    const halfH = camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    const halfW = halfH * camera.aspect;
+    if (small()) { world.position.set(0, halfH * 0.22, 0); world.scale.setScalar(Math.min(0.8, halfW / 2.6) * NET_SCALE); }
+    else { world.position.set(0, 0, 0); world.scale.setScalar(Math.min(0.92, halfW * 0.46 / R) * NET_SCALE); }
+  }
+
+  /* ---------- 글 위치: 공과 같은 높이, 연결망 공 바깥으로 충분히 떨어진 옆 ---------- */
+  const GAP = 40;       // 색 공 가장자리에서 글까지 거리(px) — 공 바로 옆에 붙는다
+  function placeInfo(s) {
+    if (small()) { info.style.left = info.style.right = info.style.top = ''; return; }
+    // 글이 나타나며 움직이는 동안에도 흔들리지 않게, 움직임 전 자리(offset)로 잰다
+    let top = s.y - info.offsetHeight / 2;                          // 글 묶음 전체의 세로 가운데를 공 가운데에 맞춘다
+    top = Math.max(16, Math.min(top, innerHeight - info.offsetHeight - 16)); // 화면 밖으로 나가지 않게
+    info.style.top = top + 'px';
+    const e = { left: s.x - s.r, right: s.x + s.r };              // 손댄 색 공의 양쪽 끝
+    if (side > 0) {
+      const left = e.right + GAP;
+      info.style.left = left + 'px'; info.style.right = 'auto';
+      info.style.maxWidth = Math.max(180, innerWidth - left - 24) + 'px';
+    } else {
+      const right = innerWidth - (e.left - GAP);
+      info.style.left = 'auto'; info.style.right = right + 'px';
+      info.style.maxWidth = Math.max(180, e.left - GAP - 24) + 'px';
+    }
+  }
+
+  /* ---------- 선 그리기: 공 → (높이가 다르면 비스듬히) → 수평으로 글 앞까지 ---------- */
+  function drawLead() {
+    if (active < 0 || small()) { line.setAttribute('points', ''); return; }
+    const s = screenOf(balls[active]);
+    placeInfo(s);
+    const ir = info.getBoundingClientRect();
+    const kr = { top: ir.top + elK.offsetTop, height: elK.offsetHeight };
+    // 글 쪽으로: 오른쪽이면 글 왼쪽 끝 앞까지, 왼쪽이면 글 오른쪽 끝 앞까지
+    const endX = side > 0 ? ir.left - 20 : ir.right + 20, lineY = kr.top + kr.height / 2;
+    const dy = lineY - s.y;
+    let elbowX = s.x + side * (s.r + Math.abs(dy));
+    elbowX = side > 0 ? Math.min(elbowX, endX - 10) : Math.max(elbowX, endX + 10);
+    let ex = elbowX - s.x, ey = dy;
+    if (Math.abs(ey) < 1) { ex = side; ey = 0; }                   // 같은 높이면 바로 옆으로
+    const el = Math.hypot(ex, ey) || 1;
+    const sx = s.x + ex / el * (s.r + 4), sy = s.y + ey / el * (s.r + 4);     // 공 가장자리에서 시작
+    const a = Math.hypot(elbowX - sx, lineY - sy), bLen = Math.max((endX - elbowX) * side, 0);
+    const d = leadP * (a + bLen);
+    let p = `${sx},${sy} `;
+    if (d <= a) { const t = d / (a || 1); p += `${sx + (elbowX - sx) * t},${sy + (lineY - sy) * t}`; }
+    else p += `${elbowX},${lineY} ${elbowX + side * (d - a)},${lineY}`;
+    line.setAttribute('points', p);
+  }
+
+  /* ---------- 움직임 ---------- */
+  const tiltQ = new THREE.Quaternion(), tiltE = new THREE.Euler();
+  function update(dt) {
+    // 관성 회전: 마찰로 점점 느려지되 멈추지 않고 천천히 계속 돈다
+    if (!drag.on && !reduce) {
+      const goal = active >= 0 ? IDLE_SPIN_FOCUS : IDLE_SPIN;
+      const sp = omega.length();
+      omega.setLength(goal + (sp - goal) * Math.exp(-dt * FRICTION));
+      const now = omega.length();
+      axis.copy(omega).normalize();
+      orient.premultiply(tmpQ.setFromAxisAngle(axis, now * dt));
+    }
+    tilt.x += (tilt.tx - tilt.x) * 0.04;
+    tilt.y += (tilt.ty - tilt.y) * 0.04;
+    // 마우스 위치에 따른 살짝 기울기 + 공의 방향
+    world.quaternion.setFromEuler(tiltE.set(tilt.x, 0, tilt.y * 0.2)).multiply(orient);
+
+    world.updateMatrixWorld();
+    // 작은 점 앞뒤 흐림
+    const span = R * world.scale.x;
+    for (let i = 0; i < count; i++) {
+      v.copy(pts[i]).applyMatrix4(world.matrixWorld);
+      const zn = THREE.MathUtils.clamp((v.z - world.position.z) / span, -1, 1);   // -1 맨 뒤 ~ 1 맨 앞
+      const fade = zn >= 0 ? 0 : -zn * DOT_BACK_FADE;                             // 가운데보다 앞이면 그대로
+      dots.setColorAt(i, dotCol.copy(DOT_COLOR).lerp(BG_COLOR, fade));
+    }
+    dots.instanceColor.needsUpdate = true;
+
+    balls.forEach((b, i) => {
+      // 원근감: 앞(카메라 쪽)으로 나올수록 크게, 뒤로 갈수록 작게
+      v.copy(b.pos).applyMatrix4(world.matrixWorld);
+      const zn = THREE.MathUtils.clamp((v.z - world.position.z) / (R * world.scale.x), -1, 1);   // -1 맨 뒤 ~ 1 맨 앞
+      b.depthF = DEPTH_FAR + (DEPTH_NEAR - DEPTH_FAR) * (zn + 1) / 2;
+      b.mesh.renderOrder = 10 + Math.round((zn + 1) * 50);   // 색 공끼리는 앞에 있는 공이 위에
+      const goal = i === active ? GROW : 1;
+      b.vel = b.vel * 0.78 + (goal - b.scale) * (reduce ? 1 : 0.16);    // 살짝 튀었다가 자리 잡는다
+      b.scale = reduce ? goal : b.scale + b.vel;
+      b.mesh.scale.setScalar(Math.max(b.scale, 0.2) * b.depthF);
+      const on = i === active;
+      b.spokeMat.color.lerp(on ? b.color : SPOKE_COLOR, 0.15);
+      b.spokeMat.opacity += ((on ? 1 : SPOKE_OPACITY) - b.spokeMat.opacity) * 0.15;
+    });
+
+    for (let k = glows.length - 1; k >= 0; k--) {
+      const g = glows[k];
+      g.t += dt;
+      const a = Math.min(g.t / GLOW_TIME, 1);
+      // 번짐 크기도 공의 원근 크기를 따라간다 (앞의 큰 공은 넓게, 뒤의 작은 공은 좁게 → 어느 공이든 같은 세기로 보인다)
+      g.sp.scale.setScalar((GLOW_START + (1 - Math.pow(1 - a, 3)) * GLOW_SIZE) * g.b.depthF);
+      g.sp.material.opacity = a < 0.15 ? (a / 0.15) * GLOW_PEAK : GLOW_PEAK * Math.pow(1 - (a - 0.15) / 0.85, 1.6);
+      if (a >= 1) { world.remove(g.sp); g.sp.material.dispose(); glows.splice(k, 1); }
+    }
+
+    // 선이 먼저 그려지고, 거의 다 그려지면 글이 나타난다
+    leadP = active >= 0 ? (reduce ? 1 : Math.min(1, leadP + dt * 1.8)) : 0;
+    if (active >= 0 && leadP > 0.6) info.classList.add('is-on');
+    world.updateMatrixWorld();
+    drawLead();
+  }
+
+  let last = performance.now();
+  function loop(t) {
+    const dt = Math.min((t - last) / 1000, 0.05); last = t;
+    if (!document.hidden) { update(dt); renderer.render(scene, camera); }
+    requestAnimationFrame(loop);
+  }
+
+  resize();
+  addEventListener('resize', resize);
+  host.classList.add('is-ready');
+  requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>
