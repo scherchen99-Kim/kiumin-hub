@@ -318,6 +318,15 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
 /* 지사 칸: 점은 글자 왼쪽 바깥으로 빼서, 지사 이름과 주소 글자의 시작선을 맞춤 */
 .loc{padding:18px 22px 18px 38px}
 .loc b{margin-left:-16px}
+
+/* 인사말: 중간 제목 굵게, 위아래 여백 줄임, 오른쪽 글을 왼쪽으로 당기고 가운데 연한 하늘색 세로선으로 나눔 */
+.greet{grid-template-columns:.55fr 1.45fr;gap:0;padding:30px 40px}
+.greet h2{font-size:clamp(22px,2.4vw,30px);font-weight:800;line-height:1.35;letter-spacing:-.02em;margin-top:6px}
+.greet .body{border-left:1px solid #BFD6F2;padding-left:40px}
+#greeting{padding:36px 0}   /* 인사말 칸 위아래 간격 좁힘 */
+.greet .body p{margin-bottom:10px}
+.greet .sign{margin-top:16px}
+@media (max-width:1024px){.greet{grid-template-columns:1fr;gap:16px}.greet .body{border-left:0;padding-left:0;border-top:1px solid #CFE0F5;padding-top:16px}}
 </style>
 </head>
 <body>
