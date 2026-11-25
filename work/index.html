@@ -298,6 +298,21 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
    /* 카드 아래 버튼은 '나에게 맞는 곳 찾기' 하나, 가운데에 */
 .hub-right .pill b{background:none;padding:0;border-radius:0;color:var(--ink);font-size:13px;font-weight:800;letter-spacing:.08em;display:inline-flex;align-items:center}
 .hub-right .pill b::after{content:"";width:1px;height:12px;background:rgba(255,255,255,.45);margin:0 12px}
+/* ===== 카드 유리 질감 (Liquid Glass 느낌) — 색은 지금 남색 그대로, 효과만 더함 =====
+   뒤를 흐리고 채도를 살짝 올림 + 위·왼쪽 테두리에 빛이 맺힘 + 대각선으로 비치는 반사광 */
+.site{
+  background:linear-gradient(160deg,rgba(255,255,255,.13),rgba(255,255,255,.04) 45%,rgba(255,255,255,.08));
+  -webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);
+  box-shadow:inset 1px 1px 0 rgba(255,255,255,.30),inset -1px -1px 0 rgba(255,255,255,.07),
+             inset 0 0 28px rgba(255,255,255,.05),0 18px 40px rgba(0,0,0,.28);
+}
+.site:hover,.site.is-active{box-shadow:inset 1px 1px 0 rgba(255,255,255,.38),inset -1px -1px 0 rgba(255,255,255,.1),
+             inset 0 0 28px rgba(255,255,255,.07),0 26px 50px rgba(0,0,0,.36)}
+.site,.site:hover,.site.is-active,.site-wide{border-color:rgba(255,255,255,.2)}
+.site-wide{background:linear-gradient(160deg,rgba(7,26,82,.78),rgba(7,26,82,.92) 55%,rgba(7,26,82,.82))}   /* AX 칸: 진한 남색 유지 */
+.site::after{display:block;content:"";position:absolute;inset:0;width:auto;height:auto;transform:none;border-radius:inherit;pointer-events:none;z-index:0;
+  background:linear-gradient(115deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,0) 30%,rgba(255,255,255,0) 62%,rgba(255,255,255,.07) 76%,rgba(255,255,255,0) 90%)}
+.site > *{z-index:1}
 /* ===== 밤하늘 (My Classical Atlas 밤 화면 방식) — 위는 검정에 가깝게, 아래로 남색 그라데이션 + 반짝이는 별 ===== */
 html{background:#010828}
 body{background:transparent}
