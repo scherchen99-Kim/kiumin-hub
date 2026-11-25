@@ -2,9 +2,15 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[작업방] 시안 D · 허브 — (주)키움인</title>
+<meta name="robots" content="noindex">
+<title>(주)키움인 | 교육부터 AI 전환까지, 키움인 패밀리 사이트</title>
+<meta name="description" content="키움인 교육, AI 교육 플랫폼, 행사·전시, AI 온저널, AI·AX 직무교육까지. (주)키움인의 모든 서비스를 한 곳에서 찾아보세요.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="(주)키움인">
+<meta property="og:title" content="(주)키움인 | 교육부터 AI 전환까지, 키움인 패밀리 사이트">
+<meta property="og:description" content="키움인 교육, AI 교육 플랫폼, 행사·전시, AI 온저널, AI·AX 직무교육까지. (주)키움인의 모든 서비스를 한 곳에서 찾아보세요.">
+<meta name="theme-color" content="#001d5b">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
 <style>
 :root{
@@ -300,7 +306,7 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 .hub-right .pill b::after{content:"";width:1px;height:14px;background:rgba(255,255,255,.5);margin:0 14px}   /* 영문·세로줄: 흰색 50% */
 /* ===== 첫 화면 아래: 어두운 밤하늘 → 선명한 파랑 → 흰색으로 바뀌는 띠, 그 아래(맞춤 안내·회사 소개·문의·바닥글)는 흰 바탕 ===== */
 .to-white{height:40vh;background:linear-gradient(180deg,rgba(0,29,91,0) 0%,#0a2a7a 22%,#1656c9 50%,#a3c9f1 80%,#fff 100%)}   /* 간격을 줄이고, 남색·키움인 파랑과 같은 계열로: 남색 → 밝은 파랑 → 연한 하늘 → 흰색 */
-.on-white{background:#fff;box-shadow:0 1px 0 #fff,0 -1px 0 #fff;--blue:#1656c9;--ink:#0f1b3d;--ink-2:#2B3245;--sub:#5A6174;--line:#DCE8F7;color:var(--ink)}
+.on-white{background:#fff;box-shadow:0 1px 0 #fff,0 -1px 0 #fff;--blue:#1656c9;--ink:#0f1b3d;--ink-2:#2B3245;--sub:rgba(0,0,0,.8);--line:#DCE8F7;color:var(--ink)}   /* 설명 글: 검정 80% */
 .on-white .kicker{color:var(--blue)}
 .on-white .finder{background:#F3F7FD;border-color:#E1E9F6;box-shadow:none}
 .on-white .tabs{background:rgba(18,23,38,.05)}
@@ -380,7 +386,7 @@ footer.rf{margin-top:0;border-top:0;background:#00143f;color:#c9ccd1;padding:40p
 .rf .f-fam-t{font-size:11px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.5);margin-right:6px}
 .rf .f-fam a{display:inline-flex;align-items:center;min-height:32px;color:#fff;font-weight:600;transition:color .2s}
 .rf .f-fam a:hover{color:#7CC4F2}
-.rf .f-soon{display:inline-flex;align-items:center;min-height:32px;color:rgba(255,255,255,.45);font-weight:600}
+.rf .f-soon{display:inline-flex;align-items:center;min-height:32px;color:#fff;font-weight:600;cursor:default}   /* AI·AX 직무교육: 다른 링크와 같은 흰색, 누르는 기능만 없음 */
 .rf .f-links{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:20px;font-size:14px;color:#fff}
 .rf .f-links a:hover{text-decoration:underline;text-underline-offset:4px}
 .rf .f-bottom{margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15)}
@@ -414,6 +420,34 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
 .to-top svg{width:18px;height:18px;display:block}
 .to-top span{font-size:9px;font-weight:700;letter-spacing:.12em;line-height:1;margin-top:-6px}
 @media (max-width:560px){.to-top{right:16px;bottom:16px;width:46px;height:46px}}
+
+/* 회사 소개 한 줄: 글은 한 줄로, 글과 인증 표시 모두 가운데 정렬 */
+.about{flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:18px}
+.about p{max-width:none}
+.about .more{min-height:0;margin-left:6px}
+.trust{justify-content:center}
+@media (min-width:1025px){.about p{white-space:nowrap}}
+
+/* 맞춤 안내 탭: 글자 크게·굵게, 모두 남색 */
+.on-white .tab{font-size:18px;font-weight:800;color:#001d5b}
+.on-white .tab:hover,.on-white .tab[aria-selected="true"]{color:#001d5b}
+@media (max-width:560px){.on-white .tab{font-size:16px}}
+
+/* 맞춤 안내: 탭마다 내용에 맞는 가는 선 아이콘 (기업=가방·성장, 학교=학사모, 공공기관=관공서, 행사·미디어=마이크) */
+.panel-ic{display:block;width:46px;height:46px;margin-bottom:16px;fill:none;stroke:#001d5b;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+
+/* 맞춤 안내 화살표: 남색 */
+.on-white .rec .arrow{color:#001d5b}
+.on-white .rec:hover .arrow{color:#fff}
+
+/* TOP 버튼: 리뉴얼 시안과 같은 모양으로 교체 (남색 원, 화살표 + TOP, 옅은 흰 테두리, 마우스를 올리면 하늘색) */
+.to-top{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;right:24px;bottom:24px;
+  background:#001d5b;color:#fff;border:1px solid rgba(255,255,255,.28);box-shadow:0 8px 20px rgba(0,29,91,.25)}
+.to-top:hover{background:#00b4ed;color:#fff;box-shadow:0 8px 20px rgba(0,29,91,.25)}
+.to-top svg{width:18px;height:18px;margin-bottom:-2px}
+.to-top svg path{stroke-width:2.2}
+.to-top span{font-size:10px;font-weight:700;letter-spacing:.08em;line-height:1.2;margin-top:0}
+@media (max-width:680px){.to-top{right:16px;bottom:16px;width:44px;height:44px}.to-top svg{width:15px;height:15px}.to-top span{font-size:9px}}
 </style>
 </head>
 <body>
@@ -450,7 +484,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
           <div class="net-ball" aria-hidden="true"></div>
         </div>
         <h1 id="hub-h" data-reveal style="--d:.08s">키움인의 모든 서비스,<br><span class="grad-text">한 곳에서</span> 연결합니다</h1>
-        <p class="hub-desc" data-reveal style="--d:.16s">교육 서비스부터 기업의 AI 전환, AI 교육 플랫폼, 행사·전시,<br>AI 미디어까지. 필요한 곳으로 바로 이동하세요.</p>
+        <p class="hub-desc" data-reveal style="--d:.16s">교육 서비스부터 기업의 AI 전환, AI 교육 플랫폼, 행사·전시,<br> AI 미디어까지. 필요한 곳으로 바로 이동하세요.</p>
       </div>
       <div class="hub-right">
         <span class="pill" data-reveal><b>KIUMIN FAMILY</b> (주)키움인 패밀리 사이트</span>
@@ -524,7 +558,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
         </div>
 
         <div class="panel" role="tabpanel" id="p-biz" aria-labelledby="t-biz">
-          <div><h3>직원들의 AI 활용 역량을<br>키우고 싶다면</h3><p class="who">중소기업 대표·인사·교육 담당자</p></div>
+          <div><svg class="panel-ic" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="15" width="36" height="25" rx="3"/><path d="M17 15v-4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4M6 25h36M21 25v3h6v-3"/><path d="M33 5l4-1 1 4M37 4l-6 6"/></svg><h3>직원들의 AI 활용 역량을<br>키우고 싶다면</h3><p class="who">중소기업 대표·인사·교육 담당자</p></div>
           <ul class="recs">
             <li><a class="rec s-ax" href="#contact"><span class="mark" aria-hidden="true">AX</span><span class="rec-txt"><strong>AI·AX 직무교육 상담</strong><span>재직자 대상 AI 업무 활용·AX 전환 교육</span></span><span class="arrow" aria-hidden="true">→</span></a></li>
             <li><a class="rec s-plat" href="http://kiumin.co.kr/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">P</span><span class="rec-txt"><strong>AI 교육 플랫폼</strong><span>시간과 장소에 구애받지 않는 온라인 AI 강의</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
@@ -533,7 +567,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
         </div>
 
         <div class="panel" role="tabpanel" id="p-school" aria-labelledby="t-school">
-          <div><h3>학생과 교사를 위한<br>교육 프로그램을 찾는다면</h3><p class="who">초·중·고 교사, 교육청·교육지원청 담당자</p></div>
+          <div><svg class="panel-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 17l20-9 20 9-20 9z"/><path d="M12 21v9c0 3 5.4 6 12 6s12-3 12-6v-9M40 19v12"/><circle cx="40" cy="33" r="1.6"/></svg><h3>학생과 교사를 위한<br>교육 프로그램을 찾는다면</h3><p class="who">초·중·고 교사, 교육청·교육지원청 담당자</p></div>
           <ul class="recs">
             <li><a class="rec s-edu" href="https://www.xn--cp5b6mf1u.com/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">E</span><span class="rec-txt"><strong>키움인 교육</strong><span>AI·SW 교육, 진로·진학 교육, 교원 연수</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
             <li><a class="rec s-event" href="https://www.xn--cp5b6mf1u.kr/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">EX</span><span class="rec-txt"><strong>행사·전시</strong><span>진로박람회, Edu Camp&amp;Festa</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
@@ -542,7 +576,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
         </div>
 
         <div class="panel" role="tabpanel" id="p-public" aria-labelledby="t-public">
-          <div><h3>지역과 기관에 필요한<br>사업을 함께할 곳을 찾는다면</h3><p class="who">공공기관·지자체 사업 담당자</p></div>
+          <div><svg class="panel-ic" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 18L24 7l18 11zM8 18h32M6 41h36M8 37h32"/><path d="M12 22v15M20 22v15M28 22v15M36 22v15"/></svg><h3>지역과 기관에 필요한<br>사업을 함께할 곳을 찾는다면</h3><p class="who">공공기관·지자체 사업 담당자</p></div>
           <ul class="recs">
             <li><a class="rec s-edu" href="https://www.xn--cp5b6mf1u.com/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">E</span><span class="rec-txt"><strong>키움인 교육</strong><span>교육분야 공공서비스 기획·운영</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
             <li><a class="rec s-plat" href="http://kiumin.co.kr/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">P</span><span class="rec-txt"><strong>AI 교육 플랫폼</strong><span>기관 구성원을 위한 AI 교육</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
@@ -551,7 +585,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
         </div>
 
         <div class="panel" role="tabpanel" id="p-event" aria-labelledby="t-event">
-          <div><h3>행사 소식이나<br>AI 뉴스가 궁금하다면</h3><p class="who">행사 참가자, 언론·협력사, AI에 관심 있는 누구나</p></div>
+          <div><svg class="panel-ic" viewBox="0 0 48 48" aria-hidden="true"><rect x="18" y="5" width="12" height="22" rx="6"/><path d="M11 22a13 13 0 0 0 26 0M24 35v7M17 42h14M6 16c-2 3-2 9 0 12M42 16c2 3 2 9 0 12"/></svg><h3>행사 소식이나<br>AI 뉴스가 궁금하다면</h3><p class="who">행사 참가자, 언론·협력사, AI에 관심 있는 누구나</p></div>
           <ul class="recs">
             <li><a class="rec s-event" href="https://www.xn--cp5b6mf1u.kr/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">EX</span><span class="rec-txt"><strong>행사·전시</strong><span>진행 중인 행사와 지난 행사 기록</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
             <li><a class="rec s-journal" href="https://www.aionjournal.com/" target="_blank" rel="noopener"><span class="mark" aria-hidden="true">J</span><span class="rec-txt"><strong>AI 온저널</strong><span>AI 기술·산업·경제 기사와 주간 브리핑</span></span><span class="arrow" aria-hidden="true">→</span><span class="sr-only">(새 창)</span></a></li>
@@ -611,8 +645,8 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
       <span class="f-soon">AI·AX 직무교육</span>
     </nav>
     <nav class="f-links" aria-label="정책 링크">
-      <a href="https://kiumin.cafe24.com/default/policy/policy01.php?sub=01" target="_blank" rel="noopener">개인정보취급방침</a>
-      <a href="https://kiumin.cafe24.com/default/policy/policy02.php?sub=02" target="_blank" rel="noopener">이메일무단수집거부</a>
+      <a class="f-privacy" href="policy.html#privacy">개인정보처리방침</a>
+      <a href="policy.html#email">이메일무단수집거부</a>
       <a href="#contact">1:1문의</a>
     </nav>
     </div>
@@ -837,7 +871,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
   function size() {
     var oldW = W; W = innerWidth; H = innerHeight; cv.width = W; cv.height = H;
     if (oldW === W && stars.length) return;
-    var n = Math.round(Math.min(220, Math.max(80, W * H / 9000))); stars = [];   // 어두운 쪽에만 뿌리므로 수를 줄여 밀도는 그대로
+    var n = Math.round(Math.min(110, Math.max(40, W * H / 18000))); stars = [];   // 별 수 절반 (회사 소개와 같게)
     for (var i = 0; i < n; i++) {
       var big = Math.random() < .1;
       var sx, sy, k = 0;
@@ -889,7 +923,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
       var a = Math.max(0, s.a * fadeLow * nearText(s.x, s.y) * (.55 + .45 * Math.sin(t * s.tw + s.ph)));
       if (a < .01) continue;
       g.fillStyle = 'rgba(' + s.c + ',' + a.toFixed(3) + ')'; g.beginPath(); g.arc(s.x, s.y, s.r, 0, 6.2832); g.fill();
-      if (s.r > 1.2) glow(s.x, s.y, s.r * 5, s.c, (a * .22).toFixed(3));
+      s.cur = a;   // 빛 번짐 없이 점으로만 (회사 소개와 같게)
     }
     if (met) {
       var q = (t - met.t0) / met.dur;
@@ -1195,6 +1229,32 @@ function init(host) {
     scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
     var first = document.querySelector('.logo'); if (first) first.focus({ preventScroll: true });
   });
+})();
+</script>
+<style id="mobile-text">
+@media (max-width:680px){p br{display:none}}
+.rf .f-links a.f-privacy{font-weight:800;color:#7CC4F2}   /* 개인정보처리방침은 눈에 띄게 (보호위원회 권고) */
+</style>
+<script id="mobile-shrink">
+(function(){
+  /* 휴대폰(680px 이하)에서 글자 크기를 1~2px 줄임 */
+  function shrink(){
+    if(innerWidth>680||document.body.dataset.shrunk)return;
+    document.body.dataset.shrunk='1';
+    var els=document.querySelectorAll('body *:not(script):not(style):not(svg):not(svg *):not(canvas)');
+    var list=[];
+    els.forEach(function(el){
+      var has=false;
+      for(var n=el.firstChild;n;n=n.nextSibling){if(n.nodeType===3&&n.textContent.trim()){has=true;break;}}
+      if(!has)return;
+      var fs=parseFloat(getComputedStyle(el).fontSize);
+      var d=fs>=24?2:fs>=14?1.5:fs>=11?1:0;
+      if(d)list.push([el,fs-d]);
+    });
+    list.forEach(function(p){p[0].style.fontSize=p[1]+'px';});
+    dispatchEvent(new Event('resize'));
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',shrink);else shrink();
 })();
 </script>
 </body>

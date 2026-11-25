@@ -2,9 +2,15 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[작업방] 회사 소개 — (주)키움인</title>
+<meta name="robots" content="noindex">
+<title>회사 소개 | (주)키움인</title>
+<meta name="description" content="(주)키움인은 2018년 광주에서 시작한 교육·AI 전문기업입니다. 어린이부터 시니어까지 전 세대 교육과 기업 AI 전환, 교육 플랫폼, 행사·전시, AI 미디어 사업을 합니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="(주)키움인">
+<meta property="og:title" content="회사 소개 | (주)키움인">
+<meta property="og:description" content="(주)키움인은 2018년 광주에서 시작한 교육·AI 전문기업입니다. 어린이부터 시니어까지 전 세대 교육과 기업 AI 전환, 교육 플랫폼, 행사·전시, AI 미디어 사업을 합니다.">
+<meta name="theme-color" content="#001d5b">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
 <style>
 :root{
@@ -293,7 +299,7 @@ footer.rf{margin-top:0;border-top:0;background:#00143f;color:#c9ccd1;padding:40p
 .rf .f-fam-t{font-size:11px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.5);margin-right:6px}
 .rf .f-fam a{display:inline-flex;align-items:center;min-height:32px;color:#fff;font-weight:600;transition:color .2s}
 .rf .f-fam a:hover{color:#7CC4F2}
-.rf .f-soon{display:inline-flex;align-items:center;min-height:32px;color:rgba(255,255,255,.45);font-weight:600}
+.rf .f-soon{display:inline-flex;align-items:center;min-height:32px;color:#fff;font-weight:600;cursor:default}   /* AI·AX 직무교육: 다른 링크와 같은 흰색, 누르는 기능만 없음 */
 .rf .f-links{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:20px;font-size:14px;color:#fff}
 .rf .f-links a:hover{text-decoration:underline;text-underline-offset:4px}
 .rf .f-bottom{margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15)}
@@ -362,6 +368,28 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
 
 /* 숫자 칸: 리뉴얼 시안처럼 숫자 위에 선 아이콘, 숫자와 같은 파랑 그라데이션 */
 .stat-ic{display:block;width:40px;height:40px;margin-bottom:14px;fill:none;stroke:url(#statGrad);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* 비전 칸: 둘레의 그라데이션 테두리선 없앰 (다른 칸과 같은 모양) */
+.vision::before{display:none}
+
+/* 흰 바탕 영역의 설명 글: 검정 80% (허브와 같게) */
+.on-white{--sub:rgba(0,0,0,.8)}
+
+/* 하는 일: 사업 이름을 더 크게, 각 사업 색으로 */
+.work h3{font-size:22px;font-weight:800;color:var(--c)}
+@media (max-width:560px){.work h3{font-size:19px}}
+
+/* 일하는 방식 번호(01·02·03): 3배 크게(13→39px), 가는 글씨 */
+.way .no{display:block;font-size:39px;font-weight:200;line-height:1;letter-spacing:-.01em}
+
+/* TOP 버튼: 리뉴얼 시안과 같은 모양으로 교체 (남색 원, 화살표 + TOP, 옅은 흰 테두리, 마우스를 올리면 하늘색) */
+.to-top{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;right:24px;bottom:24px;
+  background:#001d5b;color:#fff;border:1px solid rgba(255,255,255,.28);box-shadow:0 8px 20px rgba(0,29,91,.25)}
+.to-top:hover{background:#00b4ed;color:#fff;box-shadow:0 8px 20px rgba(0,29,91,.25)}
+.to-top svg{width:18px;height:18px;margin-bottom:-2px}
+.to-top svg path{stroke-width:2.2}
+.to-top span{font-size:10px;font-weight:700;letter-spacing:.08em;line-height:1.2;margin-top:0}
+@media (max-width:680px){.to-top{right:16px;bottom:16px;width:44px;height:44px}.to-top svg{width:15px;height:15px}.to-top span{font-size:9px}}
 </style>
 </head>
 <body>
@@ -395,7 +423,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
     <div class="wrap">
       <p class="crumb" data-reveal><a href="./">홈</a> · 회사 소개</p>
       <h1 data-reveal style="--d:.06s">사람과 기관, 기업의<br><span class="grad-text">내일을 키웁니다</span></h1>
-      <p class="lead" data-reveal style="--d:.12s">(주)키움인은 2018년 광주에서 시작한 교육·AI 전문기업입니다.<br>어린이부터 시니어까지 전 세대를 위한 교육을 설계하고,<br>기업의 AI 전환과 교육 플랫폼, 행사·전시, AI 미디어까지 사업을 넓혀 왔습니다.</p>
+      <p class="lead" data-reveal style="--d:.12s">(주)키움인은 2018년 광주에서 시작한 교육·AI 전문기업입니다.<br> 어린이부터 시니어까지 전 세대를 위한 교육을 설계하고,<br> 기업의 AI 전환과 교육 플랫폼, 행사·전시, AI 미디어까지 사업을 넓혀 왔습니다.</p>
       <ul class="toc" aria-label="이 페이지의 내용" data-reveal style="--d:.18s">
         <li><a href="#works">하는 일</a></li>
         <li><a href="#vision">비전</a></li>
@@ -416,7 +444,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
         <article class="work s-edu" data-reveal>
           <span class="mark" aria-hidden="true">E</span>
           <h3>교육 서비스</h3>
-          <p>학교·교육청·공공기관과 함께 AI·SW 교육, 창의융합 진로·진학 교육, 교육분야 공공서비스를 기획하고 현장에서 운영합니다.</p>
+          <p>학교·교육청·공공기관과 함께 AI·SW 교육, 창의융합 진로·진학 교육, 교육분야 공공서비스를 기획하고<br> 현장에서 운영합니다.</p>
           <a class="go" href="https://www.xn--cp5b6mf1u.com/" target="_blank" rel="noopener">키움인 교육 ↗<span class="sr-only">(새 창)</span></a>
         </article>
         <article class="work s-ax" data-reveal style="--d:.05s">
@@ -434,7 +462,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
         <article class="work s-event" data-reveal style="--d:.15s">
           <span class="mark" aria-hidden="true">EX</span>
           <h3>행사·전시</h3>
-          <p>KIUMEX는 키움인의 행사·전시 전문사업 부문입니다. 교육박람회, 진로박람회, Edu Camp&amp;Festa 같은 행사의 기획과 현장 운영을 맡습니다.</p>
+          <p>KIUMEX는 키움인의 행사·전시 전문사업 부문입니다. 교육박람회, 진로박람회, Edu Camp&amp;Festa 같은<br> 행사의 기획과 현장 운영을 맡습니다.</p>
           <a class="go" href="https://www.xn--cp5b6mf1u.kr/" target="_blank" rel="noopener">행사·전시 ↗<span class="sr-only">(새 창)</span></a>
         </article>
         <article class="work s-journal" data-reveal style="--d:.2s">
@@ -502,8 +530,8 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
           <h2 id="greet-h">실제로 쓰이는 교육,<br>믿고 함께할 수 있는 파트너</h2>
         </div>
         <div class="body">
-          <p>키움인은 교육 현장의 목소리를 듣고, 실제로 쓰이는 교육을 만들기 위해 2018년 출발했습니다.<br>청소년 진로·체험 교육에서 시작해, 지금은 학교와 공공기관, 기업, 지역 주민을 위한 교육으로 대상을 넓혔고,<br>교육 플랫폼과 행사·전시, AI 미디어로 일의 범위도 넓혀 왔습니다.</p>
-          <p>AI 기술은 빠르게 변하지만, 그 기술을 이해하고 삶과 일에 활용하는 것은 결국 사람의 몫이라고 생각합니다.<br>키움인은 기획부터 현장 운영과 결과 관리까지 각 단계를 책임 있게 수행하겠습니다.</p>
+          <p>키움인은 교육 현장의 목소리를 듣고, 실제로 쓰이는 교육을 만들기 위해 2018년 출발했습니다.<br> 청소년 진로·체험 교육에서 시작해, 지금은 학교와 공공기관, 기업, 지역 주민을 위한 교육으로 대상을 넓혔고,<br> 교육 플랫폼과 행사·전시, AI 미디어로 일의 범위도 넓혀 왔습니다.</p>
+          <p>AI 기술은 빠르게 변하지만, 그 기술을 이해하고 삶과 일에 활용하는 것은 결국 사람의 몫이라고 생각합니다.<br> 키움인은 기획부터 현장 운영과 결과 관리까지 각 단계를 책임 있게 수행하겠습니다.</p>
           <p>앞으로도 학교와 기관, 기업과 지역사회가 믿고 함께할 수 있는 파트너가 되겠습니다.</p>
           <p class="sign"><small>(주)키움인 대표이사</small>박시은</p>
         </div>
@@ -572,8 +600,8 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
       <span class="f-soon">AI·AX 직무교육</span>
     </nav>
     <nav class="f-links" aria-label="정책 링크">
-      <a href="https://kiumin.cafe24.com/default/policy/policy01.php?sub=01" target="_blank" rel="noopener">개인정보취급방침</a>
-      <a href="https://kiumin.cafe24.com/default/policy/policy02.php?sub=02" target="_blank" rel="noopener">이메일무단수집거부</a>
+      <a class="f-privacy" href="policy.html#privacy">개인정보처리방침</a>
+      <a href="policy.html#email">이메일무단수집거부</a>
       <a href="#contact">1:1문의</a>
     </nav>
     </div>
@@ -602,7 +630,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
   function size() {
     var oldW = W; W = innerWidth; H = innerHeight; cv.width = W; cv.height = H;
     if (oldW === W && stars.length) return;
-    var n = Math.round(Math.min(110, Math.max(40, W * H / 18000)));   // 별 수 절반으로 stars = [];   // 어두운 쪽에만 뿌리므로 수를 줄여 밀도는 그대로
+    var n = Math.round(Math.min(110, Math.max(40, W * H / 18000))); stars = [];   // 별 수 절반
     for (var i = 0; i < n; i++) {
       var big = Math.random() < .1;
       var sx, sy, k = 0;
@@ -935,6 +963,32 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
     scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
     var first = document.querySelector('.logo'); if (first) first.focus({ preventScroll: true });
   });
+})();
+</script>
+<style id="mobile-text">
+@media (max-width:680px){p br{display:none}}
+.rf .f-links a.f-privacy{font-weight:800;color:#7CC4F2}   /* 개인정보처리방침은 눈에 띄게 (보호위원회 권고) */
+</style>
+<script id="mobile-shrink">
+(function(){
+  /* 휴대폰(680px 이하)에서 글자 크기를 1~2px 줄임 */
+  function shrink(){
+    if(innerWidth>680||document.body.dataset.shrunk)return;
+    document.body.dataset.shrunk='1';
+    var els=document.querySelectorAll('body *:not(script):not(style):not(svg):not(svg *):not(canvas)');
+    var list=[];
+    els.forEach(function(el){
+      var has=false;
+      for(var n=el.firstChild;n;n=n.nextSibling){if(n.nodeType===3&&n.textContent.trim()){has=true;break;}}
+      if(!has)return;
+      var fs=parseFloat(getComputedStyle(el).fontSize);
+      var d=fs>=24?2:fs>=14?1.5:fs>=11?1:0;
+      if(d)list.push([el,fs-d]);
+    });
+    list.forEach(function(p){p[0].style.fontSize=p[1]+'px';});
+    dispatchEvent(new Event('resize'));
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',shrink);else shrink();
 })();
 </script>
 </body>
