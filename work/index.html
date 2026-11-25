@@ -673,7 +673,8 @@ body{background:transparent}
     for (var i = 0; i < n; i++) {
       var big = Math.random() < .1;
       var sx, sy, k = 0;
-      do { sx = rnd(0, W); sy = rnd(0, H * .7); k++; } while (k < 20 && (along(sx, sy) > NAVY_AT * .95 || Math.random() < along(sx, sy) * 1.2));
+      // 세로: 화면 위쪽 절반 안에 뿌리고 위로 갈수록 촘촘하게 / 가로: 왼쪽이 조금 더 많고 오른쪽에도 조금
+      do { sx = rnd(0, W); sy = Math.pow(Math.random(), 1.2) * H * .52; k++; } while (k < 20 && Math.random() < (sx / W) * .55);
       stars.push({ x: sx, y: sy,                                                      // 별은 어두운 왼쪽 위에 많고, 남색 쪽엔 없다
         r: big ? rnd(1.2, 2) : rnd(.5, 1.2), a: big ? rnd(.75, 1) : rnd(.35, .8),
         tw: rnd(.8, 2.6), ph: rnd(0, 6.28),                                           // 반짝이는 빠르기·시작점은 별마다 다르게
@@ -686,7 +687,8 @@ body{background:transparent}
     var bg = g.createLinearGradient(0, 0, W, H); bg.addColorStop(0, TOP); bg.addColorStop(NAVY_AT / 2, MID); bg.addColorStop(NAVY_AT, BOT); bg.addColorStop(1, BOT);
     g.fillStyle = bg; g.fillRect(0, 0, W, H);
     for (var i = 0; i < stars.length; i++) {
-      var s = stars[i], fadeLow = 1 - Math.max(0, (along(s.x, s.y) - NAVY_AT * .55) / (NAVY_AT * .4)) * .7;   // 남색에 가까운 별은 흐리게
+      // 화면 높이 22%부터 50%까지 서서히 사라진다
+      var s = stars[i], q = Math.min(1, Math.max(0, (s.y / H - .22) / .28)), fadeLow = 1 - q * q * (3 - 2 * q);
       var a = Math.max(0, s.a * fadeLow * (.55 + .45 * Math.sin(t * s.tw + s.ph)));
       g.fillStyle = 'rgba(' + s.c + ',' + a.toFixed(3) + ')'; g.beginPath(); g.arc(s.x, s.y, s.r, 0, 6.2832); g.fill();
       if (s.r > 1.2) glow(s.x, s.y, s.r * 5, s.c, (a * .22).toFixed(3));
