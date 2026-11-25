@@ -358,6 +358,36 @@ body{background:transparent}
 
 /* 머리말 Kiumin 로고 오른쪽으로 10px */
 .hd .logo{margin-left:10px}
+
+/* ===== 바닥글: 리뉴얼 사이트(kiumin-renewal)와 같은 모양 + 패밀리 사이트 연결 줄 ===== */
+#contact{padding-bottom:100px}
+footer.rf{margin-top:0;border-top:0;background:#00143f;color:#c9ccd1;padding:40px 0 28px;font-size:14px}
+.rf .f-top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-bottom:32px}
+.rf .flogo{height:40px;width:auto;display:block;margin-left:5px;opacity:.3}
+.rf .f-sns{display:flex;align-items:center;gap:6px}
+.rf .f-sns-t{font-size:12px;font-weight:700;letter-spacing:.06em;color:#8f949b;margin-right:8px}
+.rf .f-sns a{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(255,255,255,.08);transition:background .25s,transform .3s}
+.rf .f-sns a svg{width:21px;height:21px}
+.rf .f-sns a:hover{transform:translateY(-3px)}
+.rf .f-sns a.ig:hover{background:linear-gradient(45deg,#f9a13a,#e1306c 50%,#8a3ab9)}
+.rf .f-sns a.th:hover{background:#000}
+.rf .f-sns a.nb svg rect{fill:#03c75a}
+.rf .f-sns a.nb:hover{background:rgba(3,199,90,.2)}
+.rf .f-sns a.yt svg rect{fill:#ff0033}
+.rf .f-sns a.yt:hover{background:rgba(255,0,51,.2)}
+/* 패밀리 사이트 연결 (추가) */
+.rf .f-fam{display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px;padding:16px 0;border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12)}
+.rf .f-fam-t{font-size:11px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.5);margin-right:6px}
+.rf .f-fam a{display:inline-flex;align-items:center;min-height:32px;color:#fff;font-weight:600;transition:color .2s}
+.rf .f-fam a:hover{color:#7CC4F2}
+.rf .f-soon{display:inline-flex;align-items:center;min-height:32px;color:rgba(255,255,255,.45);font-weight:600}
+.rf .f-links{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:20px;font-size:14px;color:#fff}
+.rf .f-links a:hover{text-decoration:underline;text-underline-offset:4px}
+.rf .f-bottom{margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15)}
+.rf address{display:flex;flex-wrap:wrap;gap:4px 20px;font-size:13px;line-height:1.7;font-style:normal}
+.rf .copy{font-size:12px;margin-top:10px;color:#8f949b}
+@media (max-width:860px){.rf .f-top{flex-wrap:wrap}.rf .f-sns{width:100%}}
+@media (max-width:680px){.rf .flogo{height:32px}.rf address{flex-direction:column;gap:0}.rf .f-links{gap:6px 18px}}
 </style>
 </head>
 <body>
@@ -533,25 +563,36 @@ body{background:transparent}
   </section>
 </main>
 
-<footer class="on-white">
+<footer class="rf">
   <div class="wrap">
-    <div class="ft">
-      <span class="logo"><img src="../assets/kiumin_logo.png" alt="Kiumin" width="702" height="192"></span>
-      <nav class="ft-fam" aria-label="패밀리 사이트 바로가기">
-        <a href="https://www.xn--cp5b6mf1u.com/" target="_blank" rel="noopener">키움인 교육</a>
-        <a href="http://kiumin.co.kr/" target="_blank" rel="noopener">AI 교육 플랫폼</a>
-        <a href="https://www.xn--cp5b6mf1u.kr/" target="_blank" rel="noopener">행사·전시</a>
-        <a href="https://www.aionjournal.com/" target="_blank" rel="noopener">AI 온저널</a>
-        <span class="ft-soon">AI·AX 직무교육</span>
-      </nav>
+    <div class="f-top">
+      <img class="flogo" src="../assets/kiumin_logo_white.png" alt="KIUMIN" width="702" height="192">
+      <div class="f-sns">
+        <span class="f-sns-t">키움인 SNS</span>
+        <a class="ig" href="https://www.instagram.com/kiuminedu" target="_blank" rel="noopener" aria-label="인스타그램"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/></svg></a>
+        <a class="th" href="https://www.threads.com/@kiuminedu" target="_blank" rel="noopener" aria-label="스레드"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.6 11.1c-.1 0-.2-.1-.3-.1-.2-3-1.8-4.7-4.6-4.7-1.7 0-3.1.7-3.9 2l1.5 1c.6-.9 1.5-1.1 2.4-1.1 1 0 1.8.3 2.2.9.3.4.5 1 .6 1.7-.8-.1-1.6-.2-2.5-.1-2.5.1-4.1 1.6-4 3.6.1 1 .6 1.9 1.4 2.4.7.5 1.6.7 2.6.6 1.3-.1 2.3-.6 3-1.5.5-.7.9-1.5 1-2.6.6.4 1.1.9 1.3 1.4.4 1 .5 2.6-.9 4-1.2 1.2-2.6 1.7-4.8 1.7-2.4 0-4.2-.8-5.4-2.3-1.1-1.4-1.7-3.5-1.7-6.1s.6-4.7 1.7-6.1C6.9 4.8 8.7 4 11.1 4c2.4 0 4.3.8 5.5 2.3.6.8 1.1 1.7 1.4 2.8l1.8-.5c-.4-1.4-1-2.6-1.8-3.6C16.5 3 14.1 2 11.1 2 8.1 2 5.8 3 4.2 5c-1.4 1.8-2.2 4.2-2.2 7.1s.8 5.3 2.2 7.1C5.8 21 8.1 22 11.1 22c2.7 0 4.5-.7 6.1-2.2 2-2 2-4.6 1.3-6.2-.4-1.1-1.2-2-1.9-2.5zm-4.7 4.4c-1.1.1-2.2-.4-2.2-1.4 0-.8.6-1.6 2.4-1.7h.6c.7 0 1.3.1 1.9.2-.2 2.4-1.4 2.9-2.7 2.9z"/></svg></a>
+        <a class="nb" href="https://blog.naver.com/kiumin0500" target="_blank" rel="noopener" aria-label="네이버 블로그"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="4" fill="currentColor"/><text x="12" y="15.6" text-anchor="middle" font-family="Arial,sans-serif" font-size="8.2" font-weight="900" fill="#fff">blog</text></svg></a>
+        <a class="yt" href="https://www.youtube.com/@kiumedu" target="_blank" rel="noopener" aria-label="유튜브"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4" fill="currentColor"/><path d="M10 9l5 3-5 3z" fill="#fff"/></svg></a>
+      </div>
     </div>
-    <p class="ft-info"><span>(주)키움인</span><span>광주광역시 북구 첨단벤처로 46, B동 1층</span><span>사업자등록번호 639-87-00847</span><span>TEL 1899-6432</span><span>kiumedu@kiumin.kr</span></p>
-    <div class="ft-bottom">
-      <p>© 2026 KIUMIN. All rights reserved.</p>
-      <nav class="ft-links" aria-label="정책 링크">
-        <a href="https://kiumin.cafe24.com/default/policy/policy01.php?sub=01" target="_blank" rel="noopener">개인정보처리방침</a>
-        <a href="https://kiumin.cafe24.com/default/policy/policy02.php?sub=02" target="_blank" rel="noopener">이메일무단수집거부</a>
-      </nav>
+    <nav class="f-fam" aria-label="패밀리 사이트 바로가기">
+      <span class="f-fam-t">FAMILY SITE</span>
+      <a href="https://www.xn--cp5b6mf1u.com/" target="_blank" rel="noopener">키움인 교육<span class="sr-only">(새 창)</span></a>
+      <a href="http://kiumin.co.kr/" target="_blank" rel="noopener">AI 교육 플랫폼<span class="sr-only">(새 창)</span></a>
+      <a href="https://www.xn--cp5b6mf1u.kr/" target="_blank" rel="noopener">행사·전시<span class="sr-only">(새 창)</span></a>
+      <a href="https://www.aionjournal.com/" target="_blank" rel="noopener">AI 온저널<span class="sr-only">(새 창)</span></a>
+      <span class="f-soon">AI·AX 직무교육</span>
+    </nav>
+    <nav class="f-links" aria-label="정책 링크">
+      <a href="https://kiumin.cafe24.com/default/policy/policy01.php?sub=01" target="_blank" rel="noopener">개인정보취급방침</a>
+      <a href="https://kiumin.cafe24.com/default/policy/policy02.php?sub=02" target="_blank" rel="noopener">이메일무단수집거부</a>
+      <a href="#contact">1:1문의</a>
+    </nav>
+    <div class="f-bottom">
+      <address>
+        <span>회사 : ㈜키움인</span><span>주소 : 광주광역시 북구 첨단벤처로 46, B동 1층</span><span>사업자등록번호 : 639-87-00847</span><span>TEL : 1899-6432</span><span>EMAIL : kiumedu@kiumin.kr</span>
+      </address>
+      <p class="copy">COPYRIGHT © 2026 KIUMIN. ALL RIGHT RESERVED</p>
     </div>
   </div>
 </footer>
