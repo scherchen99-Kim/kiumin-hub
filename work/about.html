@@ -341,6 +341,13 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
 .loc{padding:18px var(--box-x) 18px calc(var(--box-x) + 0px)}
 .contact{padding:48px var(--box-x)}
 @media (max-width:560px){:root{--box-x:20px}}
+
+/* 회사 정보: 왼쪽 표 높이에 오른쪽 지사 4칸을 딱 맞춤 (표 아래 빈 곳 = 위 빈 곳), 지사 칸 위아래 여백 줄임 */
+.info{align-items:stretch}
+.locs{display:grid;grid-template-rows:repeat(4,1fr);gap:10px}
+.loc{display:flex;flex-direction:column;justify-content:center;padding-top:8px;padding-bottom:8px}
+.loc b,.loc p{line-height:1.45}
+.loc p{margin-top:2px}
 </style>
 </head>
 <body>
