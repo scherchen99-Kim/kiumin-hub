@@ -457,6 +457,17 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
 .site-header:not(.is-scrolled) .hd .logo{margin-left:16px}   /* 허브: 오른쪽으로 옮긴 제목 왼쪽에 맞춤 */
 .site-header:not(.is-scrolled) .hd-cta,.site-header:not(.is-scrolled) .menu-toggle{margin-right:-1px}
 </style>
+<style id="rim-light">
+/* 선택한 카드: 테두리를 따라 빛이 맺힘 (마우스 쪽이 가장 밝고, 가장자리에서 그 색으로 살짝 번짐) */
+.site::after{display:block;content:"";position:absolute;inset:-1px;width:auto;height:auto;border-radius:inherit;padding:2px;
+  background:radial-gradient(240px circle at var(--mx,18%) var(--my,0%),#fff 0%,color-mix(in srgb,var(--c) 70%,#fff) 22%,color-mix(in srgb,var(--c) 40%,transparent) 48%,transparent 72%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  filter:drop-shadow(0 0 5px color-mix(in srgb,var(--c) 60%,#fff)) drop-shadow(0 0 18px var(--c));
+  opacity:0;transform:none;transition:opacity .35s;pointer-events:none;z-index:1}
+.site:hover::after,.site.is-active::after{opacity:1;transform:none}
+.site{overflow:visible}.site::before{border-radius:inherit}   /* 테두리 빛이 카드 밖으로 살짝 번지게 */
+@media (prefers-reduced-motion:reduce){.site::after{transition:none}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
