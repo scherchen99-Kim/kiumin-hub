@@ -327,6 +327,20 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
 .greet .body p{margin-bottom:10px}
 .greet .sign{margin-top:16px}
 @media (max-width:1024px){.greet{grid-template-columns:1fr;gap:16px}.greet .body{border-left:0;padding-left:0;border-top:1px solid #CFE0F5;padding-top:16px}}
+
+/* 모든 흰 칸 안쪽 왼쪽·오른쪽 여백을 40px로 통일 → 칸마다 글자 시작선이 같아짐 */
+:root{--box-x:40px}
+.work{padding:22px var(--box-x)}
+.vision{padding:44px var(--box-x)}
+.way{padding:28px var(--box-x)}
+.stat{padding:28px var(--box-x) 26px}
+.history{padding:8px var(--box-x)}
+.history li{padding:20px 0}
+.greet{padding:34px var(--box-x)}
+.info dl{padding:26px var(--box-x)}
+.loc{padding:18px var(--box-x) 18px calc(var(--box-x) + 0px)}
+.contact{padding:48px var(--box-x)}
+@media (max-width:560px){:root{--box-x:20px}}
 </style>
 </head>
 <body>
