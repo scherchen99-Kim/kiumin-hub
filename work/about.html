@@ -599,10 +599,10 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
         c: Math.random() < .18 ? '205,220,255' : Math.random() < .1 ? '255,232,205' : '255,255,255' });
     }
     // 회사 소개 첫 화면 오른쪽 빈자리: 별자리가 생길 별 무리를 따로 뿌린다
-    var nC = Math.round(Math.min(60, Math.max(30, W * H / 28000)));
+    var nC = Math.round(Math.min(90, Math.max(40, W * H / 18000)));
     for (var c2 = 0; c2 < nC; c2++) {
       var bigC = Math.random() < .22;
-      stars.push({ x: rnd(W * .56, W * .96), y: rnd(H * .1, H * .46),
+      stars.push({ x: rnd(W * .5, W * .98), y: rnd(H * .08, H * .62),
         r: bigC ? rnd(1.2, 1.9) : rnd(.6, 1.2), a: bigC ? rnd(.75, 1) : rnd(.45, .8),
         tw: rnd(.8, 2.4), ph: rnd(0, 6.28), k: 1, c: Math.random() < .3 ? '205,220,255' : '255,255,255' });
     }
@@ -665,7 +665,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
   /* ===== 별자리 잇기: 마우스 가까이 있는 별끼리 가는 선으로 이어져 즉석 별자리가 생긴다.
      마우스가 지나가면 연결이 따라오고, 멀어지면 선이 천천히 사라진다. ===== */
   var mouse = { x: -9999, y: -9999 }, edges = {};
-  var NEAR = 220, LINKS = 2;
+  var NEAR = 150, LINKS = 2;   // 커서 둘레 150px 안의 별만 이어서, 별자리가 커서 자리에 생기게
   addEventListener('pointermove', function (e) { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
   document.addEventListener('pointerleave', function () { mouse.x = mouse.y = -9999; });
   function constellation() {
@@ -691,11 +691,19 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
         want[i1 + '-' + i2] = Math.max(want[i1 + '-' + i2] || 0, 1 - pick[a].d / NEAR);
       }
     }
+    // 커서 자리에도 작은 빛 점을 두고, 가장 가까운 별 세 개와 바로 잇는다
+    pick.sort(function (x, y) { return x.d - y.d; });
+    for (var m = 0; m < Math.min(3, pick.length); m++) {
+      var S = stars[pick[m].i], fa = (1 - pick[m].d / NEAR) * .6;
+      g.strokeStyle = 'rgba(170,205,255,' + fa.toFixed(3) + ')'; g.lineWidth = .8;
+      g.beginPath(); g.moveTo(mouse.x, mouse.y); g.lineTo(S.x, S.y); g.stroke();
+    }
+    if (pick.length) glow(mouse.x, mouse.y, 7, '170,205,255', .55);
     for (var key in want) if (!(key in edges)) edges[key] = 0;
     g.lineWidth = .8;
     for (var key2 in edges) {
       var target = want[key2] || 0;
-      edges[key2] += (target - edges[key2]) * (target > edges[key2] ? .12 : .035);   // 생길 땐 빠르게, 사라질 땐 천천히
+      edges[key2] += (target - edges[key2]) * (target > edges[key2] ? .2 : .07);   // 생길 땐 빠르게, 사라질 땐 천천히
       if (edges[key2] < .01 && !target) { delete edges[key2]; continue; }
       var ij = key2.split('-'), P = stars[+ij[0]], Q = stars[+ij[1]];
       var al = (.55 * edges[key2]).toFixed(3);
