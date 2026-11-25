@@ -658,8 +658,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
       s.cur = a;
       if (a < .01) continue;
       g.fillStyle = 'rgba(' + s.c + ',' + a.toFixed(3) + ')'; g.beginPath(); g.arc(s.x, s.y, s.r, 0, 6.2832); g.fill();
-      if (s.r > 1.2) glow(s.x, s.y, s.r * 5, s.c, (a * .22).toFixed(3));
-      s.cur = a;
+      s.cur = a;   // 빛 번짐 없이 점으로만
     }
     constellation();
     if (met) {
@@ -711,23 +710,24 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
     // 커서 자리에도 작은 빛 점을 두고, 가장 가까운 별 세 개와 바로 잇는다
     pick.sort(function (x, y) { return x.d - y.d; });
     for (var m = 0; m < Math.min(3, pick.length); m++) {
-      var S = stars[pick[m].i], fa = (1 - pick[m].d / NEAR) * .6;
+      var S = stars[pick[m].i], fa = (1 - pick[m].d / NEAR) * .35;
       g.strokeStyle = 'rgba(170,205,255,' + fa.toFixed(3) + ')'; g.lineWidth = .8;
       g.beginPath(); g.moveTo(mouse.x, mouse.y); g.lineTo(S.x, S.y); g.stroke();
     }
-    if (pick.length) glow(mouse.x, mouse.y, 7, '170,205,255', .55);
+    if (pick.length) { g.fillStyle = 'rgba(200,222,255,.6)'; g.beginPath(); g.arc(mouse.x, mouse.y, 1.6, 0, 6.2832); g.fill(); }
     for (var key in want) if (!(key in edges)) edges[key] = 0;
-    g.lineWidth = .8;
+    g.lineWidth = .7;
     for (var key2 in edges) {
       var target = want[key2] || 0;
       edges[key2] += (target - edges[key2]) * (target > edges[key2] ? .2 : .07);   // 생길 땐 빠르게, 사라질 땐 천천히
       if (edges[key2] < .01 && !target) { delete edges[key2]; continue; }
       var ij = key2.split('-'), P = stars[+ij[0]], Q = stars[+ij[1]];
-      var al = (.55 * edges[key2]).toFixed(3);
+      var al = (.32 * edges[key2]).toFixed(3);
       g.strokeStyle = 'rgba(170,205,255,' + al + ')';
       g.beginPath(); g.moveTo(P.x, P.y); g.lineTo(Q.x, Q.y); g.stroke();
-      glow(P.x, P.y, 6, '170,205,255', (.5 * edges[key2]).toFixed(3));
-      glow(Q.x, Q.y, 6, '170,205,255', (.5 * edges[key2]).toFixed(3));
+      g.fillStyle = 'rgba(210,228,255,' + (.6 * edges[key2]).toFixed(3) + ')';
+      g.beginPath(); g.arc(P.x, P.y, 1.4, 0, 6.2832); g.fill();
+      g.beginPath(); g.arc(Q.x, Q.y, 1.4, 0, 6.2832); g.fill();
     }
   }
   function step(now) {
