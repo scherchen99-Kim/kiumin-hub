@@ -273,6 +273,17 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 .ct-links a:hover small{color:var(--sub)}
 /* 바닥글 */
 .ft-fam a:hover,.ft-links a:hover{color:var(--accent-light)}
+
+/* ===== 밤하늘 (My Classical Atlas 밤 화면 방식) — 위는 검정에 가깝게, 아래로 남색 그라데이션 + 반짝이는 별 ===== */
+html{background:#03050d}
+body{background:transparent}
+#hubSky{position:fixed;inset:0;width:100vw;height:100vh;z-index:-2;pointer-events:none;display:block;
+  background:linear-gradient(180deg,#03050d 0%,#050c26 40%,#001d5b 100%)}   /* 캔버스가 그리기 전에도 같은 하늘 */
+.aurora i:nth-child(1){opacity:.16}
+.aurora i:nth-child(2){opacity:.12;top:45vh}
+.aurora i:nth-child(3){opacity:.2}
+.site-header.is-scrolled .hd{background:rgba(3,6,18,.72)}
+.m-panel{background:rgba(3,6,18,.96)}
 </style>
 </head>
 <body>
@@ -640,6 +651,67 @@ footer{margin-top:100px;border-top:1px solid var(--line);padding:44px 0 56px;col
 })();
 
 </script>
+
+<script id="hub-sky">
+/* 밤하늘: 위는 거의 검정 → 아래로 남색. 별이 각자 다른 빠르기로 반짝이고, 가끔 유성이 오른쪽 위에서 왼쪽 아래로 지나간다.
+   (My Classical Atlas 'Night' 스킨의 별 그리기를 가져와 단순하게 줄임) '동작 줄이기' 설정이면 한 장면만 그린다. */
+(function () {
+  'use strict';
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var TOP = '#03050d', MID = '#050c26', BOT = '#001d5b';
+  var cv = document.createElement('canvas'); cv.id = 'hubSky'; cv.setAttribute('aria-hidden', 'true');
+  document.body.prepend(cv);
+  var g = cv.getContext('2d'), W = 0, H = 0, stars = [], met = null, nextMet = 4, t0 = performance.now() / 1000, last = 0;
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+  function size() {
+    var oldW = W; W = innerWidth; H = innerHeight; cv.width = W; cv.height = H;
+    if (oldW === W && stars.length) return;
+    var n = Math.round(Math.min(300, Math.max(100, W * H / 6500))); stars = [];
+    for (var i = 0; i < n; i++) {
+      var big = Math.random() < .1;
+      stars.push({ x: rnd(0, W), y: Math.pow(Math.random(), 1.5) * H * .9,          // 위쪽에 더 많이
+        r: big ? rnd(1.2, 2) : rnd(.5, 1.2), a: big ? rnd(.75, 1) : rnd(.35, .8),
+        tw: rnd(.8, 2.6), ph: rnd(0, 6.28),                                           // 반짝이는 빠르기·시작점은 별마다 다르게
+        c: Math.random() < .18 ? '205,220,255' : Math.random() < .1 ? '255,232,205' : '255,255,255' });
+    }
+  }
+  function glow(x, y, r, c, a) { var gr = g.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, 'rgba(' + c + ',' + a + ')'); gr.addColorStop(1, 'rgba(' + c + ',0)'); g.fillStyle = gr; g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.fill(); }
+  function draw(t) {
+    var bg = g.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, TOP); bg.addColorStop(.4, MID); bg.addColorStop(1, BOT);
+    g.fillStyle = bg; g.fillRect(0, 0, W, H);
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i], fadeLow = 1 - Math.max(0, (s.y / H - .55) / .45) * .6;       // 아래쪽(남색) 별은 조금 흐리게
+      var a = s.a * fadeLow * (.55 + .45 * Math.sin(t * s.tw + s.ph));
+      g.fillStyle = 'rgba(' + s.c + ',' + a.toFixed(3) + ')'; g.beginPath(); g.arc(s.x, s.y, s.r, 0, 6.2832); g.fill();
+      if (s.r > 1.2) glow(s.x, s.y, s.r * 5, s.c, (a * .22).toFixed(3));
+    }
+    if (met) {
+      var q = (t - met.t0) / met.dur;
+      if (q >= 1) met = null;
+      else {
+        var x = met.x + met.dx * q, y = met.y + met.dy * q, tl = Math.min(1, q * 3) * met.len, ang = Math.atan2(met.dy, met.dx), fade = q < .7 ? 1 : (1 - q) / .3;
+        var gr = g.createLinearGradient(x, y, x - Math.cos(ang) * tl, y - Math.sin(ang) * tl);
+        gr.addColorStop(0, 'rgba(255,255,255,' + (.45 * fade) + ')');   // 유성은 은은하게 (형: 너무 강하지 않게) gr.addColorStop(1, 'rgba(255,255,255,0)');
+        g.strokeStyle = gr; g.lineWidth = 1; g.lineCap = 'round'; g.beginPath(); g.moveTo(x, y); g.lineTo(x - Math.cos(ang) * tl, y - Math.sin(ang) * tl); g.stroke();
+        glow(x, y, 4, '255,255,255', .25 * fade);
+      }
+    }
+    if (!met && t > nextMet) {                                                     // 유성: 10~18초에 한 번
+      var d = rnd(320, 620), an = Math.PI - rnd(.45, .75);
+      met = { x: rnd(W * .45, W * .98), y: rnd(-10, H * .18), dx: Math.cos(an) * d, dy: Math.sin(an) * d, len: rnd(90, 160), t0: t, dur: rnd(1.1, 1.6) };
+      nextMet = t + rnd(10, 18);
+    }
+  }
+  function step(now) {
+    requestAnimationFrame(step);
+    if (document.hidden || now - last < 50) return;                                // 초당 20번이면 충분 (배터리 아끼기)
+    last = now; draw(now / 1000 - t0);
+  }
+  size();
+  addEventListener('resize', function () { size(); if (reduce) draw(1); });
+  if (reduce) draw(1); else requestAnimationFrame(step);
+})();
+</script>
 <script type="module">
 /* 허브 첫 화면 — Three.js 연결망 (연결망 공 최종본을 옮겨 옴)
    - 색 공 5개: 교육·플랫폼·행사·온저널·AX. 크기는 같고 앞으로 나오면 커지고 뒤로 가면 작아진다.
@@ -682,7 +754,7 @@ function init(host) {
     pts.push(new THREE.Vector3(Math.cos(th) * r * R, y * R, Math.sin(th) * r * R));
   }
   const dots = new THREE.InstancedMesh(new THREE.SphereGeometry(0.028, 10, 10), new THREE.MeshBasicMaterial({ color: '#ffffff' }), count);
-  const DOT_COLOR = new THREE.Color('#9FB0CE'), BG_COLOR = new THREE.Color('#001d5b'), DOT_BACK_FADE = 0.75, dotCol = new THREE.Color();
+  const DOT_COLOR = new THREE.Color('#9FB0CE'), BG_COLOR = new THREE.Color('#050c26'),   /* 공 뒤 하늘색(위쪽 어두운 남색)으로 흐려진다 */ DOT_BACK_FADE = 0.75, dotCol = new THREE.Color();
   const m4 = new THREE.Matrix4();
   pts.forEach((p, i) => { m4.makeTranslation(p.x, p.y, p.z); dots.setMatrixAt(i, m4); dots.setColorAt(i, DOT_COLOR); });
   world.add(dots);
