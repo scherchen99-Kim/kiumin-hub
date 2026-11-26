@@ -323,6 +323,10 @@ footer span{display:inline-block;margin-right:14px}
 .hd-nav a.txt + a.txt::before{content:"";position:absolute;left:-3px;top:50%;width:1px;height:14px;margin-top:-7px;background:rgba(255,255,255,.3)}
 .hd.is-scrolled .hd-nav a.txt + a.txt::before{background:rgba(0,29,91,.18)}
 </style>
+<style id="hd-solid">
+/* 내렸을 때 상단 바: 반투명이라 아래 남색·노트북이 비쳐 지저분 → 완전한 흰색 */
+.hd.is-scrolled{background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 1px 0 var(--line),0 6px 18px rgba(0,29,91,.06)}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
