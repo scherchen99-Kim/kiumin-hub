@@ -371,9 +371,15 @@ footer span{display:inline-block;margin-right:14px}
     if(!lt||!t||innerWidth<961){if(lt){lt.style.width='';lt.style.marginRight='';}return;}
     var r=document.createRange();r.selectNodeContents(t);
     var right=w.getBoundingClientRect().right-parseFloat(getComputedStyle(w).paddingRight);
-    var room=right-r.getBoundingClientRect().right-64;      /* 글자와 노트북 사이 64px */
-    var lw=Math.min(600,room/1.1);
-    lt.style.width=lw+'px';lt.style.marginRight=(lw*.05)+'px';  /* 받침대가 양옆 5%씩 더 나옴 → 받침대 끝을 숫자 칸 끝에 */
+    /* 노트북 가운데 = 위 메뉴(강의실 입장 ~ 키움인 허브) 가운데 */
+    var nav=document.querySelector('.hd-nav'),nr=nav&&nav.getBoundingClientRect();
+    var navC=nr&&nr.width?(nr.left+nr.right)/2:right-330;
+    var textR=r.getBoundingClientRect().right;
+    /* 받침대가 양옆 5%씩 더 나옴: 받침대 왼쪽은 글자와 64px 띄우고, 오른쪽은 숫자 칸 끝을 넘지 않게 */
+    var lw=Math.min(600,(navC-textR-64)/.55,(right-navC)/.55);
+    lt.style.width=lw+'px';lt.style.marginRight='0px';
+    var lr=lt.getBoundingClientRect();
+    lt.style.marginRight=((lr.left+lr.right)/2-navC)+'px';
   }
   addEventListener('load',fit);addEventListener('resize',fit);
   if(document.fonts)document.fonts.ready.then(fit);
