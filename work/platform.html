@@ -995,8 +995,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (es) { visible = es[0].isIntersecting && !document.hidden; }, { threshold: .15 }).observe(root);
-    document.addEventListener('visibilitychange', function () { if (document.hidden) visible = false; });
+    var inView = true;   /* 노트북이 화면 안에 있는지 */
+    new IntersectionObserver(function (es) { inView = es[0].isIntersecting; visible = inView && !document.hidden; }, { threshold: .15 }).observe(root);
+    /* 다른 탭·앱에 갔다 오면 다시 재생 (돌아올 때 멈춤을 풀어줌) */
+    document.addEventListener('visibilitychange', function () { visible = inView && !document.hidden; });
+    window.addEventListener('pageshow', function () { visible = inView && !document.hidden; });
   }
   CATS.forEach(function (c) { c.cards.forEach(function (d) { var i = new Image(); i.src = d.thumb; }); c.shots.forEach(function (s) { var i = new Image(); i.src = s; }); });
 
