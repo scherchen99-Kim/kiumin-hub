@@ -374,13 +374,16 @@ footer span{display:inline-block;margin-right:14px}
     var room=right-r.getBoundingClientRect().right-64;      /* 글자와 노트북 사이 64px */
     var lw=Math.min(600,room/1.1);
     lt.style.width=lw+'px';lt.style.marginRight=(lw*.05)+'px';  /* 받침대가 양옆 5%씩 더 나옴 → 받침대 끝을 숫자 칸 끝(기준선)에 */
-    /* 위 메뉴(강의실 입장 ~ 키움인 허브)를 왼쪽으로 옮겨 가운데를 노트북 가운데에 맞춤 */
+    /* 노트북(받침대 포함)과 위 메뉴(강의실 입장 ~ 키움인 허브)를 같은 가운데에.
+       둘 중 넓은 쪽의 오른쪽 끝 = 숫자 칸 끝(기준선), 좁은 쪽은 그 가운데에 맞춤 */
     if(nav){nav.style.transform='';
-      var nr=nav.getBoundingClientRect(),lr=lt.getBoundingClientRect();
-      var dx=(lr.left+lr.right)/2-(nr.left+nr.right)/2;
+      var nr=nav.getBoundingClientRect(),sw=lw*1.1;
+      var C=right-Math.max(nr.width,sw)/2;
       var lg=document.querySelector('.hd .logo'),minL=lg?lg.getBoundingClientRect().right+32:0;
-      if(nr.left+dx<minL)dx=minL-nr.left;                    /* 로고와 겹치지 않게 */
-      nav.style.transform='translateX('+Math.min(0,dx)+'px)';}
+      var dx=Math.min(0,C-(nr.left+nr.right)/2);
+      if(nr.left+dx<minL)dx=Math.min(0,minL-nr.left);          /* 로고와 겹치지 않게 */
+      nav.style.transform=dx?'translateX('+dx+'px)':'';
+      lt.style.marginRight=(right-C-lw/2)+'px';}
   }
   addEventListener('load',fit);addEventListener('resize',fit);
   if(document.fonts)document.fonts.ready.then(fit);
