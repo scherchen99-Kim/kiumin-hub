@@ -582,6 +582,16 @@ addEventListener('DOMContentLoaded',function(){
     scrollTo({top:0,behavior:rm?'auto':'smooth'});history.replaceState(null,'',location.pathname+location.search);});
 });
 </script>
+<style id="home-fill">
+/* 노트북 화면 첫 장면: 아래가 비어 보여서 아이콘·글자 키우고 화면 세로 가운데에 꽉 차게 */
+.s-home{display:flex;flex-direction:column;justify-content:center;padding:0 3cqw 1.5cqw}
+.s-home h4{font-size:3.1cqw;margin-bottom:4cqw}
+.icons{row-gap:3.4cqw}
+.ic{gap:1.3cqw}
+.ic-box{width:10.6cqw;height:10.6cqw;border-radius:2.8cqw}
+.ic svg{width:6.3cqw;height:6.3cqw}
+.ic span{font-size:1.95cqw}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
@@ -892,12 +902,15 @@ addEventListener('DOMContentLoaded',function(){
     shots[0].src = c.shots[0]; shots[1].src = c.shots[1];
     shots[0].classList.add('on'); shots[1].classList.remove('on');
     pp.setAttribute('d', 'M7 5h3.5v14H7zM13.5 5H17v14h-3.5z');
-    var t = c.t1; setProgress(t, c.dur);
+    /* 실제 장면 시각과 상관없이 재생 바를 과감하게: 앞쪽에서 시작 → 커서가 뒤쪽으로 크게 이동 */
+    var A = [.16, .22, .12][c.idx % 3], B = [.70, .78, .64][c.idx % 3];
+    var t1 = Math.round(c.dur * A), t2 = Math.round(c.dur * B);
+    var t = t1; setProgress(t, c.dur);
     show('player');
     for (var k = 0; k < 18; k++) { await wait(130); t += 1; setProgress(t, c.dur); }
-    await moveTo(track, c.t2 / c.dur, .5);
+    await moveTo(track, t2 / c.dur, .5);
     click();
-    t = c.t2; setProgress(t, c.dur);
+    t = t2; setProgress(t, c.dur);
     shots[1].classList.add('on'); shots[0].classList.remove('on');
     for (var j = 0; j < 22; j++) { await wait(130); t += 1; setProgress(t, c.dur); }
     await wait(600);
