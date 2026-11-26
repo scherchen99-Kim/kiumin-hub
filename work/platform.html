@@ -494,6 +494,16 @@ footer.rf{line-height:1.6}
 footer.rf{margin-top:80px}
 @media (max-width:960px){footer.rf{margin-top:60px}}
 </style>
+<style id="group-icons">
+/* 분야 칸: 제목 앞 남색 선 아이콘, 오른쪽 버튼 줄은 칸 세로 가운데 */
+.group{grid-template-columns:300px 1fr;align-items:center}
+.g-head{display:grid;grid-template-columns:auto 1fr;column-gap:16px;align-items:center}
+.g-ic{grid-row:1 / span 2;width:40px;height:40px;fill:none;stroke:#001d5b;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.g-head h3{align-self:end}
+.g-head p{align-self:start}
+.chips{align-content:center}
+@media (max-width:960px){.group{grid-template-columns:1fr;gap:18px}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
@@ -556,7 +566,7 @@ footer.rf{margin-top:80px}
 
       <div class="groups">
         <div class="group" data-reveal>
-          <div><h3>생성형 AI</h3><p>업무와 학습에 바로 쓰는 AI 도구</p></div>
+          <div class="g-head"><svg class="g-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg><h3>생성형 AI</h3><p>업무와 학습에 바로 쓰는 AI 도구</p></div>
           <ul class="chips">
             <li><a href="http://kiumin.co.kr/kiumin/class/class_list.asp?cate=10" target="_blank" rel="noopener">Gemini<span class="sr-only">(새 창)</span></a></li>
             <li><a href="http://kiumin.co.kr/kiumin/class/class_list.asp?cate=20" target="_blank" rel="noopener">ChatGPT<span class="sr-only">(새 창)</span></a></li>
@@ -566,14 +576,14 @@ footer.rf{margin-top:80px}
           </ul>
         </div>
         <div class="group" data-reveal style="--d:.06s">
-          <div><h3>AI 활용·자격증</h3><p>실무 활용과 자격 취득 준비</p></div>
+          <div class="g-head"><svg class="g-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 8.5h7M7 11.5h4"/><circle cx="16.5" cy="15.5" r="2.5"/><path d="M15 17.6l-.6 3.4 2.1-1.2 2.1 1.2-.6-3.4"/></svg><h3>AI 활용·자격증</h3><p>실무 활용과 자격 취득 준비</p></div>
           <ul class="chips">
             <li><a href="http://kiumin.co.kr/kiumin/class/class_list.asp?cate=50" target="_blank" rel="noopener">AI 활용<span class="sr-only">(새 창)</span></a></li>
             <li><a href="http://kiumin.co.kr/kiumin/class/class_list.asp?cate=60" target="_blank" rel="noopener">AI 자격증<span class="sr-only">(새 창)</span></a></li>
           </ul>
         </div>
         <div class="group" data-reveal style="--d:.12s">
-          <div><h3>AI 개발·하드웨어</h3><p>코딩부터 센서·로봇·피지컬 AI까지</p></div>
+          <div class="g-head"><svg class="g-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg><h3>AI 개발·하드웨어</h3><p>코딩부터 센서·로봇·피지컬 AI까지</p></div>
           <ul class="chips">
             <li><a href="http://kiumin.co.kr/kiumin/class/class_list.asp?cate=70" target="_blank" rel="noopener">AI 프로그래밍 (SW)<span class="sr-only">(새 창)</span></a></li>
             <li><a href="http://kiumin.co.kr/kiumin/class/class_list.asp?cate=80" target="_blank" rel="noopener">AI Sensor (HW)<span class="sr-only">(새 창)</span></a></li>
