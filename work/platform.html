@@ -515,6 +515,13 @@ footer.rf{margin-top:80px}
 .hero-wall .wall-col:nth-child(2){margin-top:-80px}
 .hero-wall img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px}
 @media (max-width:960px){.hero-wall{display:none}}
+/* 썸네일 벽을 시안1처럼 천천히 흐르게 (가운데 줄은 반대 방향) */
+.hero-wall .wall-col{animation:hwUp 130s linear infinite}   /* 시안1보다 두 배 이상 느리게 — 약하게 */
+.hero-wall .wall-col:nth-child(2){animation-name:hwDown;animation-duration:150s}
+.hero-wall .wall-col:nth-child(3){animation-duration:170s}
+@keyframes hwUp{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes hwDown{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){.hero-wall .wall-col{animation:none}}
 </style>
 <style id="no-grid">
 /* 첫 화면 바탕의 연한 격자선 없앰 */
