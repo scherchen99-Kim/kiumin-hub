@@ -292,6 +292,16 @@ footer span{display:inline-block;margin-right:14px}
 .hero .wrap > p.lead{max-width:none;white-space:nowrap}
 @media (max-width:960px){.hero .wrap > p.lead{white-space:normal}.hero p.lead br{display:none}}
 </style>
+<style id="hero-mobile-fit">
+/* 휴대폰: 첫 화면에 노트북이 다 보이게 — 위 여백 줄이고, 버튼 두 개를 한 줄로 */
+@media (max-width:640px){
+  .hero{padding-top:96px;padding-bottom:80px}
+  .hero h1{margin:12px 0 14px}
+  .hero .btns{margin-top:22px;flex-wrap:nowrap;gap:8px}
+  .hero .btns .btn{flex:1 1 0;min-width:0;padding-left:10px;padding-right:10px;white-space:nowrap}
+  .laptop{margin-top:26px}
+}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
