@@ -367,20 +367,20 @@ footer span{display:inline-block;margin-right:14px}
     var h=document.querySelector('.hero'),w=h&&h.querySelector('.wrap');
     if(!w)return;
     h.style.setProperty('--lt-center',(w.offsetTop+w.offsetHeight/2)+'px');
-    var lt=h.querySelector('.laptop'),t=w.querySelector('h1');
-    if(!lt||!t||innerWidth<961){if(lt){lt.style.width='';lt.style.marginRight='';}return;}
+    var lt=h.querySelector('.laptop'),t=w.querySelector('h1'),nav=document.querySelector('.hd-nav');
+    if(!lt||!t||innerWidth<961){if(lt){lt.style.width='';lt.style.marginRight='';}if(nav)nav.style.transform='';return;}
     var r=document.createRange();r.selectNodeContents(t);
     var right=w.getBoundingClientRect().right-parseFloat(getComputedStyle(w).paddingRight);
-    /* 노트북 가운데 = 위 메뉴(강의실 입장 ~ 키움인 허브) 가운데 */
-    var nav=document.querySelector('.hd-nav'),nr=nav&&nav.getBoundingClientRect();
-    var navC=nr&&nr.width?(nr.left+nr.right)/2:right-330;
-    var textR=r.getBoundingClientRect().right;
-    /* 크기는 예전 그대로(글자 오른쪽 남은 폭 기준), 자리만 메뉴 가운데로.
-       받침대가 양옆 5%씩 더 나옴: 왼쪽은 글자와 40px 이상, 오른쪽은 화면 끝 32px 안쪽 */
-    var lw=Math.min(600,(right-textR-64)/1.1,(navC-textR-40)/.55,(innerWidth-32-navC)/.55);
-    lt.style.width=lw+'px';lt.style.marginRight='0px';
-    var lr=lt.getBoundingClientRect();
-    lt.style.marginRight=((lr.left+lr.right)/2-navC)+'px';
+    var room=right-r.getBoundingClientRect().right-64;      /* 글자와 노트북 사이 64px */
+    var lw=Math.min(600,room/1.1);
+    lt.style.width=lw+'px';lt.style.marginRight=(lw*.05)+'px';  /* 받침대가 양옆 5%씩 더 나옴 → 받침대 끝을 숫자 칸 끝(기준선)에 */
+    /* 위 메뉴(강의실 입장 ~ 키움인 허브)를 왼쪽으로 옮겨 가운데를 노트북 가운데에 맞춤 */
+    if(nav){nav.style.transform='';
+      var nr=nav.getBoundingClientRect(),lr=lt.getBoundingClientRect();
+      var dx=(lr.left+lr.right)/2-(nr.left+nr.right)/2;
+      var lg=document.querySelector('.hd .logo'),minL=lg?lg.getBoundingClientRect().right+32:0;
+      if(nr.left+dx<minL)dx=minL-nr.left;                    /* 로고와 겹치지 않게 */
+      nav.style.transform='translateX('+Math.min(0,dx)+'px)';}
   }
   addEventListener('load',fit);addEventListener('resize',fit);
   if(document.fonts)document.fonts.ready.then(fit);
