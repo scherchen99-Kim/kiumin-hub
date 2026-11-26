@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta name="robots" content="noindex,nofollow">
+<meta name="robots" content="noindex">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI 교육 플랫폼 — (주)키움인</title>
@@ -922,17 +922,21 @@ addEventListener('DOMContentLoaded',function(){
     var t = t1; setProgress(t, c.dur);
     show('player');
     away();
-    for (var k = 0; k < 18; k++) { await wait(130); t += 1; setProgress(t, c.dur); }
+    for (var k = 0; k < 5; k++) { await wait(130); t += 1; setProgress(t, c.dur); }
     var a0 = app.getBoundingClientRect(), tb = track.getBoundingClientRect();
     place(tb.left - a0.left + tb.width * (t2 / c.dur) - tb.width * .12, a0.height * .97);   /* 재생 바 아래쪽에서 다시 나타나 */
-    await wait(850); cursor.classList.remove('away'); await wait(300);
-    await moveTo(track, t2 / c.dur, .5);
+    t += 1; setProgress(t, c.dur);
+    await wait(130); t += 1; setProgress(t, c.dur); cursor.classList.remove('away');
+    await wait(130); t += 1; setProgress(t, c.dur);
+    var tr = track.getBoundingClientRect();
+    place(tr.left - a0.left + tr.width * (t2 / c.dur), tr.top - a0.top + tr.height * .5);
+    for (var m = 0; m < 7; m++) { await wait(130); t += 1; setProgress(t, c.dur); }   /* 커서가 움직이는 동안에도 시간은 계속 흐름 */
     click();
     t = t2; setProgress(t, c.dur);
     shots[1].classList.add('on'); shots[0].classList.remove('on');
-    await wait(350); away();
-    for (var j = 0; j < 22; j++) { await wait(130); t += 1; setProgress(t, c.dur); }
-    await wait(600);
+    await wait(250); away();
+    for (var j = 0; j < 7; j++) { await wait(130); t += 1; setProgress(t, c.dur); }
+    await wait(200);
   }
 
   if ('IntersectionObserver' in window) {
