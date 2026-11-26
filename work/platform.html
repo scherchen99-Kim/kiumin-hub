@@ -389,6 +389,25 @@ footer span{display:inline-block;margin-right:14px}
 /* 테두리·나눔선도 같은 연보라 톤 (회색 #e3e7ee → 연보라) */
 :root{--line:#E4DFF6}
 </style>
+<style id="field-tidy">
+/* 분야 칸: 왼쪽 제목·설명 사이 좁게 */
+.group h3{line-height:1.35}
+.group h3 + p{margin-top:2px;line-height:1.5}
+/* 칸 버튼 화살표: 글자(↗) 대신 숫자 칸 아이콘과 같은 남색 선 아이콘, 글자 가운데 높이에 */
+.chips a::after{content:"";width:14px;height:14px;flex:none;background:var(--navy);opacity:.55;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E") center/contain no-repeat;transition:transform .2s,opacity .2s}
+.chips a:hover::after{background:#fff;opacity:1;transform:translate(2px,-2px)}
+</style>
+<style id="step-num">
+/* 이용 방법 숫자: 크고 가는 숫자(회사소개 01·02·03 방식), 색은 보라 */
+.step::before{font-size:46px;font-weight:300;letter-spacing:-.02em;line-height:1;color:#6E4FD8}
+.step h3{margin-top:16px}
+@media (max-width:640px){.step::before{font-size:38px}}
+</style>
+<style id="lead-nudge">
+/* 첫 화면 설명 문단: 오른쪽으로 5px */
+.hero .wrap > p.lead{position:relative;left:5px}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
