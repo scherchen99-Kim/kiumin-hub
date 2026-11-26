@@ -596,6 +596,13 @@ addEventListener('DOMContentLoaded',function(){
 .cursor{transition:transform .85s cubic-bezier(.45,.05,.25,1),opacity .4s ease}
 .cursor.away{opacity:0}
 </style>
+<style id="phone-first-screen">
+/* 아이폰: 첫 화면(보라)이 화면 높이만큼 차서, 노트북 아래로 다음 칸(숫자)이 비치지 않게 */
+@media (max-width:640px){
+  .hero{min-height:100svh;box-sizing:border-box;padding-bottom:48px}
+  .stats{margin-top:24px}
+}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
