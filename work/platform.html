@@ -520,6 +520,29 @@ footer.rf{margin-top:80px}
 /* 첫 화면 바탕의 연한 격자선 없앰 */
 .hero-grid{display:none}
 </style>
+<style id="btn-rule">
+/* 버튼 색 규칙
+   1) 강의실 입장 버튼은 어디서나 보라→파랑 그라데이션(왼쪽 위 보라)
+   2) 나머지 버튼은 마우스를 올려도 색이 안 바뀜 — 살짝 떠오르기만 */
+.btn-sky,.cta .btn-sky,.btn-sky:hover,.cta .btn-sky:hover{background:linear-gradient(135deg,#7236AF 0%,#2E71D2 100%);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.18),0 8px 30px rgba(150,120,255,.55)}   /* 은은한 보라 후광 */
+.btn .ext{opacity:1}
+/* 첫 화면은 바탕이 진해서 보라 후광 대신 어두운 그림자 */
+.hero .btn-sky,.hero .btn-sky:hover{box-shadow:0 0 0 1px rgba(255,255,255,.18),0 10px 26px rgba(12,6,45,.5)}
+/* 교육 분야 보기: 글자·테두리 모두 연보라 (제목 "현장에서 완성하는"과 같은 색) */
+.btn-ghost,.btn-ghost:hover{background:transparent;color:#D3C6FF;border-color:rgba(211,198,255,.75)}
+.btn-hub:hover{background:#001d5b;color:#fff}
+.chips a:hover{border-color:var(--line);background:#fff;color:inherit}
+.chips a:hover::after{background:var(--navy);opacity:.55}
+.ct-list a:hover{background:#fff;color:var(--ink)}
+.ct-list a:hover small{color:var(--sub);opacity:1}
+.ct-list a{transition:transform .2s}
+.ct-list a:hover{transform:translateY(-2px)}
+</style>
+<style id="chip-violet">
+/* 분야 버튼 글자: 보라 (01·02·03 숫자와 같은 색), 화살표도 같은 보라로 */
+.chips a,.chips a:hover{color:#6E4FD8}
+.chips a::after,.chips a:hover::after{background:#6E4FD8;opacity:.7}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
