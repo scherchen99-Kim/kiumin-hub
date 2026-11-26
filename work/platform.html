@@ -616,6 +616,46 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   }
 })();
 </script>
+<style id="m-menu">
+/* 휴대폰·태블릿(960px 이하): 오른쪽 위 메뉴 버튼 → 아래로 펼쳐지는 흰 메뉴판 */
+.m-toggle,.hd-nav .m-only{display:none}
+@media (max-width:960px){
+  .m-toggle{display:inline-flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;margin-right:-8px;padding:0;border:0;background:none;cursor:pointer;color:#fff}
+  .m-toggle span{display:block;width:22px;height:2px;border-radius:2px;background:currentColor;transition:transform .25s,opacity .2s}
+  .hd.is-scrolled .m-toggle{color:var(--navy)}
+  .hd.m-open .m-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hd.m-open .m-toggle span:nth-child(2){opacity:0}
+  .hd.m-open .m-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .hd-nav{display:none}
+  .hd.m-open .hd-nav{display:flex;flex-direction:column;align-items:stretch;gap:0;position:absolute;top:100%;left:0;right:0;padding:8px 18px 22px;background:#fff;box-shadow:0 14px 28px rgba(0,29,91,.12)}
+  .hd.m-open .hd-nav a{top:0}
+  .hd.m-open .hd-nav a.txt.pc-only{display:none}
+  /* 모두 같은 한 줄 목록. 강의실 입장은 굵게+그라데이션 글자, 키움인 허브는 남색 굵게, 나머지는 보통 글자 */
+  /* 메뉴 버튼 바로 아래 오른쪽에 작은 카드로 */
+  .hd-in{position:relative}
+  .hd.m-open .hd-nav{top:calc(100% - 6px);left:auto;right:12px;width:210px;padding:6px 18px;border-radius:16px;border:1px solid var(--line);box-shadow:0 18px 40px rgba(0,29,91,.18);transform-origin:top right;animation:mIn .18s ease-out}
+  @keyframes mIn{from{opacity:0;transform:translateY(-6px) scale(.97)}to{opacity:1;transform:none}}
+  .hd.m-open .hd-nav a.txt,.hd.m-open .hd-nav a.btn{display:flex;align-items:center;justify-content:flex-start;gap:8px;min-height:48px;margin:0;padding:0 4px;border:0;border-top:1px solid var(--line);border-radius:0;background:none;box-shadow:none;color:var(--ink);opacity:1;font-size:15px;font-weight:500}
+  .hd.m-open .hd-nav a:first-child{border-top:0}
+  .hd.m-open .hd-nav a.txt::before,.hd.m-open .hd-nav a.btn::after{display:none}
+  .hd.m-open .hd-nav a.m-only{font-size:16px;font-weight:800}
+  .hd.m-open .hd-nav a.m-only .m-grad{background:linear-gradient(135deg,#7236AF,#2E71D2);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hd.m-open .hd-nav a.btn-hub{color:var(--navy);font-weight:800}
+  .hd.m-open .hd-nav .sr-only{position:absolute !important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+}
+</style>
+<script id="m-menu-js">
+document.addEventListener('DOMContentLoaded', function () {
+  var hd = document.querySelector('.hd'), b = document.querySelector('.m-toggle');
+  if (!hd || !b) return;
+  function set(open) { hd.classList.toggle('m-open', open); b.setAttribute('aria-expanded', open); b.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기'); }
+  b.addEventListener('click', function () { set(!hd.classList.contains('m-open')); });
+  hd.querySelectorAll('.hd-nav a').forEach(function (a) { a.addEventListener('click', function () { set(false); }); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  document.addEventListener('click', function (e) { if (!hd.contains(e.target)) set(false); });
+  matchMedia('(min-width:961px)').addEventListener('change', function () { set(false); });
+});
+</script>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
@@ -623,13 +663,15 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 <header class="hd">
   <div class="wrap hd-in">
     <a class="logo logo-pair" href="#" aria-label="키움인 AItgo AI 교육 플랫폼, 맨 위로"><img class="lg-k on-dark" src="../assets/kiumin_logo_white.png" alt=""><img class="lg-k on-light" src="../assets/kiumin_logo.png" alt=""><img class="lg-a on-dark" src="../assets/aitgo_로고_흰색.svg" alt=""><img class="lg-a on-light" src="../assets/aitgo_로고.svg" alt=""><small>AI 교육 플랫폼</small></a>
-    <nav class="hd-nav" aria-label="주메뉴">
-      <a class="txt" href="http://kiumin.co.kr/kiumin/" target="_blank" rel="noopener">강의실 입장<span class="sr-only">(새 창)</span></a>
+    <nav class="hd-nav" id="hd-nav" aria-label="주메뉴">
+      <a class="btn btn-sky m-only" href="http://kiumin.co.kr/kiumin/" target="_blank" rel="noopener"><span class="m-grad">강의실 입장하기 ↗</span><span class="sr-only">(새 창)</span></a>
+      <a class="txt pc-only" href="http://kiumin.co.kr/kiumin/" target="_blank" rel="noopener">강의실 입장<span class="sr-only">(새 창)</span></a>
       <a class="txt" href="#fields">교육 분야</a>
       <a class="txt" href="#how">이용 방법</a>
       <a class="txt" href="#contact">문의</a>
       <a class="btn btn-hub" href="./">키움인 허브</a>
     </nav>
+    <button class="m-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="hd-nav"><span></span><span></span><span></span></button>
   </div>
 </header>
 
