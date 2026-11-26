@@ -408,6 +408,13 @@ footer span{display:inline-block;margin-right:14px}
 /* 첫 화면 설명 문단: 오른쪽으로 5px */
 .hero .wrap > p.lead{position:relative;left:5px}
 </style>
+<style id="who-bg">
+/* "이런 분들께" 칸: 바탕을 위 칸과 같은 연보라로 → 카드는 흰색(위 이용 방법 카드와 같게) */
+.sec-who .who-card,.sec-who .who-card:nth-child(n){background:#fff;border:1px solid var(--line)}
+/* 위 칸과 한 바탕으로 이어지니 사이 빈 곳이 두 배가 되지 않게 */
+.sec-who{padding-top:30px}
+@media (max-width:960px){.sec-who{padding-top:20px}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
@@ -512,7 +519,7 @@ footer span{display:inline-block;margin-right:14px}
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="who-h">
+  <section class="sec sec-alt sec-who" aria-labelledby="who-h">
     <div class="wrap">
       <span class="kicker" data-reveal>FOR WHOM</span>
       <h2 class="sec-title" id="who-h" data-reveal style="--d:.06s">이런 분들께 맞습니다</h2>
