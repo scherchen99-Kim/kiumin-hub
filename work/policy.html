@@ -429,6 +429,14 @@ mark.todo{background:#FFE9A8;color:#7a4b00;padding:1px 6px;border-radius:6px;fon
 .site-header:not(.is-scrolled) .hd .logo{margin-left:-1px}
 .site-header:not(.is-scrolled) .hd-cta,.site-header:not(.is-scrolled) .menu-toggle{margin-right:-1px}
 </style>
+<style id="mobile-tune">
+/* 휴대폰 메뉴: 글자 조금 작고 얇게, 화살표 연회색 */
+.m-panel a{font-size:20px;font-weight:600}
+.m-panel a::after{color:rgba(255,255,255,.4)}
+@media (max-width:560px){
+  .to-white{height:22vh}   /* 남색→하늘색 띠를 휴대폰에서 짧게 */
+}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>

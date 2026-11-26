@@ -468,6 +468,31 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
 .site{overflow:visible}.site::before{border-radius:inherit}   /* 테두리 빛이 카드 밖으로 살짝 번지게 */
 @media (prefers-reduced-motion:reduce){.site::after{transition:none}}
 </style>
+<style id="mobile-tune">
+/* 휴대폰 메뉴: 글자 조금 작고 얇게, 화살표 연회색 */
+.m-panel a{font-size:20px;font-weight:600}
+.m-panel a::after{color:rgba(255,255,255,.4)}
+@media (max-width:560px){
+  .to-white{height:22vh}   /* 남색→하늘색 띠를 휴대폰에서 짧게 */
+}
+</style>
+<style id="mobile-tune-hub">
+@media (max-width:560px){
+  .hub{padding-top:92px}                 /* 공을 조금 위로 */
+  .hub h1{margin-top:-6px}               /* 공과 제목 사이 간격 줄임 */
+  /* AX 칸: 설명과 태그를 칸 왼쪽부터 넓게 써서 한 줄로 */
+  .ax-head{display:grid;grid-template-columns:44px 1fr;column-gap:14px;padding-right:0}
+  .ax-text{display:contents}
+  .ax-text .site-k,.ax-text h2{grid-column:2;padding-right:52px}
+  .ax-head .mark{grid-row:1/3}
+  .ax-head{align-items:start;row-gap:0}
+  .ax-text h2{margin:2px 0 0;line-height:1.3}   /* 다른 카드처럼 영문 머리말과 제목 사이 좁게 */
+  .ax-text p{grid-column:1/-1;margin-top:10px;white-space:nowrap}
+  .ax-foot{margin-left:0}
+  .site-wide .ax-tags{flex-wrap:nowrap;gap:6px}
+  .ax-tags li{padding:5px 10px;white-space:nowrap}
+}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
