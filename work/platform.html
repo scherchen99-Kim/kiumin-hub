@@ -543,13 +543,45 @@ footer.rf{margin-top:80px}
 .chips a,.chips a:hover{color:#6E4FD8}
 .chips a::after,.chips a:hover::after{background:#6E4FD8;opacity:.7}
 </style>
+<style id="btn-rim">
+/* 강의실 입장 버튼: 허브 카드와 같은 효과 — 마우스를 올리면 테두리를 따라 빛이 맺힘(마우스 쪽이 가장 밝음) */
+.btn-sky,.btn-ghost,.btn-hub{position:relative;--c:#A68CFF}
+.btn-sky::after,.btn-ghost::after,.btn-hub::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:2px;
+  background:radial-gradient(120px circle at var(--mx,20%) var(--my,0%),#fff 0%,color-mix(in srgb,var(--c) 70%,#fff) 22%,color-mix(in srgb,var(--c) 40%,transparent) 48%,transparent 72%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  filter:drop-shadow(0 0 4px color-mix(in srgb,var(--c) 60%,#fff)) drop-shadow(0 0 12px var(--c));
+  opacity:0;transition:opacity .35s;pointer-events:none}
+.btn-sky:hover::after,.btn-sky:focus-visible::after,.btn-ghost:hover::after,.btn-ghost:focus-visible::after,.btn-hub:hover::after,.btn-hub:focus-visible::after{opacity:1}
+@media (prefers-reduced-motion:reduce){.btn-sky::after,.btn-ghost::after,.btn-hub::after{transition:none}}
+/* 연한 바탕(문의 칸)에서는 흰 빛이 안 보여서 진한 보라 빛으로 */
+.cta .btn-sky{--c:#2A1270}   /* 검은빛이 도는 진보라 */
+.cta .btn-sky::after{inset:-1px;padding:2px;background:radial-gradient(170px circle at var(--mx,20%) var(--my,0%),#5B36C9 0%,var(--c) 30%,color-mix(in srgb,var(--c) 70%,transparent) 60%,color-mix(in srgb,var(--c) 25%,transparent) 85%);
+  filter:drop-shadow(0 0 6px color-mix(in srgb,var(--c) 85%,transparent)) drop-shadow(0 0 16px color-mix(in srgb,var(--c) 60%,transparent))}
+</style>
+<script id="btn-rim-js">
+addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.btn-sky,.btn-ghost,.btn-hub').forEach(function(b){
+    b.addEventListener('pointermove',function(e){var r=b.getBoundingClientRect();
+      b.style.setProperty('--mx',(e.clientX-r.left)+'px');b.style.setProperty('--my',(e.clientY-r.top)+'px');});
+  });
+});
+</script>
+<script id="logo-top">
+/* 상단 로고: 누르면 맨 위(첫 화면)로 */
+addEventListener('DOMContentLoaded',function(){
+  var a=document.querySelector('.logo-pair');if(!a)return;
+  a.addEventListener('click',function(e){e.preventDefault();
+    var rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    scrollTo({top:0,behavior:rm?'auto':'smooth'});history.replaceState(null,'',location.pathname+location.search);});
+});
+</script>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
 
 <header class="hd">
   <div class="wrap hd-in">
-    <div class="logo logo-pair" role="img" aria-label="키움인 AItgo AI 교육 플랫폼"><img class="lg-k on-dark" src="../assets/kiumin_logo_white.png" alt=""><img class="lg-k on-light" src="../assets/kiumin_logo.png" alt=""><img class="lg-a on-dark" src="../assets/aitgo_로고_흰색.svg" alt=""><img class="lg-a on-light" src="../assets/aitgo_로고.svg" alt=""><small>AI 교육 플랫폼</small></div>
+    <a class="logo logo-pair" href="#" aria-label="키움인 AItgo AI 교육 플랫폼, 맨 위로"><img class="lg-k on-dark" src="../assets/kiumin_logo_white.png" alt=""><img class="lg-k on-light" src="../assets/kiumin_logo.png" alt=""><img class="lg-a on-dark" src="../assets/aitgo_로고_흰색.svg" alt=""><img class="lg-a on-light" src="../assets/aitgo_로고.svg" alt=""><small>AI 교육 플랫폼</small></a>
     <nav class="hd-nav" aria-label="주메뉴">
       <a class="txt" href="http://kiumin.co.kr/kiumin/" target="_blank" rel="noopener">강의실 입장<span class="sr-only">(새 창)</span></a>
       <a class="txt" href="#fields">교육 분야</a>
