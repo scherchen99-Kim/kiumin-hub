@@ -592,6 +592,10 @@ addEventListener('DOMContentLoaded',function(){
 .ic svg{width:6.3cqw;height:6.3cqw}
 .ic span{font-size:1.95cqw}
 </style>
+<style id="cursor-away">
+.cursor{transition:transform .85s cubic-bezier(.45,.05,.25,1),opacity .4s ease}
+.cursor.away{opacity:0}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
@@ -873,7 +877,10 @@ addEventListener('DOMContentLoaded',function(){
     timeEl.textContent = fmt(t) + ' / ' + fmt(dur);
   }
 
+  /* 영상 보는 동안 커서는 화면 아래 밖으로 빠지며 사라짐 */
+  function away() { var a = app.getBoundingClientRect(); place(a.width * .9, a.height * 1.02); cursor.classList.add('away'); }
   async function runCat(c) {
+    cursor.classList.remove('away');
     ics.forEach(function (x) { x.classList.remove('hit'); });
     show('home');
     await wait(1700);
@@ -907,11 +914,16 @@ addEventListener('DOMContentLoaded',function(){
     var t1 = Math.round(c.dur * A), t2 = Math.round(c.dur * B);
     var t = t1; setProgress(t, c.dur);
     show('player');
+    away();
     for (var k = 0; k < 18; k++) { await wait(130); t += 1; setProgress(t, c.dur); }
+    var a0 = app.getBoundingClientRect(), tb = track.getBoundingClientRect();
+    place(tb.left - a0.left + tb.width * (t2 / c.dur) - tb.width * .12, a0.height * .97);   /* 재생 바 아래쪽에서 다시 나타나 */
+    await wait(850); cursor.classList.remove('away'); await wait(300);
     await moveTo(track, t2 / c.dur, .5);
     click();
     t = t2; setProgress(t, c.dur);
     shots[1].classList.add('on'); shots[0].classList.remove('on');
+    await wait(350); away();
     for (var j = 0; j < 22; j++) { await wait(130); t += 1; setProgress(t, c.dur); }
     await wait(600);
   }
