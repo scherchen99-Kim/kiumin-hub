@@ -332,7 +332,7 @@ footer span{display:inline-block;margin-right:14px}
 .who-card,.cta{background:#F0EDFC;color:var(--ink);border:1px solid rgba(255,255,255,.9)}
 .who-card:nth-child(n){background:#F0EDFC}
 .who-card::after,.cta::before{display:none}
-.who-card span,.grad-txt{background:linear-gradient(90deg,#2E71D2,#7236AF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.who-card span,.grad-txt{background:linear-gradient(135deg,#7236AF,#2E71D2);-webkit-background-clip:text;background-clip:text;color:transparent}
 .who-card span{display:inline-block}
 .who-card h3,.cta h2{color:var(--ink)}
 .who-card p,.cta p{color:var(--sub);opacity:1}
@@ -414,6 +414,39 @@ footer span{display:inline-block;margin-right:14px}
 /* 위 칸과 한 바탕으로 이어지니 사이 빈 곳이 두 배가 되지 않게 */
 .sec-who{padding-top:30px}
 @media (max-width:960px){.sec-who{padding-top:20px}}
+/* 연보라 바탕이 끝난 뒤 문의 칸이 바로 붙지 않게 흰 여백 */
+#contact{padding-top:110px}
+/* 문의 칸 바탕: 위 연보라 칸과 같은 더 연한 색 */
+.cta{background:#F6F4FD}
+@media (max-width:960px){#contact{padding-top:80px}}
+</style>
+<style id="tighter">
+/* 전체 아래위 여백 줄임 (약 3/4) */
+.sec{padding:80px 0}
+.sec-who{padding-top:20px}
+#contact{padding-top:80px}
+footer{margin-top:80px}
+.groups,.steps,.who{margin-top:32px}
+@media (max-width:960px){
+  .sec{padding:60px 0}
+  .sec-who{padding-top:12px}
+  #contact{padding-top:60px}
+  footer{margin-top:60px}
+  .groups,.steps,.who{margin-top:26px}
+}
+</style>
+<style id="who-icons">
+/* 대상 카드: 남색 선 아이콘(숫자 칸과 같은 모양) 옆에 영문·제목 두 줄, 설명은 아래 전체 폭 */
+.who-card{display:grid;grid-template-columns:auto 1fr;column-gap:16px;align-items:center;align-content:start}
+.who-ic{grid-column:1;grid-row:1 / span 2;width:40px;height:40px;fill:none;stroke:#001d5b;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.who-card span{grid-column:2;grid-row:1;align-self:end;line-height:1.2}
+.who-card h3{grid-column:2;grid-row:2;align-self:start;margin:4px 0 0;line-height:1.3}
+.who-card p{grid-column:1 / -1;margin-top:16px}
+</style>
+<style id="who-oneline">
+/* 대상 카드: 설명 한 줄, 칸 높이 줄임. 좁은 화면에선 글자가 칸 폭에 맞게 살짝 작아짐 */
+.who-card{padding:26px 26px 24px;container-type:inline-size}
+.who-card p{white-space:nowrap;font-size:min(15.5px,calc(100cqw / 19.4));margin-top:12px}
 </style>
 </head>
 <body>
@@ -524,9 +557,9 @@ footer span{display:inline-block;margin-right:14px}
       <span class="kicker" data-reveal>FOR WHOM</span>
       <h2 class="sec-title" id="who-h" data-reveal style="--d:.06s">이런 분들께 맞습니다</h2>
       <div class="who">
-        <div class="who-card" data-reveal><span>BUSINESS</span><h3>기업 담당자·재직자</h3><p>직원들의 AI 업무 활용 역량을 키우고 싶은 기업</p></div>
-        <div class="who-card" data-reveal style="--d:.08s"><span>SCHOOL</span><h3>학교·교사</h3><p>수업과 연수에 함께 쓸 온라인 AI 강의가 필요한 학교</p></div>
-        <div class="who-card" data-reveal style="--d:.16s"><span>PUBLIC</span><h3>공공기관·지자체</h3><p>기관 구성원을 위한 AI 교육을 준비하는 담당자</p></div>
+        <div class="who-card" data-reveal><svg class="who-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8.5 7V5.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2V7"/><path d="M3 13h18"/></svg><span>BUSINESS</span><h3>기업 담당자·재직자</h3><p>직원들의 AI 업무 활용 역량을 키우고 싶은 기업</p></div>
+        <div class="who-card" data-reveal style="--d:.08s"><svg class="who-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9.5l10-5 10 5-10 5z"/><path d="M6 11.5v4.5c0 1.6 2.7 3 6 3s6-1.4 6-3v-4.5"/><path d="M22 9.5v5.5"/></svg><span>SCHOOL</span><h3>학교·교사</h3><p>수업과 연수에 함께 쓸 온라인 강의가 필요한 학교</p></div>
+        <div class="who-card" data-reveal style="--d:.16s"><svg class="who-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20.5h18"/><path d="M12 3.5L3.5 8v2h17V8z"/><path d="M6 10v7.5M10 10v7.5M14 10v7.5M18 10v7.5"/><path d="M4.5 17.5h15"/></svg><span>PUBLIC</span><h3>공공기관·지자체</h3><p>기관 구성원을 위한 AI 교육을 준비하는 담당자</p></div>
       </div>
     </div>
   </section>
