@@ -375,8 +375,9 @@ footer span{display:inline-block;margin-right:14px}
     var nav=document.querySelector('.hd-nav'),nr=nav&&nav.getBoundingClientRect();
     var navC=nr&&nr.width?(nr.left+nr.right)/2:right-330;
     var textR=r.getBoundingClientRect().right;
-    /* 받침대가 양옆 5%씩 더 나옴: 받침대 왼쪽은 글자와 64px 띄우고, 오른쪽은 숫자 칸 끝을 넘지 않게 */
-    var lw=Math.min(600,(navC-textR-64)/.55,(right-navC)/.55);
+    /* 크기는 예전 그대로(글자 오른쪽 남은 폭 기준), 자리만 메뉴 가운데로.
+       받침대가 양옆 5%씩 더 나옴: 왼쪽은 글자와 40px 이상, 오른쪽은 화면 끝 32px 안쪽 */
+    var lw=Math.min(600,(right-textR-64)/1.1,(navC-textR-40)/.55,(innerWidth-32-navC)/.55);
     lt.style.width=lw+'px';lt.style.marginRight='0px';
     var lr=lt.getBoundingClientRect();
     lt.style.marginRight=((lr.left+lr.right)/2-navC)+'px';
