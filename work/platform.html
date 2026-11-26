@@ -308,6 +308,21 @@ footer span{display:inline-block;margin-right:14px}
 .btn-hub:hover{background:#0a2a7a;color:#fff}
 .hd.is-scrolled .btn-hub{border-color:#001d5b}
 </style>
+<style id="hd-baseline">
+/* 상단: 왼쪽 로고 글자와 오른쪽 메뉴 글자의 바닥선을 한 줄로 (5px 차이를 반씩) + '문의' 뒤 여백 */
+.logo-pair{position:relative;top:-2.5px}
+.hd-nav a{position:relative;top:2.5px}
+.hd-nav .btn-hub{margin-left:22px}
+</style>
+<style id="h1-oneline">
+/* 메인 제목 두 줄 고정: '현장에서 완성하는 AI 교육'이 넘어가지 않게 (데스크탑) */
+@media (min-width:961px){.hero .wrap > h1{max-width:none;white-space:nowrap;font-size:clamp(34px,3.9vw,50px)}}
+</style>
+<style id="hd-nav-lines">
+/* 상단 메뉴: 글자 메뉴 사이에 약한 세로줄 (허브 메뉴와 같은 방식) */
+.hd-nav a.txt + a.txt::before{content:"";position:absolute;left:-3px;top:50%;width:1px;height:14px;margin-top:-7px;background:rgba(255,255,255,.3)}
+.hd.is-scrolled .hd-nav a.txt + a.txt::before{background:rgba(0,29,91,.18)}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
@@ -316,6 +331,7 @@ footer span{display:inline-block;margin-right:14px}
   <div class="wrap hd-in">
     <div class="logo logo-pair" role="img" aria-label="키움인 AItgo AI 교육 플랫폼"><img class="lg-k on-dark" src="../assets/kiumin_logo_white.png" alt=""><img class="lg-k on-light" src="../assets/kiumin_logo.png" alt=""><img class="lg-a on-dark" src="../assets/aitgo_로고_흰색.svg" alt=""><img class="lg-a on-light" src="../assets/aitgo_로고.svg" alt=""><small>AI 교육 플랫폼</small></div>
     <nav class="hd-nav" aria-label="주메뉴">
+      <a class="txt" href="http://kiumin.co.kr/kiumin/" target="_blank" rel="noopener">강의실 입장<span class="sr-only">(새 창)</span></a>
       <a class="txt" href="#fields">교육 분야</a>
       <a class="txt" href="#how">이용 방법</a>
       <a class="txt" href="#contact">문의</a>
