@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="ko">
 <head>
+<meta name="robots" content="noindex,nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
 <title>AI 교육 플랫폼 — (주)키움인</title>
 <meta name="description" content="온라인에서 배우고, 현장에서 완성하는 AI 교육. Gemini·ChatGPT·Claude부터 AI 프로그래밍, 센서·로봇까지 키움인 AI 교육 플랫폼.">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css">
@@ -327,6 +327,32 @@ footer span{display:inline-block;margin-right:14px}
 /* 내렸을 때 상단 바: 반투명이라 아래 남색·노트북이 비쳐 지저분 → 완전한 흰색 */
 .hd.is-scrolled{background:#fff;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 1px 0 var(--line),0 6px 18px rgba(0,29,91,.06)}
 </style>
+<style id="low-tint">
+/* 아래 칸: 연한 보라·민트 바탕 + 진한 글자, 포인트 글자만 보라→파랑 그라데이션 */
+.who-card,.cta{background:linear-gradient(120deg,#E3E2F8 0%,#D6DDEF 52%,#E8E2F7 100%);color:var(--ink);border:1px solid rgba(255,255,255,.9)}
+.who-card:nth-child(n){background:linear-gradient(120deg,#E3E2F8 0%,#D6DDEF 52%,#E8E2F7 100%)}
+.who-card::after,.cta::before{display:none}
+.who-card span,.grad-txt{background:linear-gradient(90deg,#2E71D2,#7236AF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.who-card span{display:inline-block}
+.who-card h3,.cta h2{color:var(--ink)}
+.who-card p,.cta p{color:var(--sub);opacity:1}
+.cta .btn-sky{background:var(--navy);box-shadow:none}
+.cta .btn-sky:hover{background:var(--navy-2)}
+.ct-list a,.ct-list div{background:#fff;border-color:transparent;color:var(--ink)}
+.ct-list small{color:var(--sub);opacity:1}
+.ct-list a:hover{background:var(--navy);color:#fff}
+.ct-list a:hover small{color:#fff;opacity:.8}
+</style>
+<style id="sub-violet">
+/* 서브색: 하늘색 → 연보라 (흰 바탕에선 읽히게 조금 진한 연보라, 어두운 첫 화면에선 밝은 연보라) */
+:root{--sky:#8D6CE6}
+.btn-sky{box-shadow:0 10px 26px rgba(141,108,230,.35)}
+.btn-sky:hover{background:#7A58D8}
+.to-top:hover{background:#8D6CE6}
+.hero .eyebrow{color:#C9B8FF}
+.hero .eyebrow::before{background:#C9B8FF}
+.hero h1 em{color:#D3C6FF}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
@@ -447,7 +473,7 @@ footer span{display:inline-block;margin-right:14px}
     <div class="wrap">
       <div class="cta" data-reveal>
         <div>
-          <h2 id="ct-h">우리 조직에 맞는 AI 교육,<br>키움인과 상의하세요</h2>
+          <h2 id="ct-h">우리 조직에 맞는 AI 교육,<br><span class="grad-txt">키움인</span>과 상의하세요</h2>
           <p>단체 수강, 맞춤 과정, 현장 교육 연계까지 담당자가 안내해 드립니다.</p>
           <div class="btns">
             <a class="btn btn-sky" href="http://kiumin.co.kr/kiumin/" target="_blank" rel="noopener">강의실 입장하기 <span class="ext" aria-hidden="true">↗</span><span class="sr-only">(새 창)</span></a>
