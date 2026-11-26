@@ -202,6 +202,88 @@ footer span{display:inline-block;margin-right:14px}
   .stat-ic{width:38px;height:38px}
 }
 </style>
+<style id="hero-laptop">
+/* ===== 시안 3: 노트북 화면 모션그래픽 (분야 → 강의 목록 → 강의 → 샘플 재생 → 다른 분야, 반복) ===== */
+.hero{background:linear-gradient(160deg,#7236AF 0%,#5A44BC 45%,#2E71D2 100%);padding:150px 0 140px;min-height:680px}
+.hero-grid{opacity:.5}
+.hero h1{font-size:clamp(34px,3.9vw,54px)}
+.hero h1 em{color:#BFE3FF}
+.hero .wrap{position:relative;z-index:2}
+.hero .wrap > *{max-width:min(500px,42%)}
+.hero .wrap > p.lead{max-width:min(470px,40%)}
+.laptop{position:absolute;z-index:3;top:50%;right:3%;width:50%;max-width:720px;transform:translateY(-44%);pointer-events:none}
+.lt-screen{position:relative;background:#0E1222;border-radius:18px 18px 6px 6px;padding:14px 14px 18px;box-shadow:0 0 0 1.5px #2A2F44 inset,0 40px 80px rgba(20,10,70,.45)}
+.lt-cam{position:absolute;top:5px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#2A2F44}
+.lt-base{position:relative;height:16px;margin:0 -5%;background:linear-gradient(#D9DCE6,#A9AEBE);border-radius:0 0 16px 16px;box-shadow:0 18px 30px rgba(20,10,70,.35)}
+.lt-base::before{content:"";position:absolute;left:50%;top:0;width:16%;height:6px;margin-left:-8%;background:#BFC3D0;border-radius:0 0 8px 8px}
+.app{position:relative;overflow:hidden;background:#fff;border-radius:6px;aspect-ratio:16/10;container-type:inline-size;color:#1F2433}
+.app-top{position:absolute;left:0;right:0;top:0;height:7cqw;display:flex;align-items:center;gap:2cqw;padding:0 2.4cqw;border-bottom:1px solid #EEF0F5;background:#fff;z-index:2}
+.app-top img{height:2.9cqw;width:auto;display:block}
+.app-search{flex:1;height:3.2cqw;border-radius:2cqw;background:#F1F3F8}
+.app-login{font-size:1.6cqw;font-weight:700;color:#6B7280}
+.scene{position:absolute;left:0;right:0;top:7cqw;bottom:0;opacity:0;visibility:hidden;transform:translateY(1.5cqw);transition:opacity .45s ease,transform .45s ease,visibility .45s}
+.scene.on{opacity:1;visibility:visible;transform:none}
+/* 1. 분야 아이콘 */
+.s-home{padding:4.4cqw 3cqw 0;text-align:center}
+.s-home h4{font-size:2.6cqw;font-weight:800;color:#141A2E;letter-spacing:-.02em;margin-bottom:3.4cqw}
+.icons{display:grid;grid-template-columns:repeat(6,1fr);row-gap:3.2cqw}
+.ic{display:flex;flex-direction:column;align-items:center;gap:1.1cqw;opacity:0;transform:translateY(1.6cqw) scale(.9)}
+.s-home.on .ic{animation:icIn .5s cubic-bezier(.2,.8,.3,1.2) forwards;animation-delay:calc(var(--k) * 55ms + .15s)}
+@keyframes icIn{to{opacity:1;transform:none}}
+.ic-box{display:grid;place-items:center;width:8.4cqw;height:8.4cqw;border-radius:2.2cqw;transition:background .25s,box-shadow .25s}
+.ic svg{width:5cqw;height:5cqw;fill:none;stroke:#3B4252;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s}
+.ic span{font-size:1.55cqw;color:#3B4252;white-space:nowrap}
+.ic.hit .ic-box{background:#EFEAFB;box-shadow:0 0 0 .35cqw rgba(114,54,175,.18)}
+.ic.hit svg{stroke:#7236AF}
+/* 2. 분야 강의 목록 */
+.s-list{padding:2.6cqw 2.6cqw 0;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:min-content;gap:1.8cqw}
+.tile{position:relative;overflow:hidden;border-radius:1.8cqw;padding:2.2cqw;color:#fff;min-height:22cqw;display:flex;flex-direction:column}
+.tile small{font-size:1.6cqw;opacity:.92}
+.tile b{font-size:3cqw;font-weight:800;margin-top:.4cqw}
+.tile i{margin-top:auto;font-style:normal;font-size:1.35cqw;opacity:.85}
+.tile img{position:absolute;right:-1cqw;bottom:-1cqw;width:13cqw;opacity:.9}
+.card{border-radius:1.8cqw;overflow:hidden;background:#fff;box-shadow:0 .6cqw 1.8cqw rgba(20,26,46,.1);opacity:0;transform:translateY(1.5cqw);transition:transform .25s,box-shadow .25s}
+.s-list.on .card{animation:icIn .5s ease forwards;animation-delay:calc(var(--k) * 70ms + .1s)}
+.card img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.card div{padding:1.1cqw 1.4cqw 1.3cqw}
+.card p{font-size:1.45cqw;line-height:1.35;height:3.9cqw;overflow:hidden;color:#1F2433}
+.card em{display:block;font-style:normal;font-size:1.3cqw;color:#6B7280;margin-top:.5cqw}
+.card em b{color:#F43F5E;font-weight:600;margin-right:.6cqw}
+.card em s{text-decoration:none;color:#F5B400;margin-left:.6cqw}
+.card.hit{transform:translateY(-.8cqw) !important;box-shadow:0 1.2cqw 2.6cqw rgba(20,26,46,.22)}
+/* 3. 강의 페이지 */
+.s-course{padding:2.6cqw 3cqw 0}
+.c-hero{position:relative;width:66cqw;aspect-ratio:16/9;border-radius:1.4cqw;overflow:hidden;box-shadow:0 1cqw 2.6cqw rgba(20,26,46,.18)}
+.c-hero img{display:block;width:100%;height:100%;object-fit:cover}
+.c-pill{position:absolute;right:2cqw;top:2cqw;padding:1cqw 2cqw;border-radius:3cqw;background:#0B66C3;color:#fff;font-size:1.5cqw;font-weight:700;box-shadow:0 .6cqw 1.4cqw rgba(0,0,0,.25);transition:transform .2s}
+.c-pill.hit{transform:scale(.94)}
+.c-side{position:absolute;left:72cqw;right:3cqw;top:2.6cqw;display:grid;gap:1.1cqw}
+.c-side p{font-size:1.4cqw;color:#3B4252;padding:1cqw 1.2cqw;border-radius:1cqw;background:#F5F6FA;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-title{position:absolute;left:3cqw;right:3cqw;top:42cqw;font-size:2.1cqw;font-weight:800;color:#141A2E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-meta{position:absolute;left:3cqw;top:46cqw;font-size:1.4cqw;color:#6B7280}
+/* 4. 샘플 강의 재생 */
+.s-player{background:#fff}
+.s-player .shot{position:absolute;left:0;right:0;top:0;bottom:8cqw;width:100%;height:calc(100% - 8cqw);object-fit:cover;object-position:top;opacity:0;transition:opacity .5s}
+.s-player .shot.on{opacity:1}
+.bar{position:absolute;left:0;right:0;bottom:0;height:8cqw;background:#1E2230;color:#fff;display:flex;align-items:center;gap:1.8cqw;padding:2.6cqw 2.4cqw 0}
+.track{position:absolute;left:2.4cqw;right:2.4cqw;top:1.4cqw;height:.5cqw;border-radius:.5cqw;background:rgba(255,255,255,.25)}
+.track i{position:absolute;left:0;top:0;bottom:0;width:var(--p,84%);background:#fff;border-radius:.5cqw}
+.track b{position:absolute;top:50%;left:var(--p,84%);width:1.6cqw;height:1.6cqw;margin:-.8cqw 0 0 -.8cqw;border-radius:50%;background:#fff}
+.bar svg{width:2.4cqw;height:2.4cqw;fill:#fff}
+.bar .time{font-size:1.5cqw;font-variant-numeric:tabular-nums}
+.bar .speed{margin-left:auto;font-size:1.4cqw;padding:.5cqw 1.2cqw;border-radius:.8cqw;background:rgba(255,255,255,.12)}
+/* 커서 */
+.cursor{position:absolute;left:0;top:0;width:2.8cqw;height:2.8cqw;z-index:9;transition:transform .85s cubic-bezier(.45,.05,.25,1);filter:drop-shadow(0 .3cqw .4cqw rgba(0,0,0,.35))}
+.cursor::after{content:"";position:absolute;left:-1.4cqw;top:-1.4cqw;width:2.8cqw;height:2.8cqw;border-radius:50%;background:rgba(114,54,175,.4);transform:scale(0);opacity:0}
+.cursor.click::after{animation:clickRing .5s ease-out}
+@keyframes clickRing{from{transform:scale(.3);opacity:1}to{transform:scale(1.9);opacity:0}}
+@media (max-width:960px){
+  .hero{min-height:0;padding-bottom:96px}
+  .hero .wrap > *,.hero .wrap > p.lead{max-width:none}
+  .laptop{position:relative;top:auto;right:auto;width:auto;max-width:680px;transform:none;margin:44px auto 0;padding:0 28px}
+}
+@media (prefers-reduced-motion:reduce){.cursor{display:none}.ic,.card{opacity:1;transform:none;animation:none !important}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
@@ -229,6 +311,19 @@ footer span{display:inline-block;margin-right:14px}
         <a class="btn btn-sky" href="http://kiumin.co.kr/kiumin/" target="_blank" rel="noopener">강의실 입장하기 <span class="ext" aria-hidden="true">↗</span><span class="sr-only">(새 창)</span></a>
         <a class="btn btn-ghost" href="#fields">교육 분야 보기</a>
       </div>
+    </div>
+  <div class="laptop" aria-hidden="true">
+      <div class="lt-screen"><span class="lt-cam"></span>
+        <div class="app">
+          <div class="app-top"><img src="../assets/aitgo_로고.svg" alt=""><span class="app-search"></span><span class="app-login">로그인</span></div>
+          <section class="scene s-home"><h4>어떤 분야를 배우고 싶으세요?</h4><div class="icons"><div class="ic" style="--k:0"><span class="ic-box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5C12.7 8.2 15.8 11.3 21.5 12C15.8 12.7 12.7 15.8 12 21.5C11.3 15.8 8.2 12.7 2.5 12C8.2 11.3 11.3 8.2 12 2.5Z"/></svg></span><span>Gemini</span></div><div class="ic" style="--k:1"><span class="ic-box"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="8.6" ry="4.1"/><ellipse cx="12" cy="12" rx="8.6" ry="4.1" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="8.6" ry="4.1" transform="rotate(120 12 12)"/></svg></span><span>ChatGPT</span></div><div class="ic" style="--k:2"><span class="ic-box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4M7.4 3.9l9.2 16.2M16.6 3.9L7.4 20.1M3.9 7.4l16.2 9.2M20.1 7.4L3.9 16.6" stroke-width="1.5"/></svg></span><span>Claude</span></div><div class="ic" style="--k:3"><span class="ic-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7" stroke-width="3" stroke-dasharray="2.75 2.75"/><circle cx="12" cy="12" r="5.2"/><circle cx="12" cy="12" r="2.2"/></svg></span><span>AI 플랫폼</span></div><div class="ic" style="--k:4"><span class="ic-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10" r="6.5"/><path d="M5.5 10h13M12 3.5c-2.6 3.6-2.6 9.4 0 13M12 3.5c2.6 3.6 2.6 9.4 0 13M4 19.5l3-2h3.5l2 1.5M20 19.5l-3-2h-3"/></svg></span><span>AI Agent</span></div><div class="ic" style="--k:5"><span class="ic-box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5.2C10.6 3.4 7.2 3.9 6.7 6.4 4.6 6.9 3.8 9.3 4.9 10.9 3.7 12.4 4.2 15 6.1 15.6c.1 2.2 2.3 3.6 4.3 2.9.5.9 1 1.2 1.6 1.2M12 5.2c1.4-1.8 4.8-1.3 5.3 1.2 2.1.5 2.9 2.9 1.8 4.5 1.2 1.5.7 4.1-1.2 4.7-.1 2.2-2.3 3.6-4.3 2.9-.5.9-1 1.2-1.6 1.2M12 5.2v14.5M8.5 9.5c1 .3 1.8 1 2.2 2M15.5 9.5c-1 .3-1.8 1-2.2 2M8 14c1.3-.2 2.5.3 3.2 1.3"/></svg></span><span>AI 활용</span></div><div class="ic" style="--k:6"><span class="ic-box"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3.5" width="18" height="12.5" rx="1.5"/><path d="M7 7.5h10M7 10.5h6"/><circle cx="15.5" cy="16" r="2.6"/><path d="M14 18.3l-.8 3.2 2.3-1.2 2.3 1.2-.8-3.2"/></svg></span><span>AI 자격증</span></div><div class="ic" style="--k:7"><span class="ic-box"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="1.5"/><path d="M9 21h6M12 16.5V21M10 8.3L7.6 10.3 10 12.3M14 8.3l2.4 2 -2.4 2"/></svg></span><span>AI 프로그래밍</span></div><div class="ic" style="--k:8"><span class="ic-box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5h6.5l2.5 2.5h9M3 12h18M3 16.5h9l2.5-2.5H21"/><circle cx="18" cy="6" r="1.6"/><circle cx="6" cy="12" r="1.6"/><circle cx="17" cy="18.5" r="1.6"/></svg></span><span>AI Sensor</span></div><div class="ic" style="--k:9"><span class="ic-box"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="8" width="14" height="11" rx="3"/><circle cx="9.5" cy="13" r="1.6"/><circle cx="14.5" cy="13" r="1.6"/><path d="M10 16.5h4M12 8V5.5M3 12v3M21 12v3"/><circle cx="12" cy="4.5" r="1.1"/></svg></span><span>Robot</span></div><div class="ic" style="--k:10"><span class="ic-box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21h9M7 21v-2.5h5V21M9.5 18.5l-2-6.5 7-5.5 3 2.5"/><circle cx="7.5" cy="12" r="1.7"/><circle cx="14.5" cy="6.5" r="1.7"/><path d="M17.5 9l1.8 2.3M17.5 9l2.6-.8"/></svg></span><span>Physical AI</span></div></div></section>
+          <section class="scene s-list"></section>
+          <section class="scene s-course"><div class="c-hero"><img alt=""><span class="c-pill">여기를 클릭하면, 샘플강의가 재생됩니다.</span></div><div class="c-side"><p>강의 구성</p><p>수강 기간</p><p>동영상 강의</p><p>수료증 발급</p></div><p class="c-title"></p><p class="c-meta"></p></section>
+          <section class="scene s-player"><img class="shot" alt=""><img class="shot" alt=""><div class="bar"><span class="track"><i></i><b></b></span><svg viewBox="0 0 24 24"><path class="pp" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg><svg viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM16 8.5a5 5 0 0 1 0 7" fill="none" stroke="#fff" stroke-width="2"/></svg><span class="time"></span><span class="speed">1배속 ▾</span></div></section>
+          <svg class="cursor" viewBox="0 0 24 24"><path d="M4 2l15 9.5-6.6 1.4 3.8 7.4-2.6 1.3-3.8-7.4L4 18.5z" fill="#fff" stroke="#141A2E" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="lt-base"></div>
     </div>
   </section>
 
@@ -395,6 +490,110 @@ footer span{display:inline-block;margin-right:14px}
     scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
     var first = document.querySelector('.logo'); if (first) first.focus({ preventScroll: true });
   });
+})();
+</script>
+<script id="hero-laptop-js">
+(function () {
+  'use strict';
+  var CATS = [{"idx": 0, "name": "Gemini", "tag": "AI 대중화 선두 주자", "color": "#F43F5E", "deco": "../assets/platform/tile_g1.png", "target": 0, "cards": [{"code": "GR_P040128", "title": "구글 제미나이(Gemini) 이미지 생성 마스터하기", "n": "6강좌", "who": "이재현", "rate": "0(0)", "thumb": "../assets/platform/th_GR_P040128.jpg"}, {"code": "GR_P010213", "title": "생성형 AI 활용 힐링 음악 제작 (Gemini Ai, Suno AI)", "n": "8강좌", "who": "윤재영", "rate": "4.7(3)", "thumb": "../assets/platform/th_GR_P010213.jpg"}, {"code": "la_P020332", "title": "직장생활을 위한 구글 제미나이(Gemini) 100% 활용법", "n": "6강좌", "who": "이재현", "rate": "0(0)", "thumb": "../assets/platform/th_la_P020332.jpg"}, {"code": "GR_P030311", "title": "AI를 활용한 실무 영상(기업홍보 영상) 만들기 Part.2", "n": "7강좌", "who": "박서연", "rate": "5(1)", "thumb": "../assets/platform/th_GR_P030311.jpg"}, {"code": "OA_P080326", "title": "직장인을 위한 AI 비서 활용 (2026) Part.5", "n": "3강좌", "who": "강태안", "rate": "0(0)", "thumb": "../assets/platform/th_OA_P080326.jpg"}], "shots": ["../assets/platform/cap2_GR_P040128_a.jpg", "../assets/platform/cap2_GR_P040128_b.jpg"], "dur": 3575, "t1": 3019, "t2": 3239}, {"idx": 1, "name": "ChatGPT", "tag": "AI의 시작", "color": "#893FF4", "deco": "../assets/platform/tile_g2.png", "target": 3, "cards": [{"code": "la_N100153", "title": "학교 수업을 위한 AI 활용법 (대학생용) Part.1", "n": "6강좌", "who": "이재현", "rate": "0(0)", "thumb": "../assets/platform/th_la_N100153.jpg"}, {"code": "la_P040157", "title": "직장인을 위한 ChatGPT 활용 Part.2 실무", "n": "6강좌", "who": "강다빈", "rate": "0(0)", "thumb": "../assets/platform/th_la_P040157.jpg"}, {"code": "UT_P080308", "title": "ChatGPT 기반 AI 코딩 에이전트 Codex 제대로 배우기 Part.2", "n": "10강좌", "who": "박대근", "rate": "0(0)", "thumb": "../assets/platform/th_UT_P080308.jpg"}, {"code": "la_N090118", "title": "OpenAI(ChatGPT) With Java AI - 3. 음성생성, 이미지 생성", "n": "5강좌", "who": "이성용", "rate": "0(0)", "thumb": "../assets/platform/th_la_N090118.jpg"}, {"code": "IN_L060103", "title": "모든 것을 답해주는 ChatGPT(챗GPT) 배우기", "n": "5강좌", "who": "강태안", "rate": "0(0)", "thumb": "../assets/platform/th_IN_L060103.jpg"}], "shots": ["../assets/platform/cap2_la_N090118_a.jpg", "../assets/platform/cap2_la_N090118_b.jpg"], "dur": 1973, "t1": 197, "t2": 1183}, {"idx": 2, "name": "Claude", "tag": "요즘은 이거 없이 개발 못 해", "color": "#3F77F4", "deco": "../assets/platform/tile_g3.png", "target": 3, "cards": [{"code": "la_P070161", "title": "AI 시대의 개발 생산성 Claude(클로드) 활용법 Part.2", "n": "9강좌", "who": "박대근", "rate": "0(0)", "thumb": "../assets/platform/th_la_P070161.jpg"}, {"code": "la_P050443", "title": "직장생활을 위한 클로드(Claude) 100% 활용법", "n": "6강좌", "who": "이재현", "rate": "4(1)", "thumb": "../assets/platform/th_la_P050443.jpg"}, {"code": "la_P070121", "title": "클로드(Claude)와 함께하는 프로그래밍 (중급)", "n": "11강좌", "who": "이재현", "rate": "0(0)", "thumb": "../assets/platform/th_la_P070121.jpg"}, {"code": "la_P050424", "title": "텍스트 & 추론 AI, Claude(클로드) 제대로 배우기", "n": "3강좌", "who": "강태안", "rate": "5(1)", "thumb": "../assets/platform/th_la_P050424.jpg"}, {"code": "la_P070122", "title": "클로드(Claude)와 함께하는 프로그래밍 (기초)", "n": "5강좌", "who": "이재현", "rate": "0(0)", "thumb": "../assets/platform/th_la_P070122.jpg"}], "shots": ["../assets/platform/cap2_la_P050424_a.jpg", "../assets/platform/cap2_la_P050424_b.jpg"], "dur": 1365, "t1": 136, "t2": 819}];
+  var root = document.querySelector('.laptop');
+  if (!root) return;
+  var app = root.querySelector('.app');
+  var cursor = root.querySelector('.cursor');
+  var S = {
+    home: root.querySelector('.s-home'), list: root.querySelector('.s-list'),
+    course: root.querySelector('.s-course'), player: root.querySelector('.s-player')
+  };
+  var ics = [].slice.call(root.querySelectorAll('.ic'));
+  var shots = [].slice.call(S.player.querySelectorAll('.shot'));
+  var track = S.player.querySelector('.track');
+  var timeEl = S.player.querySelector('.time');
+  var pp = S.player.querySelector('.pp');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var visible = true;
+
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  async function wait(ms) {
+    var end = Date.now() + ms;
+    while (Date.now() < end || !visible) { await sleep(100); if (!visible) end += 100; }
+  }
+  function show(name) {
+    Object.keys(S).forEach(function (k) { S[k].classList.toggle('on', k === name); });
+  }
+  function fmt(s) { s = Math.round(s); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
+  function place(x, y) { cursor.style.transform = 'translate(' + x + 'px,' + y + 'px)'; }
+  async function moveTo(el, fx, fy) {
+    var a = app.getBoundingClientRect(), b = el.getBoundingClientRect();
+    place(b.left - a.left + b.width * (fx || .5), b.top - a.top + b.height * (fy || .5));
+    await wait(900);
+  }
+  function click() { cursor.classList.remove('click'); void cursor.offsetWidth; cursor.classList.add('click'); }
+
+  function buildList(c) {
+    var h = '<div class="tile" style="background:' + c.color + '"><small>' + c.tag + '</small><b>' + c.name + '</b><i>더 보러가기</i><img src="' + c.deco + '" alt=""></div>';
+    c.cards.forEach(function (d, k) {
+      h += '<div class="card" style="--k:' + k + '"><img src="' + d.thumb + '" alt=""><div><p>' + d.title + '</p><em><b>' + d.n + '</b>' + d.who + '<s>★</s> ' + d.rate + '</em></div></div>';
+    });
+    S.list.innerHTML = h;
+  }
+  function setProgress(t, dur) {
+    var p = (t / dur * 100).toFixed(2) + '%';
+    track.style.setProperty('--p', p);
+    timeEl.textContent = fmt(t) + ' / ' + fmt(dur);
+  }
+
+  async function runCat(c) {
+    ics.forEach(function (x) { x.classList.remove('hit'); });
+    show('home');
+    await wait(1700);
+    var ic = ics[c.idx];
+    await moveTo(ic, .5, .4);
+    click(); ic.classList.add('hit');
+    await wait(450);
+    buildList(c);
+    show('list');
+    await wait(1600);
+    var card = S.list.querySelectorAll('.card')[c.target];
+    await moveTo(card, .55, .45);
+    click(); card.classList.add('hit');
+    await wait(450);
+    var d = c.cards[c.target];
+    S.course.querySelector('.c-hero img').src = d.thumb;
+    S.course.querySelector('.c-title').textContent = d.title;
+    S.course.querySelector('.c-meta').textContent = d.n + ' · ' + d.who + ' 강사';
+    var pill = S.course.querySelector('.c-pill');
+    pill.classList.remove('hit');
+    show('course');
+    await wait(1300);
+    await moveTo(pill, .5, .5);
+    click(); pill.classList.add('hit');
+    await wait(400);
+    shots[0].src = c.shots[0]; shots[1].src = c.shots[1];
+    shots[0].classList.add('on'); shots[1].classList.remove('on');
+    pp.setAttribute('d', 'M7 5h3.5v14H7zM13.5 5H17v14h-3.5z');
+    var t = c.t1; setProgress(t, c.dur);
+    show('player');
+    for (var k = 0; k < 18; k++) { await wait(130); t += 1; setProgress(t, c.dur); }
+    await moveTo(track, c.t2 / c.dur, .5);
+    click();
+    t = c.t2; setProgress(t, c.dur);
+    shots[1].classList.add('on'); shots[0].classList.remove('on');
+    for (var j = 0; j < 22; j++) { await wait(130); t += 1; setProgress(t, c.dur); }
+    await wait(600);
+  }
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { visible = es[0].isIntersecting && !document.hidden; }, { threshold: .15 }).observe(root);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) visible = false; });
+  }
+  CATS.forEach(function (c) { c.cards.forEach(function (d) { var i = new Image(); i.src = d.thumb; }); c.shots.forEach(function (s) { var i = new Image(); i.src = s; }); });
+
+  if (reduce) { show('home'); return; }
+  var a0 = app.getBoundingClientRect();
+  place(a0.width * .62, a0.height * .78);
+  (async function loop() {
+    for (;;) { for (var i = 0; i < CATS.length; i++) { await runCat(CATS[i]); } }
+  })();
 })();
 </script>
 </body>
