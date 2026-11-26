@@ -353,6 +353,32 @@ footer span{display:inline-block;margin-right:14px}
 .hero .eyebrow::before{background:#C9B8FF}
 .hero h1 em{color:#D3C6FF}
 </style>
+<style id="laptop-place">
+/* 노트북: 화면 끝이 아니라 본문 오른쪽 끝(숫자 칸 끝)에 맞추고, 조금 작게, 왼쪽 글 묶음과 세로 가운데 맞춤 */
+@media (min-width:961px){
+  .laptop{right:max(32px,calc((100% - var(--wrap))/2 + 32px));width:46%;max-width:640px;top:var(--lt-center,50%);transform:translateY(-50%)}
+}
+.stats{z-index:5}
+.stats ul{background:#fff}
+</style>
+<script id="laptop-center">
+(function(){
+  function fit(){
+    var h=document.querySelector('.hero'),w=h&&h.querySelector('.wrap');
+    if(!w)return;
+    h.style.setProperty('--lt-center',(w.offsetTop+w.offsetHeight/2)+'px');
+    var lt=h.querySelector('.laptop'),t=w.querySelector('h1');
+    if(!lt||!t||innerWidth<961){if(lt){lt.style.width='';lt.style.marginRight='';}return;}
+    var r=document.createRange();r.selectNodeContents(t);
+    var right=w.getBoundingClientRect().right-parseFloat(getComputedStyle(w).paddingRight);
+    var room=right-r.getBoundingClientRect().right-64;      /* 글자와 노트북 사이 64px */
+    var lw=Math.min(600,room/1.1);
+    lt.style.width=lw+'px';lt.style.marginRight=(lw*.05)+'px';  /* 받침대가 양옆 5%씩 더 나옴 → 받침대 끝을 숫자 칸 끝에 */
+  }
+  addEventListener('load',fit);addEventListener('resize',fit);
+  if(document.fonts)document.fonts.ready.then(fit);
+})();
+</script>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
