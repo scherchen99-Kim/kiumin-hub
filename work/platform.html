@@ -504,6 +504,18 @@ footer.rf{margin-top:80px}
 .chips{align-content:center}
 @media (max-width:960px){.group{grid-template-columns:1fr;gap:18px}}
 </style>
+<style id="hero-wall">
+/* 노트북 뒤 바탕: 실제 강의 썸네일 벽(시안1)을 아주 흐리게. 움직이지 않음 — 노트북 화면만 움직이게 */
+.hero-wall{position:absolute;z-index:1;top:0;bottom:0;right:0;width:62%;overflow:hidden;pointer-events:none;opacity:.12;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 100%),linear-gradient(180deg,transparent 0,#000 18%,#000 80%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 100%),linear-gradient(180deg,transparent 0,#000 18%,#000 80%,transparent 100%);
+  -webkit-mask-composite:source-in;mask-composite:intersect}
+.hero-wall .wall-in{position:absolute;inset:-25% -10%;display:flex;gap:18px;justify-content:center;transform:rotate(-12deg)}
+.hero-wall .wall-col{display:flex;flex-direction:column;gap:18px;width:240px;flex:none}
+.hero-wall .wall-col:nth-child(2){margin-top:-80px}
+.hero-wall img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px}
+@media (max-width:960px){.hero-wall{display:none}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
@@ -524,6 +536,7 @@ footer.rf{margin-top:80px}
 <main id="main">
   <section class="hero" aria-labelledby="hero-h">
     <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-wall" aria-hidden="true"><div class="wall-in"><div class="wall-col"><img src="../assets/platform/th_la_P040158.jpg" alt=""><img src="../assets/platform/th_la_P090147.jpg" alt=""><img src="../assets/platform/th_UT_P080307.jpg" alt=""><img src="../assets/platform/th_GR_P030311.jpg" alt=""><img src="../assets/platform/th_OA_P080326.jpg" alt=""><img src="../assets/platform/th_la_P040136.jpg" alt=""><img src="../assets/platform/th_la_P040158.jpg" alt=""><img src="../assets/platform/th_la_P090147.jpg" alt=""><img src="../assets/platform/th_UT_P080307.jpg" alt=""><img src="../assets/platform/th_GR_P030311.jpg" alt=""><img src="../assets/platform/th_OA_P080326.jpg" alt=""><img src="../assets/platform/th_la_P040136.jpg" alt=""></div><div class="wall-col"><img src="../assets/platform/th_la_P090149.jpg" alt=""><img src="../assets/platform/th_la_P020309.jpg" alt=""><img src="../assets/platform/th_la_P040155.jpg" alt=""><img src="../assets/platform/th_la_P050442.jpg" alt=""><img src="../assets/platform/th_la_N100153.jpg" alt=""><img src="../assets/platform/th_UT_P080308.jpg" alt=""><img src="../assets/platform/th_la_P090149.jpg" alt=""><img src="../assets/platform/th_la_P020309.jpg" alt=""><img src="../assets/platform/th_la_P040155.jpg" alt=""><img src="../assets/platform/th_la_P050442.jpg" alt=""><img src="../assets/platform/th_la_N100153.jpg" alt=""><img src="../assets/platform/th_UT_P080308.jpg" alt=""></div><div class="wall-col"><img src="../assets/platform/th_GR_P020303.jpg" alt=""><img src="../assets/platform/th_la_N090113.jpg" alt=""><img src="../assets/platform/th_la_P010260.jpg" alt=""><img src="../assets/platform/th_la_N090112.jpg" alt=""><img src="../assets/platform/th_UT_P080310.jpg" alt=""><img src="../assets/platform/th_la_P060117.jpg" alt=""><img src="../assets/platform/th_GR_P020303.jpg" alt=""><img src="../assets/platform/th_la_N090113.jpg" alt=""><img src="../assets/platform/th_la_P010260.jpg" alt=""><img src="../assets/platform/th_la_N090112.jpg" alt=""><img src="../assets/platform/th_UT_P080310.jpg" alt=""><img src="../assets/platform/th_la_P060117.jpg" alt=""></div></div></div>
     <div class="wrap">
       <span class="eyebrow" data-reveal>KIUMIN AI EDUCATION PLATFORM</span>
       <h1 id="hero-h" data-reveal style="--d:.08s">온라인에서 배우고,<br><em>현장에서 완성하는</em> AI 교육</h1>
