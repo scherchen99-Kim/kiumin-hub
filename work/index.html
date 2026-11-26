@@ -497,6 +497,7 @@ footer.rf{background:#001d5b;padding:32px 0 24px}
 /* '나에게 맞는 곳 찾기'를 그라데이션이 끝나는 자리(띠 높이의 85%)까지 올림 */
 #finder{--up:calc(55vh * .15 + 71px);margin-top:calc(var(--up) * -1);background:linear-gradient(transparent var(--up),#e3eefb var(--up))}   /* 겹친 윗부분은 투명: 그라데이션이 그대로 보임 */
 @media (max-width:560px){#finder{--up:calc(22vh * .15 + 40px)}}
+#finder{box-shadow:0 1px 0 #e3eefb}   /* 위쪽 1px 그림자가 흰 선으로 보여서 뺌 */
 </style>
 </head>
 <body>
